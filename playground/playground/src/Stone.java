@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 
 /**
  * Created by Pascal on 20.09.2015.

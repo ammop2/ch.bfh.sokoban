@@ -1,14 +1,12 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 import java.util.*;
 
 /**
  * Created by u216070 on 23.09.2015.
  */
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 
 public class Menu {
 
@@ -65,7 +63,7 @@ public class Menu {
 
 
 
-        for(Map map : maps){
+        for(final Map map : maps){
             JButton newbutton = new JButton(map.getName());
             newbutton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
