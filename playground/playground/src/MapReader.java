@@ -2,21 +2,23 @@
  * Created by u216070 on 20.09.2015.
  */
 
+import java.io.File;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.net.URL;
 import java.util.ArrayList;
 
 
 public class MapReader {
-
-    private String path = "C:\\git\\Project1\\maps.txt";
     private ArrayList<Map> maps = new ArrayList<Map>();
 
     public MapReader() {
         String lines = "";
         try {
-            FileReader fr = new FileReader(path);
+            URL url = getClass().getResource("map/maps.txt");
+            File file = new File(url.getPath());
+            FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             String line = br.readLine();
             while (line != null) {
