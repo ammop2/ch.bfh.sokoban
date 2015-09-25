@@ -174,11 +174,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     }
     private boolean moveField(Field field, int targetRow, int targetColumn, Graphics g)
     {
-        if(((field instanceof KeyField) && ((KeyField)field).isBlocked())|| fields[targetRow][targetColumn] instanceof KeyField)
-        {
-            return false;
-        }
-        else if ((fields[targetRow][targetColumn] instanceof Target) && (field instanceof KeyField)) {
+         if ((fields[targetRow][targetColumn] instanceof Target) && (field instanceof KeyField)) {
             System.out.println("hit");
             return hitTarget((KeyField) field, targetRow, targetColumn, g);
         }
