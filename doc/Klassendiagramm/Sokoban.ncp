@@ -7,75 +7,98 @@
       <Entity type="Class">
         <Name>Game</Name>
         <Access>Public</Access>
-        <Location left="300" top="100" />
+        <Location left="56" top="36" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">Playground playground</Member>
+        <Member type="Field">List&lt;Map&gt; maps</Member>
+        <Member type="Method">public static void main()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Map</Name>
         <Access>Public</Access>
-        <Location left="561" top="100" />
-        <Size width="162" height="216" />
+        <Location left="43" top="337" />
+        <Size width="163" height="216" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">String path</Member>
+        <Member type="Field">int rowLength</Member>
+        <Member type="Field">int columnLength</Member>
+        <Member type="Method">public Field getField(int rowIndex, int columnIndex)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Playground</Name>
         <Access>Public</Access>
-        <Location left="217" top="357" />
+        <Location left="274" top="36" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">FieldList fields</Member>
+        <Member type="Field">Map map</Member>
+        <Member type="Method">public void Render()</Member>
+        <Member type="Method">public void Load()</Member>
+        <Member type="Method">public void Move()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Ground</Name>
         <Access>Public</Access>
-        <Location left="1326" top="385" />
-        <Size width="162" height="216" />
+        <Location left="1064" top="686" />
+        <Size width="162" height="97" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">public override void RenderField()</Member>
+        <Member type="Method">public override void Render()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Stone</Name>
         <Access>Public</Access>
-        <Location left="642" top="385" />
-        <Size width="162" height="216" />
+        <Location left="495" top="686" />
+        <Size width="162" height="97" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">public override void RenderField()</Member>
+        <Member type="Method">public override void Render()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Key</Name>
         <Access>Public</Access>
-        <Location left="882" top="385" />
-        <Size width="162" height="216" />
+        <Location left="679" top="686" />
+        <Size width="162" height="97" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">public override void RenderField()</Member>
+        <Member type="Method">public override void Render()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Avatar</Name>
         <Access>Public</Access>
-        <Location left="1107" top="385" />
-        <Size width="162" height="216" />
+        <Location left="870" top="686" />
+        <Size width="162" height="97" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">public override void RenderField()</Member>
+        <Member type="Method">public override void Render()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Field</Name>
         <Access>Public</Access>
-        <Location left="1021" top="82" />
+        <Location left="495" top="337" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private int row</Member>
-        <Member type="Field">private int column</Member>
+        <Member type="Field">int ptr</Member>
+        <Member type="Field">int ptrNeighborTop</Member>
+        <Member type="Field">private int ptrNeighborBottom</Member>
+        <Member type="Field">private int ptrNeighborLeft</Member>
+        <Member type="Field">private int ptrNeighborRight</Member>
         <Member type="Field">boolean accessible</Member>
-        <Member type="Method">public int GetRow()</Member>
-        <Member type="Method">public int GetColumn()</Member>
-        <Member type="Method">public virtual void RenderField()</Member>
+        <Member type="Method">public virtual void Render()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>FieldList</Name>
+        <Access>Public</Access>
+        <Location left="495" top="36" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Array fields</Member>
+        <Member type="Method">public void getField(int ptr)</Member>
         <Modifier>None</Modifier>
       </Entity>
     </Entities>
@@ -95,6 +118,56 @@
       <Relationship type="Generalization" first="3" second="7">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="2" second="1">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>249</X>
+          <Y>227</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="2" second="8">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>464</X>
+          <Y>142</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>470</X>
+          <Y>142</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="0" second="2">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="0" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+        <StartMultiplicity>1..*</StartMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="8" second="7">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+        <StartMultiplicity>1..*</StartMultiplicity>
       </Relationship>
     </Relationships>
   </ProjectItem>
