@@ -21,6 +21,7 @@ public class MapTest {
             System.out.println("X:" + maps[i].getXSize());
             System.out.println("Y:" + maps[i].getYSize());
             Arrays.stream(maps[i].getFields()).forEach(x -> System.out.print(x));
+            System.out.println("");
         }
 
     }
