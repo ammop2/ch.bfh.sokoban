@@ -12,23 +12,8 @@ public class Playground {
     public Playground(Map map){
         this.map = map;
     }
-    public void loadMap(){
-        char[][] charMap = this.map.getMap();
-        int emptyCounter = 0;
-        for(int y = 0; y < map.getYSize(); y++)
-        {
-            for(int x = 0; x < map.getXSize(); x++)
-            {
-                if(charMap[y][x] == 0) emptyCounter ++;
-                else
-                {
-                    if(charMap[y][x] == 'X')
-                    {
+    public void loadMap() {
 
-                    }
-                }
-            }
-        }
 
     }
 
