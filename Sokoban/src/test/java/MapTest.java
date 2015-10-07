@@ -15,10 +15,13 @@ public class MapTest {
 
     public static void main(String[] args) throws IOException {
 
-        Map map = MapReader.load("C:\\github\\ch.bfh.sokoban\\Maps\\Maze1_X22_Y11.txt");
-        System.out.println("name:" + map.getName());
-        System.out.println("X:" + map.getXSize());
-        System.out.println("Y:" + map.getYSize());
-        Arrays.stream(map.getFields()).forEach(x -> System.out.print(x));
+        Map [] maps = MapReader.load("C:\\git\\ch.bfh.sokoban\\Maps\\");
+        for(int i =0; i<maps.length;i++){
+            System.out.println("name:" + maps[i].getName());
+            System.out.println("X:" + maps[i].getXSize());
+            System.out.println("Y:" + maps[i].getYSize());
+            Arrays.stream(maps[i].getFields()).forEach(x -> System.out.print(x));
+        }
+
     }
 }
