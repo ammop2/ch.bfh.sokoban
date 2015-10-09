@@ -26,4 +26,52 @@ public abstract class Field {
 
     public abstract void Render(Graphics g);
 
+    public int getfPtr() {
+        return fPtr;
+    }
+
+    public void setfPtr(int fPtr) {
+        this.fPtr = fPtr;
+    }
+
+    public int getfPtrNeighborTop() {
+        return fPtrNeighborTop;
+    }
+
+    public void setfPtrNeighborTop(int fPtrNeighborTop) {
+        this.fPtrNeighborTop = fPtrNeighborTop;
+    }
+
+    public int getfPtrNeighborBottom() {
+        return fPtrNeighborBottom;
+    }
+
+    public void setfPtrNeighborBottom(int fPtrNeighborBottom) {
+        this.fPtrNeighborBottom = fPtrNeighborBottom;
+    }
+
+    public int getfPtrNeighborLeft() {
+        return fPtrNeighborLeft;
+    }
+
+    public void setfPtrNeighborLeft(int fPtrNeighborLeft) {
+        this.fPtrNeighborLeft = fPtrNeighborLeft;
+    }
+
+    public int getfPtrNeighborRight() {
+        return fPtrNeighborRight;
+    }
+
+    public void setfPtrNeighborRight(int fPtrNeighborRight) {
+        this.fPtrNeighborRight = fPtrNeighborRight;
+    }
+
+    public boolean isAccessible() {
+        return accessible;
+    }
+
+    public void setAccessible(boolean accessible) {
+        this.accessible = accessible;
+    }
+
 }

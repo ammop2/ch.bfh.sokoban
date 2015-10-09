@@ -12,13 +12,13 @@ import java.net.URL;
 
 /**
  * Created by Pascal on 18.09.2015.
+ * Rewritten by Gabriel on 09.10.2015
  */
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     /**
      * Region Properties
      */
-    private int fieldSize;
     private boolean up;
     private boolean down;
     private boolean left;
@@ -29,45 +29,49 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private int vikingY;
     private int nrOfTarget = 2;
     private Map map;
+    private int elementWidth=40;
+    private int elementHeight=40;
 
     public GamePanel(Map map) {
         this.map=map;
-        this.fieldSize= Math.max(this.map.getFields().length,this.map.getFields()[0].length);
-        this.setPreferredSize(new Dimension(fieldSize * Field.width, fieldSize * Field.height));
-        fields = new Field[fieldSize][fieldSize];
+        this.setPreferredSize(new Dimension(map.getXSize() *elementWidth , map.getYSize() * elementHeight));
+        fields = new Field[map.getYSize()][map.getXSize()];
 
 
     }
 
-    private void initGroundField(Graphics g, int[][] fields)
+    private void initGroundField(Graphics g)
     {
-        for(int i = 0; i < fieldSize; i++)
+        int[] fields=this.map.getFields();
+        int xSize=this.map.getXSize();
+        int ySize=this.map.getYSize();
+        for(int i = 0; i < ySize; i++)
         {
-            for(int z = 0; z < fieldSize; z++)
+            for(int z = 0; z < xSize; z++)
             {
-                if(fields[i][z] == 1)
+                if(fields[z + i*xSize] == 1)
                 {
-                    this.fields[i][z] = new Stone(i, z);
+                    this.fields[i][z] = new Stone(z+i*xSize,z+(i-1)*xSize,z+(i+1)*xSize,z-1+i*xSize,z-1+i*xSize);
                 }
-                else if(fields[i][z] == 2)
+                else if(fields[z + i*xSize] == 2)
                 {
-                    vikingX = i;
-                    vikingY = z;
-                    this.fields[i][z] = new Player(i, z);
+                    vikingY = i;
+                    vikingX = z;
+                    this.fields[i][z] = new Player(z+i*xSize,z+(i-1)*xSize,z+(i+1)*xSize,z-1+i*xSize,z-1+i*xSize);
                 }
-                else if(fields[i][z] == 3)
+                else if(fields[z + i*xSize] == 3)
                 {
-                    this.fields[i][z] = new Target(i, z);
+                    this.fields[i][z] = new Target(z+i*xSize,z+(i-1)*xSize,z+(i+1)*xSize,z-1+i*xSize,z-1+i*xSize);
                 }
-                else if(fields[i][z] == 4)
+                else if(fields[z + i*xSize] == 4)
                 {
-                    this.fields[i][z] = new KeyField(i, z);
+                    this.fields[i][z] = new Key(z+i*xSize,z+(i-1)*xSize,z+(i+1)*xSize,z-1+i*xSize,z-1+i*xSize);
                 }
                 else
                 {
-                    this.fields[i][z] = new Ground(i, z);
+                    this.fields[i][z] = new Ground(z+i*xSize,z+(i-1)*xSize,z+(i+1)*xSize,z-1+i*xSize,z-1+i*xSize, true);
                 }
-                this.fields[i][z].draw(g);
+                this.fields[i][z].Render(g);
             }
         }
     }
@@ -76,29 +80,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     public void paintComponent(Graphics g){
         if(!groundFieldDrawed) {
             super.paintComponent(g);
-            int[][] fields = new int[fieldSize][fieldSize];
-            for(int z = 0; z < fieldSize; z++) {
-                if(z == 0 || z == fieldSize -1)
-                {
-                    for(int i = 0; i < fieldSize; i++)
-                    {
-                        fields[z][i] =  1;
-                    }
-                }
-                else
-                {
-                    fields[z][0] =  1;
-                    fields[z][fieldSize -1] =  1;
-                }
-            }
-            //fill in the map data
-            for(int i=0; i<this.map.getFields().length;i++){
-                for(int j=0; j<this.map.getFields()[0].length;j++){
-                    fields[i][j]=this.map.getFields()[i][j];
-                }
-            }
-
-            initGroundField(g, fields);
+            int[] fields = this.map.getFields();
+            int xSize=this.map.getXSize();
+            int ySize=this.map.getYSize();
+            initGroundField(g);
             groundFieldDrawed = true;
         }
         else
@@ -147,7 +132,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 return;
             }
         }
-        if ((fields[targetRow][targetColumn] instanceof KeyField)) {
+        if ((fields[targetRow][targetColumn] instanceof Key)) {
             int tgRow = targetRow;
             int tgColumn = targetColumn;
             if (up) {
@@ -168,8 +153,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 return;
             }
         }
-        vikingX = viking.getRow();
-        vikingY = viking.getColumn();
+       // vikingY =
+       // vikingX =
+
         return;
 
     }
