@@ -7,12 +7,15 @@ import java.awt.*;
  */
 public class Stone extends Field {
 
-    public Stone(int fPtr, int fPtrNeighborTop, int fPtrNeighborBottom, int fPtrNeighborLeft, int fPtrNeighborRight) {
-        super(fPtr, fPtrNeighborTop, fPtrNeighborBottom, fPtrNeighborLeft, fPtrNeighborRight, false);
+    public Stone(int xPos, int yPos) {
+        super(false, xPos, yPos);
     }
 
     @Override
     public void Render(Graphics g) {
-
+        g.setColor(Color.DARK_GRAY);
+        g.fillRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
+        g.setColor(Color.BLACK);
+        g.drawRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
     }
 }

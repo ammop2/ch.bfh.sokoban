@@ -37,7 +37,7 @@ public class MapReader {
     }
 
     //this method converts one file to a map
-    private static Map getMap(String path) throws IOException {
+    public static Map getMap(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) return null;
 

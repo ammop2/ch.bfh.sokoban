@@ -7,8 +7,8 @@ import java.awt.*;
  */
 public class Ground extends Field {
 
-    public Ground(int fPtr, int fPtrNeighborTop, int fPtrNeighborBottom, int fPtrNeighborLeft, int fPtrNeighborRight, boolean accessible) {
-        super(fPtr, fPtrNeighborTop, fPtrNeighborBottom, fPtrNeighborLeft, fPtrNeighborRight, accessible);
+    public Ground(boolean accessible, int xPos, int yPos) {
+        super(accessible, xPos, yPos);
     }
 
     @Override
