@@ -1,6 +1,7 @@
 package main.java;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Pascal on 06.10.2015.
@@ -10,10 +11,12 @@ import java.awt.*;
 public class FieldList {
 
     private Field[][] fields;
+    private ArrayList<Field> targets;
     private Field avatar;
     private  Map map;
     public FieldList(Map map)
     {
+        targets = new ArrayList<Field>();
         this.map = map;
     }
     public void draw(Graphics g){
@@ -26,11 +29,11 @@ public class FieldList {
             {
                 switch (map.getFields()[ptr])
                 {
-                    case 0 : fields[y][x] = new Blank(x, y);  break;
-                    case 1 : fields[y][x] = new Stone(x, y);  break;
-                    case 2 : fields[y][x] = avatar = new Avatar(x, y); break;
-                    case 3 : fields[y][x] = new Target(x, y); break;
-                    case 4 : fields[y][x] = new Key(x, y); break;
+                    case 0 : fields[y][x] = new Field(x, y); fields[y][x].setIsBlank(true); break;
+                    case 1 : fields[y][x] = new Field(x, y); fields[y][x].setIsStone(true);  break;
+                    case 2 : fields[y][x] = avatar = new Field(x, y); fields[y][x].setIsAvatar(true); break;
+                    case 3 : fields[y][x] = new Field(x, y);fields[y][x].setIsTarget(true); targets.add(fields[y][x]); break;
+                    case 4 : fields[y][x] = new Field(x, y);fields[y][x].setIsKey(true); break;
                     default: break;
                 }
                 if(fields[y][x] != null)
@@ -43,7 +46,16 @@ public class FieldList {
         moveField(avatar, g, direction);
     }
 
-    public void moveField(Field a, Graphics g, Direction direction) {
+    private boolean won()
+    {
+        for(Field target : targets)
+        {
+            if(!target.isKey()) return false;
+        }
+        return true;
+    }
+
+    public boolean moveField(Field a, Graphics g, Direction direction) {
         int targetX = 0;
         int targetY = 0;
         switch (direction) {
@@ -54,39 +66,71 @@ public class FieldList {
                 targetX -= 1;
                 break;
             case BOTTOM:
-                targetY += 0;
+                targetY += 1;
                 break;
             case RIGHT:
-                targetX += 0;
+                targetX += 1;
                 break;
             default:
                 break;
         }
         Field b = fields[a.getYPos() + targetY][a.getXPos() + targetX];
-        clone(a, b);
+
+        if(b.isStone()) return false;
+
+        if(a.isAvatar() && b.isKey())
+        {
+            Field c = fields[a.getYPos() + targetY * 2][a.getXPos() + targetX * 2];
+            if(c.isStone() || c.isKey()) return false;
+            if(c.isTarget())
+            {
+                if(b.isTarget())
+                {
+                  c.setIsKey(true);
+                    b.setIsKey(false);
+                    b.setIsAvatar(true);
+                    a.setIsAvatar(false);
+                }
+                else
+                {
+                    c.setIsKey(true);
+                    b.setIsKey(false);
+                    b.setIsAvatar(true);
+                    a.setIsAvatar(false);
+                    a.setIsBlank(b.isBlank());
+                }
+            } else if(c.isBlank())
+            {
+                c.setIsKey(true);
+                b.setIsKey(false);
+                b.setIsAvatar(true);
+                a.setIsBlank(true);
+                a.setIsAvatar(false);
+            }
+            avatar = b;
+            c.Render(g);
+            if(won())
+            {
+                System.out.println("fertig?!");
+            }
+        }
+        else if(a.isAvatar() && b.isTarget())
+        {
+            b.setIsAvatar(true);
+            a.setIsAvatar(false);
+            avatar = b;
+        }
+        else if(a.isAvatar() && b.isBlank())
+        {
+            if(!a.isTarget()) a.setIsBlank(true);
+            a.setIsAvatar(false);
+            b.setIsAvatar(true);
+            avatar = b;
+        }
+
+
         a.Render(g);
         b.Render(g);
-
-    }
-
-
-    private void clone(Field A, Field B)
-    {
-        int aX = A.getXPos();
-        int aY = A.getYPos();
-
-        int bX = B.getXPos();
-        int bY = B.getYPos();
-
-        System.out.println(aX);
-        System.out.println(bX);
-
-        A.update(bX, bY);
-        B.update(aX, aY);
-
-
-        System.out.println( A.getXPos());
-        System.out.println(B.getXPos());
-
+        return true;
     }
 }
