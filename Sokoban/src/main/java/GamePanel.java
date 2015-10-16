@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private boolean down;
     private boolean left;
     private boolean right;
+    private boolean reverse;
     private boolean groundFieldDrawed = false;
 
     private Map map;
@@ -50,7 +51,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         }
         else
         {
-            if(!up && !down && !left && !right)
+            if(!up && !down && !left && !right &&!reverse)
             {
                 //abort if not a ground field.
                 return;
@@ -71,7 +72,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             {
                 this.fieldList.movePlayer(g, Direction.RIGHT);
             }
-            up = down = left = right = false;
+            if(reverse){
+                this.fieldList.reversePlay(g);
+            }
+            reverse = up = down = left = right = false;
 
         }
     }
@@ -105,11 +109,15 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         if(e.getKeyCode()==KeyEvent.VK_RIGHT){
             right = true;
         }
+
+        if (e.getKeyCode()==KeyEvent.VK_Z){
+            reverse=true;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        up = down = left = right = false;
+        reverse = up = down = left = right = false;
     }
 }
 

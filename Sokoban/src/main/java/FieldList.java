@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Pascal on 06.10.2015.
- *
+ * <p>
  * host for fields
  */
 public class FieldList {
@@ -13,44 +13,84 @@ public class FieldList {
     private Field[][] fields;
     private ArrayList<Field> targets;
     private Field avatar;
-    private  Map map;
-    public FieldList(Map map)
-    {
+    private Map map;
+    private ArrayList<Direction> moves = new ArrayList<Direction>();
+
+
+    public FieldList(Map map) {
         targets = new ArrayList<Field>();
         this.map = map;
     }
-    public void draw(Graphics g){
+
+    public void reversePlay(Graphics g) {
+
+        if (moves.size() > 1) {
+            System.out.println("reverse game");
+            Direction dir=moves.get(moves.size()-1);
+            if(dir==Direction.TOP){
+                movePlayer(g, Direction.BOTTOM);
+            }
+            if(dir==Direction.LEFT){
+                movePlayer(g, Direction.RIGHT);
+            }
+            if(dir==Direction.RIGHT){
+                movePlayer(g, Direction.LEFT);
+            }
+            if(dir==Direction.BOTTOM){
+                movePlayer(g, Direction.TOP);
+            }
+            moves.remove(moves.size()-1);
+
+
+        }
+    }
+
+
+    public void draw(Graphics g) {
         fields = new Field[map.getYSize()][map.getXSize()];
         int ptr = 0;
-        for(int y = 0; y < map.getYSize(); y++)
-        {
+        for (int y = 0; y < map.getYSize(); y++) {
 
-            for(int x = 0; x < map.getXSize(); x++)
-            {
-                switch (map.getFields()[ptr])
-                {
-                    case 0 : fields[y][x] = new Field(x, y); fields[y][x].setIsBlank(true); break;
-                    case 1 : fields[y][x] = new Field(x, y); fields[y][x].setIsStone(true);  break;
-                    case 2 : fields[y][x] = avatar = new Field(x, y); fields[y][x].setIsAvatar(true); break;
-                    case 3 : fields[y][x] = new Field(x, y);fields[y][x].setIsTarget(true); targets.add(fields[y][x]); break;
-                    case 4 : fields[y][x] = new Field(x, y);fields[y][x].setIsKey(true); break;
-                    default: break;
+            for (int x = 0; x < map.getXSize(); x++) {
+                switch (map.getFields()[ptr]) {
+                    case 0:
+                        fields[y][x] = new Field(x, y);
+                        fields[y][x].setIsBlank(true);
+                        break;
+                    case 1:
+                        fields[y][x] = new Field(x, y);
+                        fields[y][x].setIsStone(true);
+                        break;
+                    case 2:
+                        fields[y][x] = avatar = new Field(x, y);
+                        fields[y][x].setIsAvatar(true);
+                        break;
+                    case 3:
+                        fields[y][x] = new Field(x, y);
+                        fields[y][x].setIsTarget(true);
+                        targets.add(fields[y][x]);
+                        break;
+                    case 4:
+                        fields[y][x] = new Field(x, y);
+                        fields[y][x].setIsKey(true);
+                        break;
+                    default:
+                        break;
                 }
-                if(fields[y][x] != null)
+                if (fields[y][x] != null)
                     fields[y][x].Render(g);
                 ptr++;
             }
         }
     }
+
     public void movePlayer(Graphics g, Direction direction) {
         moveField(avatar, g, direction);
     }
 
-    private boolean won()
-    {
-        for(Field target : targets)
-        {
-            if(!target.isKey()) return false;
+    private boolean won() {
+        for (Field target : targets) {
+            if (!target.isKey()) return false;
         }
         return true;
     }
@@ -76,31 +116,25 @@ public class FieldList {
         }
         Field b = fields[a.getYPos() + targetY][a.getXPos() + targetX];
 
-        if(b.isStone()) return false;
+        if (b.isStone()) return false;
 
-        if(a.isAvatar() && b.isKey())
-        {
+        if (a.isAvatar() && b.isKey()) {
             Field c = fields[a.getYPos() + targetY * 2][a.getXPos() + targetX * 2];
-            if(c.isStone() || c.isKey()) return false;
-            if(c.isTarget())
-            {
-                if(b.isTarget())
-                {
-                  c.setIsKey(true);
+            if (c.isStone() || c.isKey()) return false;
+            if (c.isTarget()) {
+                if (b.isTarget()) {
+                    c.setIsKey(true);
                     b.setIsKey(false);
                     b.setIsAvatar(true);
                     a.setIsAvatar(false);
-                }
-                else
-                {
+                } else {
                     c.setIsKey(true);
                     b.setIsKey(false);
                     b.setIsAvatar(true);
                     a.setIsAvatar(false);
                     a.setIsBlank(b.isBlank());
                 }
-            } else if(c.isBlank())
-            {
+            } else if (c.isBlank()) {
                 c.setIsKey(true);
                 b.setIsKey(false);
                 b.setIsAvatar(true);
@@ -109,20 +143,15 @@ public class FieldList {
             }
             avatar = b;
             c.Render(g);
-            if(won())
-            {
+            if (won()) {
                 System.out.println("fertig?!");
             }
-        }
-        else if(a.isAvatar() && b.isTarget())
-        {
+        } else if (a.isAvatar() && b.isTarget()) {
             b.setIsAvatar(true);
             a.setIsAvatar(false);
             avatar = b;
-        }
-        else if(a.isAvatar() && b.isBlank())
-        {
-            if(!a.isTarget()) a.setIsBlank(true);
+        } else if (a.isAvatar() && b.isBlank()) {
+            if (!a.isTarget()) a.setIsBlank(true);
             a.setIsAvatar(false);
             b.setIsAvatar(true);
             avatar = b;
@@ -131,6 +160,8 @@ public class FieldList {
 
         a.Render(g);
         b.Render(g);
+        this.moves.add(direction);
         return true;
+
     }
 }
