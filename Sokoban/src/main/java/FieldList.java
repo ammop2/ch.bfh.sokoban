@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class FieldList {
 
+
     private Field[][] fields;
     private ArrayList<Field> targets;
     private Field avatar;
@@ -139,7 +140,9 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
     public void movePlayer(Graphics g, Direction direction) {
         moveField(avatar, g, direction);
     }
-
+    public Field[][] getFields() {
+        return fields;
+    }
     private boolean won() {
         for (Field target : targets) {
             if (!target.isKey()) return false;

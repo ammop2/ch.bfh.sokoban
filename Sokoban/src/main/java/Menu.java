@@ -13,6 +13,7 @@ public class Menu {
     private JLabel headerLabel;
     private JLabel statusLabel;
     private JPanel controlPanel;
+    JCheckBox edit =new JCheckBox();
     private Map[] maps;
 
     public Menu(Map[] maps) {
@@ -44,11 +45,14 @@ public class Menu {
         mainFrame.add(statusLabel);
         mainFrame.setVisible(true);
     }
-
+    public static String convertToMultiline(String orig)
+    {
+        return "<html>" + orig.replaceAll("\n", "<br>");
+    }
 
     public void showButtons() {
 
-        headerLabel.setText("Please chose a game");
+        headerLabel.setText(convertToMultiline("Please chose a game\nUse arrow key to navigate\nUse Z Key to undo your move"));
 
 
         JComboBox box = new JComboBox();
@@ -60,13 +64,12 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 String gameName = (String) box.getSelectedItem();
                 Map gameMap = getMapByName(gameName);
-                GameContainer game = new GameContainer(gameMap);
+                GameContainer game = new GameContainer(gameMap, edit.isSelected());
             }
         });
         controlPanel.add(box);
 //adding the edit functionality
-        JCheckBox edit =new JCheckBox();
-        edit.setText("Edit a Map");
+        edit.setText("Check to open map in EditPanel");
         controlPanel.add(edit);
 
 

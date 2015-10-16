@@ -6,13 +6,21 @@ import javax.swing.*;
  * Created by u216070 on 07.10.2015.
  */
 public class GameContainer extends JFrame implements Runnable {
-    private  GamePanel panel;
-    public GameContainer(Map map)
+    private  GamePanel gpanel;
+    private  EditPanel epanel;
+    public GameContainer(Map map, boolean edit)
     {
         super("Sokoban");
-        panel = new GamePanel(map);
-        add(panel);
-        addKeyListener(panel);
+        if(edit){
+            epanel = new EditPanel(map);
+            add(epanel);
+            addKeyListener(epanel);
+        } else {
+            gpanel = new GamePanel(map);
+            add(gpanel);
+            addKeyListener(gpanel);
+        }
+
         this.pack();
         setVisible(true);
         Thread thread = new Thread(this);
@@ -22,7 +30,11 @@ public class GameContainer extends JFrame implements Runnable {
     public void run() {
         while(isVisible()){
             try {
-                panel.repaint();
+                if(gpanel!=null){
+                    gpanel.repaint();
+                }else{
+                    epanel.repaint();
+                }
                 Thread.sleep(10);
             } catch (InterruptedException e) {}
 

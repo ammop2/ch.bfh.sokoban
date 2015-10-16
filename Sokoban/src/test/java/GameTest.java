@@ -13,7 +13,7 @@ public class GameTest {
     public static void main(String[] args) throws IOException {
         System.out.println("HI");
         Map map = MapReader.getMap("C:\\github\\ch.bfh.sokoban\\Maps\\Maze1_X22_Y11.txt");
-        GameContainer gc = new GameContainer(map);
+        GameContainer gc = new GameContainer(map, false);
         gc.run();
     }
 }
