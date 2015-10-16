@@ -15,6 +15,7 @@ public class FieldList {
     private Field avatar;
     private Map map;
     private ArrayList<Direction> moves = new ArrayList<Direction>();
+    private ArrayList<Boolean> pushes = new ArrayList<Boolean>();
 
 
     public FieldList(Map map) {
@@ -27,24 +28,75 @@ public class FieldList {
         if (moves.size() > 1) {
             System.out.println("reverse game");
             Direction dir=moves.get(moves.size()-1);
+            boolean push=pushes.get(pushes.size()-1);
+
             if(dir==Direction.TOP){
-                movePlayer(g, Direction.BOTTOM);
+                reverseMovePlayer(g, Direction.BOTTOM, push);
             }
             if(dir==Direction.LEFT){
-                movePlayer(g, Direction.RIGHT);
+                reverseMovePlayer(g, Direction.RIGHT, push);
             }
             if(dir==Direction.RIGHT){
-                movePlayer(g, Direction.LEFT);
+                reverseMovePlayer(g, Direction.LEFT, push);
             }
             if(dir==Direction.BOTTOM){
-                movePlayer(g, Direction.TOP);
+                reverseMovePlayer(g, Direction.TOP, push);
             }
             moves.remove(moves.size()-1);
-
+            pushes.remove(pushes.size()-1);
 
         }
     }
+public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
+    int targetX = 0;
+    int targetY = 0;
+    switch (direction) {
+        case TOP:
+            targetY -= 1;
+            break;
+        case LEFT:
+            targetX -= 1;
+            break;
+        case BOTTOM:
+            targetY += 1;
+            break;
+        case RIGHT:
+            targetX += 1;
+            break;
+        default:
+            break;
+    }
+    Field a = this.avatar;
+    Field b = fields[a.getYPos() + targetY][a.getXPos() + targetX];
+    Field c = fields[a.getYPos() + targetY * -1][a.getXPos() + targetX * -1];
 
+    if(!push){
+        a.setIsAvatar(false);
+        b.setIsAvatar(true);
+        this.avatar = b;
+        System.out.println("notpush");
+    }else{
+        a.setIsAvatar(false);
+        b.setIsAvatar(true);
+        this.avatar=b;
+
+        c.setIsKey(false);
+        a.setIsKey(true);
+        a.setIsBlank(true);
+
+
+        System.out.println("push");
+
+    }
+
+
+
+    a.Render(g);
+    b.Render(g);
+    c.Render(g);
+    return true;
+
+    }
 
     public void draw(Graphics g) {
         fields = new Field[map.getYSize()][map.getXSize()];
@@ -96,6 +148,7 @@ public class FieldList {
     }
 
     public boolean moveField(Field a, Graphics g, Direction direction) {
+        boolean push=false;
         int targetX = 0;
         int targetY = 0;
         switch (direction) {
@@ -127,12 +180,14 @@ public class FieldList {
                     b.setIsKey(false);
                     b.setIsAvatar(true);
                     a.setIsAvatar(false);
+                    push=true;
                 } else {
                     c.setIsKey(true);
                     b.setIsKey(false);
                     b.setIsAvatar(true);
                     a.setIsAvatar(false);
                     a.setIsBlank(b.isBlank());
+                    push=true;
                 }
             } else if (c.isBlank()) {
                 c.setIsKey(true);
@@ -140,6 +195,7 @@ public class FieldList {
                 b.setIsAvatar(true);
                 a.setIsBlank(true);
                 a.setIsAvatar(false);
+                push=true;
             }
             avatar = b;
             c.Render(g);
@@ -161,6 +217,7 @@ public class FieldList {
         a.Render(g);
         b.Render(g);
         this.moves.add(direction);
+        this.pushes.add(push);
         return true;
 
     }
