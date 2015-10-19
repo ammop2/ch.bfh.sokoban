@@ -120,9 +120,11 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener, Act
     @Override
     public void mouseClicked(MouseEvent e) {
 
+        int x = e.getX() /Field.ElementWidth;
+        int y = e.getY() /Field.ElementHeight-1;
 
-
-        fieldList.findWay(e.getX() / Field.ElementWidth, e.getY() / Field.ElementHeight);
+        System.out.println("x:" + x + " y:" + y);
+        fieldList.findWay(x,y);
     }
 
     @Override

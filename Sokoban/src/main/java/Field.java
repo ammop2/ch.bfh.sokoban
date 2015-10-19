@@ -59,15 +59,15 @@ public class Field {
     private boolean isBlank = false;
     private boolean isAvatar = false;
 
-    public boolean isVitsied() {
-        return isVitsied;
+    public boolean isVisited() {
+        return isVisited;
     }
 
-    public void setIsVitsied(boolean isVitsied) {
-        this.isVitsied = isVitsied;
+    public void setIsVisited(boolean isVisited) {
+        this.isVisited = isVisited;
     }
 
-    private boolean isVitsied = false;
+    private boolean isVisited = false;
 
 
     public static int ElementWidth=40;

@@ -300,8 +300,8 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        x = e.getX() / 40;
-        y = e.getY() / 40 - 1;
+        x = e.getX() / Field.ElementWidth;
+        y = e.getY() / Field.ElementHeight - 1;
         mouseClicked = true;
         if(!saved)saveMap.setBorder(BorderFactory.createLineBorder(Color.red,2));
 
@@ -309,8 +309,8 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
 
     @Override
     public void mousePressed(MouseEvent e) {
-        x = e.getX() / 40;
-        y = e.getY() / 40 - 1;
+        x = e.getX() / Field.ElementWidth;
+        y = e.getY() / Field.ElementHeight - 1;
         mouseClicked = true;
         if(!saved) saveMap.setBorder(BorderFactory.createLineBorder(Color.red,2));
     }
@@ -332,8 +332,8 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        x = e.getX() / 40;
-        y = e.getY() / 40 - 1;
+        x = e.getX() / Field.ElementWidth;
+        y = e.getY() / Field.ElementHeight - 1;
         mouseClicked = true;
         if(!saved) saveMap.setBorder(BorderFactory.createLineBorder(Color.red,2));
     }

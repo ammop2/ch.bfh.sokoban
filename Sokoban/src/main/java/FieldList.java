@@ -225,20 +225,20 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
 
     }
 
-    private boolean checkNeighbours(int x, int y, Field target)
+    private synchronized boolean checkNeighbours(int x, int y, Field target)
     {
-        System.out.println("hi");
-        if( x < 0 || x > map.getXSize())
+        System.out.println("x:" + x + " mapx:" + map.getXSize() + " fieldsx:" + fields[0].length);
+        System.out.println("y:" + y + " mapy:" + map.getYSize() + " fieldsy:" + fields.length);
+        if( x < 0 || x >= map.getXSize())
             return false;
-        if(y < 0 || y > map.getYSize())
+        if(y < 0 || y >= map.getYSize())
             return false;
 
         Field cField = fields[y][x];
 
-        if(cField.isVitsied())
-            return false;
 
-        cField.setIsVitsied(true);
+        if(cField.isVisited())return false;
+        cField.setIsVisited(true);
         if(target == cField) {
             System.out.print("found");
             return true;
@@ -256,14 +256,19 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
     public void findWay(int targetX, int targetY)
     {
         Field fTarget = fields[targetY][targetX];
-
-        System.out.print(fTarget.isBlank());
-
         if(!fTarget.isBlank()) return;
-
-        checkNeighbours(avatar.getX(), avatar.getY(), fTarget);
-
-
+        int x = avatar.getX()/Field.ElementWidth;
+        int y = avatar.getY()/Field.ElementHeight;
+        System.out.println("x:" + x + " y:" + y);
+        if(checkNeighbours(x, y, fTarget)){
+            fTarget.setIsBlank(false);
+            fTarget.setIsAvatar(true);
+            fields[y][x].setIsAvatar(false);
+            fields[y][x].setIsBlank(true);
+            avatar=fTarget;
+            //fTarget.Render(g);
+            //fields[y][x].Render(g);
+        }
     }
 
 
