@@ -86,13 +86,13 @@ public class Field {
         if (isTarget) {
             g.setColor(Color.YELLOW);
             g.fillRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
-            g.setColor(Color.YELLOW);
+            g.setColor(Color.BLACK);
             g.drawRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
         }
         if (isBlank) {
             g.setColor(Color.white);
             g.fillRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
-            g.setColor(Color.WHITE);
+            g.setColor(Color.BLACK);
             g.drawRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
         }
         if (isStone) {

@@ -25,12 +25,12 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener {
     private JButton drawKey;
     private JButton drawTarget;
     private JButton drawStone;
+    private JButton saveMap;
 
 
     private boolean groundFieldDrawed = false;
     private Map originalMap;
     private FieldList fieldList;
-    private Map newMap;
 
     public EditPanel(Map map) {
 
@@ -39,8 +39,6 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener {
             this.originalMap = map;
             fieldList = new FieldList(map);
             this.setPreferredSize(new Dimension(map.getXSize() * Field.ElementHeight + 100, map.getYSize() * Field.ElementHeight));
-        } else {
-            //code for creating map from scratch
         }
     }
 
@@ -64,12 +62,14 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener {
             drawKey = new JButton("Keys");
             drawTarget = new JButton("Targets");
             drawStone = new JButton("Stones");
+            saveMap = new JButton ("Save");
 
             drawBlank.setPreferredSize(new Dimension (80,20));
             drawAvatar.setPreferredSize(new Dimension(80, 20));
             drawKey.setPreferredSize(new Dimension(80, 20));
             drawTarget.setPreferredSize(new Dimension(80, 20));
             drawStone.setPreferredSize(new Dimension(80, 20));
+            saveMap.setPreferredSize(new Dimension(80, 40));
 
             drawBlank.addActionListener(new ActionListener() {
                 @Override
@@ -105,12 +105,22 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener {
                 }
             });
 
+            saveMap.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(!MapSaver.saveMap(originalMap.getName(),fieldList.getFields(),originalMap.getXSize(),originalMap.getYSize())){
+                            JOptionPane.showMessageDialog(null, "error saving");
+                    }
+                }
+            });
+
 
             controls.add(drawBlank);
             controls.add(drawAvatar);
             controls.add(drawKey);
             controls.add(drawTarget);
             controls.add(drawStone);
+            controls.add(saveMap);
 
             this.add(controls);
 

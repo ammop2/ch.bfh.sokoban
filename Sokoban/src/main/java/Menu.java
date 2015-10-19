@@ -1,4 +1,5 @@
 package main.java;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Menu {
 
@@ -13,8 +15,22 @@ public class Menu {
     private JLabel headerLabel;
     private JLabel statusLabel;
     private JPanel controlPanel;
-    JCheckBox edit =new JCheckBox();
+    private JCheckBox edit = new JCheckBox();
+    private JButton newMap = new JButton();
     private Map[] maps;
+
+    //components for new map dialog
+    private JTextField mapName = new JTextField();
+    private JTextField mapWidth = new JTextField();
+    private JTextField mapHeight = new JTextField();
+    private final JComponent[] inputs = new JComponent[]{
+            new JLabel("Chose the Name of your map"),
+            mapName,
+            new JLabel("Chose the width of your map"),
+            mapWidth,
+            new JLabel("Chose the height of your map "),
+            mapHeight
+    };
 
     public Menu(Map[] maps) {
         this.maps = maps;
@@ -39,14 +55,14 @@ public class Menu {
         statusLabel.setSize(350, 100);
 
         controlPanel = new JPanel();
-        controlPanel.setLayout(new FlowLayout());
+        controlPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         mainFrame.add(headerLabel);
         mainFrame.add(statusLabel);
         mainFrame.setVisible(true);
     }
-    public static String convertToMultiline(String orig)
-    {
+
+    public static String convertToMultiline(String orig) {
         return "<html>" + orig.replaceAll("\n", "<br>");
     }
 
@@ -69,13 +85,29 @@ public class Menu {
         });
         controlPanel.add(box);
 //adding the edit functionality
-        edit.setText("Check to open map in EditPanel");
+        edit.setText("Check to edit map");
         controlPanel.add(edit);
 
+//adding button for new maps
+        newMap.setText("Create New Map");
 
-        JScrollPane panelPane = new JScrollPane(controlPanel);
-        mainFrame.add(panelPane);
+        newMap.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+                JOptionPane.showMessageDialog(null, inputs, "Please enter data to create your map", JOptionPane.PLAIN_MESSAGE);
+                int newMapHeight = Integer.parseInt(mapHeight.getText());
+                int newMapWidth = Integer.parseInt(mapWidth.getText());
+                int[] newFields = new int[newMapHeight * newMapWidth];
+                Arrays.fill(newFields, 0);
+                System.out.println(newFields.length);
+                Map newMap = new Map(mapName.getText(), newFields, newMapWidth, newMapHeight);
+                GameContainer game = new GameContainer(newMap, true);
+            }
+        });
+
+        controlPanel.add(newMap);
+        mainFrame.add(controlPanel);
         mainFrame.setVisible(true);
     }
 
