@@ -276,7 +276,6 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
             fieldMod.setIsKey(true);
             fieldMod.setIsTarget(false);
             fieldMod.setIsStone(false);
-            System.out.println("drew key");
         }
         fieldMod.Render(g);
     }

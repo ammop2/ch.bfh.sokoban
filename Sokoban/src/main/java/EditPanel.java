@@ -15,6 +15,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
     private boolean drawingKey = false;
     private boolean drawingTarget = false;
     private boolean drawingStone = false;
+    private boolean saved = false;
     private int x;
     private int y;
     private boolean mouseClicked = true;
@@ -110,7 +111,10 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
                 public void actionPerformed(ActionEvent e) {
                     if(!MapSaver.saveMap(originalMap.getName(),fieldList.getFields(),originalMap.getXSize(),originalMap.getYSize())){
                             JOptionPane.showMessageDialog(null, "error saving");
+                        return;
                     }
+                    if(!saved) saveMap.setBorder(BorderFactory.createLineBorder(Color.GREEN,2));
+
                 }
             });
 
@@ -133,6 +137,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
         } else if (mouseClicked) {
             fieldList.setField(g, x, y, drawingAvatar, drawingStone, drawingTarget, drawingBlank, drawingKey);
             mouseClicked = false;
+            saved=false;
         } else {
 
         }
@@ -296,7 +301,10 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        x = e.getX() / 40;
+        y = e.getY() / 40 - 1;
+        mouseClicked = true;
+        if(!saved)saveMap.setBorder(BorderFactory.createLineBorder(Color.red,2));
 
     }
 
@@ -305,8 +313,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
         x = e.getX() / 40;
         y = e.getY() / 40 - 1;
         mouseClicked = true;
-
-
+        if(!saved) saveMap.setBorder(BorderFactory.createLineBorder(Color.red,2));
     }
 
     @Override
@@ -329,6 +336,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
         x = e.getX() / 40;
         y = e.getY() / 40 - 1;
         mouseClicked = true;
+        if(!saved) saveMap.setBorder(BorderFactory.createLineBorder(Color.red,2));
     }
 
     @Override

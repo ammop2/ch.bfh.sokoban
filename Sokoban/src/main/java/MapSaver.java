@@ -17,7 +17,6 @@ public class MapSaver {
 
         try {
             String path = dir + name + "_X" + x + "_Y" + y + ".txt";
-            System.out.println(path);
             File file = new File(path);
             PrintWriter writer = new PrintWriter(file);
 
@@ -32,16 +31,12 @@ public class MapSaver {
                     if (fields[i][j].isTarget()) line = line + '.';
                     if (fields[i][j].isKey()) line = line + '*';
                 }
-                System.out.println("printing now");
                 writer.println(line);
-
-
-        }
+            }
             writer.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(writer == null);
 
         return true;
     }
