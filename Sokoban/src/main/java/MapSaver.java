@@ -9,17 +9,17 @@ import java.io.PrintWriter;
  * Created by u216070 on 19.10.2015.
  */
 public class MapSaver {
-    private static String path = "C:\\git\\ch.bfh.sokoban\\Maps\\";
-    private static PrintWriter out;
+    private static String dir = "..\\Maps\\";
+    private static PrintWriter writer;
 
     public static boolean saveMap(String name, Field[][] fields, int x, int y) {
 
 
         try {
-            path = path + name + "_X" + x + "_Y" + y + ".txt";
+            String path = dir + name + "_X" + x + "_Y" + y + ".txt";
             System.out.println(path);
             File file = new File(path);
-            PrintWriter out = new PrintWriter(file);
+            PrintWriter writer = new PrintWriter(file);
 
 
             String line = "";
@@ -33,20 +33,16 @@ public class MapSaver {
                     if (fields[i][j].isKey()) line = line + '*';
                 }
                 System.out.println("printing now");
-                System.out.println(out == null);
-                out.println("dasisteintest");
-                out.println(line);
-                System.out.println(out == null);
+                writer.println(line);
 
 
         }
-            System.out.println(out == null);
-
+            writer.close();
         }catch(Exception e){
             e.printStackTrace();
         }
-        System.out.println(out == null);
-        out.close();
+        System.out.println(writer == null);
+
         return true;
     }
 

@@ -226,8 +226,6 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
     }
 
     public void setField(Graphics g, int x, int y, boolean drawingAvatar, boolean drawingStone,boolean drawingTarget, boolean drawingBlank, boolean drawingKey){
-System.out.println("setfield");
-
         Field fieldMod = fields[y][x];
         Field findAvatar=null;
 

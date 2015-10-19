@@ -8,7 +8,7 @@ import java.awt.event.*;
 /**
  * Created by u216070 on 16.10.2015.
  */
-public class EditPanel extends JPanel implements ActionListener, MouseListener {
+public class EditPanel extends JPanel implements ActionListener, MouseListener , MouseMotionListener{
 
     private boolean drawingBlank = false;
     private boolean drawingAvatar = false;
@@ -296,29 +296,43 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        x = e.getX() / 40;
-        y = e.getY() / 40 - 1;
-        mouseClicked = true;
+
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("pressed");
+        x = e.getX() / 40;
+        y = e.getY() / 40 - 1;
+        mouseClicked = true;
+
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("released");
+
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        System.out.println("entered");
+
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        System.out.println("exited");
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        x = e.getX() / 40;
+        y = e.getY() / 40 - 1;
+        mouseClicked = true;
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
     }
 }

@@ -17,11 +17,14 @@ public class LaunchTest {
     }
 
     public static void main(String[] args){
+
+        System.out.println("Working Directory = " +
+                System.getProperty("user.dir"));
         try {
-            Menu menu = new Menu(MapReader.load("C:\\git\\ch.bfh.sokoban\\Maps\\"));
+            Menu menu = new Menu(MapReader.load("..\\Maps\\"));
         }
         catch (IOException e){
-                infoBox("YOU ARE GAY","There is a file problem");
+                infoBox("File not found","There is a file problem");
             }
     }
 }

@@ -96,12 +96,23 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
 
                 JOptionPane.showMessageDialog(null, inputs, "Please enter data to create your map", JOptionPane.PLAIN_MESSAGE);
-                int newMapHeight = Integer.parseInt(mapHeight.getText());
-                int newMapWidth = Integer.parseInt(mapWidth.getText());
+                int newMapHeight=0;
+                int newMapWidth=0;
+                try{
+                    newMapHeight = Integer.parseInt(mapHeight.getText());
+                    newMapWidth = Integer.parseInt(mapWidth.getText());
+                }catch (Exception ex){
+                    infoBox("You did not enter numbers for width or height. Try again.", "Error");
+                    ex.printStackTrace();
+                    return;
+                }
+
                 int[] newFields = new int[newMapHeight * newMapWidth];
+                String newMapName = mapName.getText();
+                newMapName = newMapName.replaceAll("[^a-zA-Z0-9\\s]", "");
                 Arrays.fill(newFields, 0);
                 System.out.println(newFields.length);
-                Map newMap = new Map(mapName.getText(), newFields, newMapWidth, newMapHeight);
+                Map newMap = new Map(newMapName, newFields, newMapWidth, newMapHeight);
                 GameContainer game = new GameContainer(newMap, true);
             }
         });
@@ -117,5 +128,10 @@ public class Menu {
             if (name.equalsIgnoreCase(map.getName())) return map;
         }
         return null;
+    }
+
+    private static void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 }
