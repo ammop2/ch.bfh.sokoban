@@ -225,6 +225,48 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
 
     }
 
+    private boolean checkNeighbours(int x, int y, Field target)
+    {
+        System.out.println("hi");
+        if( x < 0 || x > map.getXSize())
+            return false;
+        if(y < 0 || y > map.getYSize())
+            return false;
+
+        Field cField = fields[y][x];
+
+        if(cField.isVitsied())
+            return false;
+
+        cField.setIsVitsied(true);
+        if(target == cField) {
+            System.out.print("found");
+            return true;
+        }
+
+
+        if(checkNeighbours(x -1, y, target)) return true;
+        if(checkNeighbours(x +1, y, target)) return true;
+        if(checkNeighbours(x, y-1, target)) return true;
+        if(checkNeighbours(x, y+1, target)) return true;
+
+        return false;
+    }
+
+    public void findWay(int targetX, int targetY)
+    {
+        Field fTarget = fields[targetY][targetX];
+
+        System.out.print(fTarget.isBlank());
+
+        if(!fTarget.isBlank()) return;
+
+        checkNeighbours(avatar.getX(), avatar.getY(), fTarget);
+
+
+    }
+
+
     public void setField(Graphics g, int x, int y, boolean drawingAvatar, boolean drawingStone,boolean drawingTarget, boolean drawingBlank, boolean drawingKey){
         Field fieldMod = fields[y][x];
         Field findAvatar=null;

@@ -2,10 +2,7 @@ package main.java;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -14,7 +11,7 @@ import java.net.URL;
  * Created by Pascal on 18.09.2015.
  * Rewritten by Gabriel on 09.10.2015
  */
-public class GamePanel extends JPanel implements KeyListener, ActionListener {
+public class GamePanel extends JPanel implements MouseListener, KeyListener, ActionListener {
 
     /**
      * Region Properties
@@ -118,6 +115,34 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     @Override
     public void keyReleased(KeyEvent e) {
         reverse = up = down = left = right = false;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+
+
+        fieldList.findWay(e.getX() / Field.ElementWidth, e.getY() / Field.ElementHeight);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
 

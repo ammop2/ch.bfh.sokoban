@@ -59,6 +59,16 @@ public class Field {
     private boolean isBlank = false;
     private boolean isAvatar = false;
 
+    public boolean isVitsied() {
+        return isVitsied;
+    }
+
+    public void setIsVitsied(boolean isVitsied) {
+        this.isVitsied = isVitsied;
+    }
+
+    private boolean isVitsied = false;
+
 
     public static int ElementWidth=40;
     public static int ElementHeight=40;

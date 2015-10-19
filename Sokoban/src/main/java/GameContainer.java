@@ -20,6 +20,7 @@ public class GameContainer extends JFrame implements Runnable {
             gpanel = new GamePanel(map);
             add(gpanel);
             addKeyListener(gpanel);
+            addMouseListener(gpanel);
         }
 
         this.pack();

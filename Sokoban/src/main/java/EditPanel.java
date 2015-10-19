@@ -182,8 +182,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
 
     private void toggleDrawKey() {
         if (drawingKey) {
-            drawingAvatar = false;
-            drawingBlank = false;
+            drawingAvatar = drawingBlank = false;
             drawingKey = false;
             drawingStone = false;
             drawingTarget = false;
