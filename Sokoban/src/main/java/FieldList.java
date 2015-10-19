@@ -229,14 +229,29 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
 System.out.println("setfield");
 
         Field fieldMod = fields[y][x];
+        Field findAvatar=null;
+
 
 
         if(drawingAvatar){
+
+            for(int i=0;i<fields.length;i++){
+                for(int j=0;j<fields[i].length;j++){
+                    if (fields[i][j].isAvatar())findAvatar=fields[i][j];
+                }
+            }
+            if(findAvatar!=null){
+                findAvatar.setIsAvatar(false);
+                findAvatar.setIsBlank(true);
+                findAvatar.Render(g);
+            }
+
             fieldMod.setIsAvatar(true);
             fieldMod.setIsBlank(false);
             fieldMod.setIsKey(false);
             fieldMod.setIsTarget(false);
             fieldMod.setIsStone(false);
+
 
         } else if (drawingStone){
             fieldMod.setIsAvatar(false);

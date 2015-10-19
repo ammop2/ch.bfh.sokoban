@@ -1,21 +1,30 @@
 package main.java;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
 /**
  * Created by u216070 on 16.10.2015.
  */
-public class EditPanel extends JPanel implements KeyListener, ActionListener, MouseListener {
+public class EditPanel extends JPanel implements ActionListener, MouseListener {
 
-    private boolean drawingBlank=false;
-    private boolean drawingAvatar=false;
-    private boolean drawingKey=false;
-    private boolean drawingTarget=false;
-    private boolean drawingStone=false;
+    private boolean drawingBlank = false;
+    private boolean drawingAvatar = false;
+    private boolean drawingKey = false;
+    private boolean drawingTarget = false;
+    private boolean drawingStone = false;
     private int x;
     private int y;
+    private boolean mouseClicked = true;
+    private JPanel controls;
+
+    private JButton drawBlank;
+    private JButton drawAvatar;
+    private JButton drawKey;
+    private JButton drawTarget;
+    private JButton drawStone;
 
 
     private boolean groundFieldDrawed = false;
@@ -25,37 +34,99 @@ public class EditPanel extends JPanel implements KeyListener, ActionListener, Mo
 
     public EditPanel(Map map) {
 
-        if(map!=null){
-            this.originalMap=map;
+        if (map != null) {
+            this.setLayout(null);
+            this.originalMap = map;
             fieldList = new FieldList(map);
-            this.setPreferredSize(new Dimension(map.getXSize() * Field.ElementHeight , map.getYSize()  * Field.ElementHeight));
-        } else{
+            this.setPreferredSize(new Dimension(map.getXSize() * Field.ElementHeight + 100, map.getYSize() * Field.ElementHeight));
+        } else {
             //code for creating map from scratch
         }
     }
 
 
-
-
-
-    private void initGroundField(Graphics g)
-    {
+    private void initGroundField(Graphics g) {
         this.fieldList.draw(g);
     }
 
     @Override
-    public void paintComponent(Graphics g){
-        if(!groundFieldDrawed) {
+    public void paintComponent(Graphics g) {
+        if (!groundFieldDrawed) {
+
+            controls = new JPanel();
+            controls.setLocation(originalMap.getXSize() * Field.ElementHeight, 0);
+            controls.setSize(100, originalMap.getYSize() * Field.ElementHeight);
+            controls.setLayout(new FlowLayout(FlowLayout.LEFT));
+            controls.setBorder(BorderFactory.createLineBorder(Color.black));
+
+            drawBlank = new JButton("Blanks");
+            drawAvatar = new JButton("Avatar");
+            drawKey = new JButton("Keys");
+            drawTarget = new JButton("Targets");
+            drawStone = new JButton("Stones");
+
+            drawBlank.setPreferredSize(new Dimension (80,20));
+            drawAvatar.setPreferredSize(new Dimension(80, 20));
+            drawKey.setPreferredSize(new Dimension(80, 20));
+            drawTarget.setPreferredSize(new Dimension(80, 20));
+            drawStone.setPreferredSize(new Dimension(80, 20));
+
+            drawBlank.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    toggleDrawBlanks();
+                }
+            });
+
+            drawAvatar.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    toggleDrawAvatar();
+                }
+            });
+            drawKey.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    toggleDrawKey();
+                }
+            });
+
+            drawTarget.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    toggleDrawTargets();
+                }
+            });
+
+            drawStone.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    toggleDrawStones();
+                }
+            });
+
+
+            controls.add(drawBlank);
+            controls.add(drawAvatar);
+            controls.add(drawKey);
+            controls.add(drawTarget);
+            controls.add(drawStone);
+
+            this.add(controls);
+
+
             super.paintComponent(g);
             initGroundField(g);
             groundFieldDrawed = true;
-        }
-        else
-        {
-            fieldList.setField(g, x, y, drawingAvatar,drawingStone,drawingTarget,drawingBlank,drawingKey);
+
+
+        } else if (mouseClicked) {
+            fieldList.setField(g, x, y, drawingAvatar, drawingStone, drawingTarget, drawingBlank, drawingKey);
+            mouseClicked = false;
+        } else {
+
         }
     }
-
 
 
     @Override
@@ -63,113 +134,167 @@ public class EditPanel extends JPanel implements KeyListener, ActionListener, Mo
 
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
 
-    }
+    private void toggleDrawAvatar() {
+        if (drawingAvatar) {
+            drawingAvatar = false;
+            drawingBlank = false;
+            drawingKey = false;
+            drawingStone = false;
+            drawingTarget = false;
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode()==KeyEvent.VK_A){
-            if(drawingAvatar){
-                drawingAvatar=false;
-                drawingBlank=false;
-                drawingKey=false;
-                drawingStone=false;
-                drawingTarget=false;
-            }else{
-                drawingAvatar = true;
-                drawingBlank=false;
-                drawingStone=false;
-                drawingTarget=false;
-                drawingKey=false;
-            }
-        }
+            drawBlank.setBorder(null);
+            drawTarget.setBorder(null);
+            drawAvatar.setBorder(null);
+            drawKey.setBorder(null);
+            drawStone.setBorder(null);
 
-        if(e.getKeyCode()==KeyEvent.VK_K){
-            if(drawingKey){
-                drawingAvatar=false;
-                drawingBlank=false;
-                drawingKey=false;
-                drawingStone=false;
-                drawingTarget=false;
-                System.out.println("key is off");
-            }else{
-                drawingKey = true;
-                drawingAvatar=false;
-                drawingBlank=false;
-                drawingStone=false;
-                drawingTarget=false;
-                System.out.println("key is on");
-            }
+        } else {
+            drawingAvatar = true;
+            drawingBlank = false;
+            drawingStone = false;
+            drawingTarget = false;
+            drawingKey = false;
 
-        }
-
-        if(e.getKeyCode()==KeyEvent.VK_B){
-            if(drawingBlank){
-                drawingAvatar=false;
-                drawingBlank=false;
-                drawingKey=false;
-                drawingStone=false;
-                drawingTarget=false;
-            }else{
-                drawingBlank= true;
-                drawingAvatar=false;
-                drawingKey=false;
-                drawingStone=false;
-                drawingTarget=false;
-            }
-        }
-
-        if(e.getKeyCode()==KeyEvent.VK_T){
-            if(drawingTarget){
-                drawingAvatar=false;
-                drawingBlank=false;
-                drawingKey=false;
-                drawingStone=false;
-                drawingTarget=false;
-            }else{
-                drawingTarget=true;
-                drawingAvatar=false;
-                drawingBlank=false;
-                drawingKey=false;
-                drawingStone=false;
-            }
-        }
-
-        if (e.getKeyCode()==KeyEvent.VK_S){
-            if(drawingStone){
-                drawingAvatar=false;
-                drawingBlank=false;
-                drawingKey=false;
-                drawingStone=false;
-                drawingTarget=false;
-            }else{
-                drawingStone=true;
-                drawingAvatar=false;
-                drawingBlank=false;
-                drawingKey=false;
-                drawingTarget=false;
-            }
+            drawBlank.setBorder(null);
+            drawTarget.setBorder(null);
+            drawAvatar.setBorder(BorderFactory.createLineBorder(Color.red,3));
+            drawKey.setBorder(null);
+            drawStone.setBorder(null);
 
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        //drawingAvatar = drawingBlank = drawingKey = drawingStone = drawingStone = false;
+    private void toggleDrawKey() {
+        if (drawingKey) {
+            drawingAvatar = false;
+            drawingBlank = false;
+            drawingKey = false;
+            drawingStone = false;
+            drawingTarget = false;
+
+            drawBlank.setBorder(null);
+            drawTarget.setBorder(null);
+            drawAvatar.setBorder(null);
+            drawKey.setBorder(null);
+            drawStone.setBorder(null);
+
+        } else {
+            drawingKey = true;
+            drawingAvatar = false;
+            drawingBlank = false;
+            drawingStone = false;
+            drawingTarget = false;
+
+            drawBlank.setBorder(null);
+            drawTarget.setBorder(null);
+            drawAvatar.setBorder(null);
+            drawKey.setBorder(BorderFactory.createLineBorder(Color.red,3));
+            drawStone.setBorder(null);
+
+        }
     }
+
+    private void toggleDrawBlanks() {
+        if (drawingBlank) {
+            drawingAvatar = false;
+            drawingBlank = false;
+            drawingKey = false;
+            drawingStone = false;
+            drawingTarget = false;
+
+            drawBlank.setBorder(null);
+            drawTarget.setBorder(null);
+            drawAvatar.setBorder(null);
+            drawKey.setBorder(null);
+            drawStone.setBorder(null);
+
+        } else {
+            drawingBlank = true;
+            drawingAvatar = false;
+            drawingKey = false;
+            drawingStone = false;
+            drawingTarget = false;
+
+            drawBlank.setBorder(BorderFactory.createLineBorder(Color.red,3));
+            drawTarget.setBorder(null);
+            drawAvatar.setBorder(null);
+            drawKey.setBorder(null);
+            drawStone.setBorder(null);
+        }
+    }
+
+    private void toggleDrawTargets() {
+        if (drawingTarget) {
+            drawingAvatar = false;
+            drawingBlank = false;
+            drawingKey = false;
+            drawingStone = false;
+            drawingTarget = false;
+
+            drawBlank.setBorder(null);
+            drawTarget.setBorder(null);
+            drawAvatar.setBorder(null);
+            drawKey.setBorder(null);
+            drawStone.setBorder(null);
+
+        } else {
+            drawingTarget = true;
+            drawingAvatar = false;
+            drawingBlank = false;
+            drawingKey = false;
+            drawingStone = false;
+
+            drawBlank.setBorder(null);
+            drawTarget.setBorder(BorderFactory.createLineBorder(Color.red,3));
+            drawAvatar.setBorder(null);
+            drawKey.setBorder(null);
+            drawStone.setBorder(null);
+        }
+    }
+
+    private void toggleDrawStones() {
+        if (drawingStone) {
+            drawingAvatar = false;
+            drawingBlank = false;
+            drawingKey = false;
+            drawingStone = false;
+            drawingTarget = false;
+
+            drawBlank.setBorder(null);
+            drawTarget.setBorder(null);
+            drawAvatar.setBorder(null);
+            drawKey.setBorder(null);
+            drawStone.setBorder(null);
+
+        } else {
+            drawingTarget = false;
+            drawingAvatar = false;
+            drawingBlank = false;
+            drawingKey = false;
+            drawingStone = true;
+
+            drawBlank.setBorder(null);
+            drawTarget.setBorder(null);
+            drawAvatar.setBorder(null);
+            drawKey.setBorder(null);
+            drawStone.setBorder(BorderFactory.createLineBorder(Color.red,3));
+
+        }
+    }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        x= e.getX()/40;
-        y=e.getY()/40-1;
+        x = e.getX() / 40;
+        y = e.getY() / 40 - 1;
+        mouseClicked = true;
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-System.out.println("pressed");
+        System.out.println("pressed");
     }
 
     @Override
