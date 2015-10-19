@@ -224,4 +224,47 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
         return true;
 
     }
+
+    public void setField(Graphics g, int x, int y, boolean drawingAvatar, boolean drawingStone,boolean drawingTarget, boolean drawingBlank, boolean drawingKey){
+System.out.println("setfield");
+
+        Field fieldMod = fields[y][x];
+
+
+        if(drawingAvatar){
+            fieldMod.setIsAvatar(true);
+            fieldMod.setIsBlank(false);
+            fieldMod.setIsKey(false);
+            fieldMod.setIsTarget(false);
+            fieldMod.setIsStone(false);
+
+        } else if (drawingStone){
+            fieldMod.setIsAvatar(false);
+            fieldMod.setIsBlank(false);
+            fieldMod.setIsKey(false);
+            fieldMod.setIsTarget(false);
+            fieldMod.setIsStone(true);
+        } else if (drawingTarget){
+            fieldMod.setIsAvatar(false);
+            fieldMod.setIsBlank(false);
+            fieldMod.setIsKey(false);
+            fieldMod.setIsTarget(true);
+            fieldMod.setIsStone(false);
+        }else if (drawingBlank){
+            fieldMod.setIsAvatar(false);
+            fieldMod.setIsBlank(true);
+            fieldMod.setIsKey(false);
+            fieldMod.setIsTarget(false);
+            fieldMod.setIsStone(false);
+
+        } else if (drawingKey){
+            fieldMod.setIsAvatar(false);
+            fieldMod.setIsBlank(false);
+            fieldMod.setIsKey(true);
+            fieldMod.setIsTarget(false);
+            fieldMod.setIsStone(false);
+            System.out.println("drew key");
+        }
+        fieldMod.Render(g);
+    }
 }

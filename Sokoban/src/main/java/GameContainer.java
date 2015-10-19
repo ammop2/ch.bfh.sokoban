@@ -15,6 +15,7 @@ public class GameContainer extends JFrame implements Runnable {
             epanel = new EditPanel(map);
             add(epanel);
             addKeyListener(epanel);
+            addMouseListener(epanel);
         } else {
             gpanel = new GamePanel(map);
             add(gpanel);
