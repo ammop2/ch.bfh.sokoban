@@ -10,7 +10,11 @@ public class GameContainer extends JFrame implements Runnable {
     private  EditPanel epanel;
     public GameContainer(Map map, boolean edit)
     {
-        super("Sokoban");
+        super("Sokoban " + map.getName());
+        String editor="Game ";
+        if(edit) editor="Editor ";
+
+
         if(edit){
             epanel = new EditPanel(map);
             add(epanel);

@@ -226,7 +226,7 @@ public class FieldList {
             if (won()) {
                 Font font = new Font("Serif", Font.PLAIN, 36);
                 g.setFont(font);
-                g.setColor(Color.DARK_GRAY);
+                g.setColor(Color.BLACK);
                 g.drawString("YOU WON", 20, 40);
                 stopGame = true;
 

@@ -94,25 +94,50 @@ public class Field {
 
     public void Render(Graphics g) {
         if (isTarget) {
-            g.setColor(Color.YELLOW);
-            g.fillRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
-            g.setColor(Color.BLACK);
+            try {
+                URL url = getClass().getClassLoader().getResource("pics\\grass.png");
+                BufferedImage img = ImageIO.read(url);
+                g.drawImage(img, getX(), getY(), Field.ElementWidth, Field.ElementHeight, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+           // g.setColor(Color.YELLOW);
+            //g.fillRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
+            g.setColor(Color.RED);
             g.drawRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
         }
         if (isBlank) {
-            g.setColor(Color.white);
-            g.fillRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
-            g.setColor(Color.BLACK);
-            g.drawRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
+            //g.setColor(Color.white);
+            //g.fillRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
+            //g.setColor(Color.BLACK);
+            //g.drawRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
+            try {
+                URL url = getClass().getClassLoader().getResource("pics\\grass.png");
+                BufferedImage img = ImageIO.read(url);
+                g.drawImage(img, getX(), getY(), Field.ElementWidth, Field.ElementHeight, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         if (isStone) {
-            g.setColor(Color.DARK_GRAY);
-            g.fillRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
-            g.setColor(Color.BLACK);
-            g.drawRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
+            try {
+                URL url = getClass().getClassLoader().getResource("pics\\stone.png");
+                BufferedImage img = ImageIO.read(url);
+                g.drawImage(img, getX(), getY(), Field.ElementWidth, Field.ElementHeight, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         if (isKey) {
+            try {
+                URL url = getClass().getClassLoader().getResource("pics\\grass.png");
+                BufferedImage img = ImageIO.read(url);
+                g.drawImage(img, getX(), getY(), Field.ElementWidth, Field.ElementHeight, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             try {
                 URL url = getClass().getClassLoader().getResource("pics\\Viking-Female-icon.png");
                 BufferedImage img = ImageIO.read(url);
@@ -122,6 +147,14 @@ public class Field {
             }
         }
         if (isAvatar) {
+            try {
+                URL url = getClass().getClassLoader().getResource("pics\\grass.png");
+                BufferedImage img = ImageIO.read(url);
+                g.drawImage(img, getX(), getY(), Field.ElementWidth, Field.ElementHeight, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             try {
                 URL url = getClass().getClassLoader().getResource("pics\\viking-angry-icon.png");
                 BufferedImage img = ImageIO.read(url);

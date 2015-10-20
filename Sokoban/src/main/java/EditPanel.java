@@ -1,9 +1,12 @@
 package main.java;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +23,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
     private int x;
     private int y;
     private boolean mouseClicked = true;
-    private boolean revertEdit=false;
+    private boolean revertEdit = false;
     private JPanel controls;
 
     private JButton drawBlank;
@@ -30,6 +33,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
     private JButton drawStone;
     private JButton unDo;
     private JButton saveMap;
+    private JLabel choseField;
 
 
     private boolean groundFieldDrawed = false;
@@ -66,8 +70,9 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
             drawKey = new JButton("Keys");
             drawTarget = new JButton("Targets");
             drawStone = new JButton("Stones");
-            unDo = new JButton("Undo");
+            unDo = new JButton("");
             saveMap = new JButton("Save");
+            choseField = new JLabel("Chose Field");
 
 
             drawBlank.setPreferredSize(new Dimension(80, 20));
@@ -75,7 +80,21 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
             drawKey.setPreferredSize(new Dimension(80, 20));
             drawTarget.setPreferredSize(new Dimension(80, 20));
             drawStone.setPreferredSize(new Dimension(80, 20));
+
             unDo.setPreferredSize(new Dimension(80, 40));
+            try {
+                URL url = getClass().getClassLoader().getResource("pics\\undo.png");
+                Image img = ImageIO.read(url);
+                Image newimg = img.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH);
+                Icon newIcon = new ImageIcon(newimg);
+                unDo.setIcon(newIcon);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+
+
             saveMap.setPreferredSize(new Dimension(80, 40));
 
             drawBlank.addActionListener(new ActionListener() {
@@ -115,7 +134,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
             unDo.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    revertEdit=true;
+                    revertEdit = true;
                 }
             });
 
@@ -131,7 +150,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
                 }
             });
 
-
+            controls.add(choseField);
             controls.add(drawBlank);
             controls.add(drawAvatar);
             controls.add(drawKey);
@@ -139,6 +158,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
             controls.add(drawStone);
             controls.add(unDo);
             controls.add(saveMap);
+
 
             this.add(controls);
 
@@ -152,10 +172,10 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
             fieldList.setField(g, x, y, drawingAvatar, drawingStone, drawingTarget, drawingBlank, drawingKey);
             mouseClicked = false;
             saved = false;
-        } else if(revertEdit) {
+        } else if (revertEdit) {
             fieldList.reverseEdit(g);
             fieldList.reverseEdit(g);
-            revertEdit=false;
+            revertEdit = false;
         }
     }
 
