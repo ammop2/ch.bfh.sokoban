@@ -55,19 +55,12 @@ public class FieldList {
     public void reverseEdit(Graphics g) {
         if (changes.size() > 0) {
             Field oldField = changes.get(changes.size() - 1);
+            fields[oldField.getYPos()][oldField.getXPos()].setIsStone(oldField.isStone());
+            fields[oldField.getYPos()][oldField.getXPos()].setIsAvatar(oldField.isAvatar());
+            fields[oldField.getYPos()][oldField.getXPos()].setIsBlank(oldField.isBlank());
+            fields[oldField.getYPos()][oldField.getXPos()].setIsTarget(oldField.isTarget());
+            fields[oldField.getYPos()][oldField.getXPos()].setIsKey(oldField.isKey());
 
-            for (int y = 0; y < fields.length; y++) {
-                for (int x = 0; x < fields[y].length; x++) {
-                    if (fields[y][x].getXPos() == oldField.getXPos() && fields[y][x].getYPos() == oldField.getYPos()) {
-                        fields[y][x].setIsStone(oldField.isStone());
-                        fields[y][x].setIsAvatar(oldField.isAvatar());
-                        fields[y][x].setIsBlank(oldField.isBlank());
-                        fields[y][x].setIsTarget(oldField.isTarget());
-                        fields[y][x].setIsKey(oldField.isKey());
-
-                    }
-                }
-            }
             fields[oldField.getYPos()][oldField.getXPos()].Render(g);
             changes.remove(changes.size() - 1);
         }
