@@ -1,5 +1,7 @@
 package main.java;
 
+import com.sun.javafx.font.FontFactory;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -17,6 +19,7 @@ public class FieldList {
     private Map map;
     private ArrayList<Direction> moves = new ArrayList<Direction>();
     private ArrayList<Boolean> pushes = new ArrayList<Boolean>();
+    private boolean stopGame;
 
 
     public FieldList(Map map) {
@@ -28,74 +31,74 @@ public class FieldList {
 
         if (moves.size() > 1) {
             System.out.println("reverse game");
-            Direction dir=moves.get(moves.size()-1);
-            boolean push=pushes.get(pushes.size()-1);
+            Direction dir = moves.get(moves.size() - 1);
+            boolean push = pushes.get(pushes.size() - 1);
 
-            if(dir==Direction.TOP){
+            if (dir == Direction.TOP) {
                 reverseMovePlayer(g, Direction.BOTTOM, push);
             }
-            if(dir==Direction.LEFT){
+            if (dir == Direction.LEFT) {
                 reverseMovePlayer(g, Direction.RIGHT, push);
             }
-            if(dir==Direction.RIGHT){
+            if (dir == Direction.RIGHT) {
                 reverseMovePlayer(g, Direction.LEFT, push);
             }
-            if(dir==Direction.BOTTOM){
+            if (dir == Direction.BOTTOM) {
                 reverseMovePlayer(g, Direction.TOP, push);
             }
-            moves.remove(moves.size()-1);
-            pushes.remove(pushes.size()-1);
+            moves.remove(moves.size() - 1);
+            pushes.remove(pushes.size() - 1);
 
         }
     }
-public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
-    int targetX = 0;
-    int targetY = 0;
-    switch (direction) {
-        case TOP:
-            targetY -= 1;
-            break;
-        case LEFT:
-            targetX -= 1;
-            break;
-        case BOTTOM:
-            targetY += 1;
-            break;
-        case RIGHT:
-            targetX += 1;
-            break;
-        default:
-            break;
-    }
-    Field a = this.avatar;
-    Field b = fields[a.getYPos() + targetY][a.getXPos() + targetX];
-    Field c = fields[a.getYPos() + targetY * -1][a.getXPos() + targetX * -1];
 
-    if(!push){
-        a.setIsAvatar(false);
-        b.setIsAvatar(true);
-        this.avatar = b;
-        System.out.println("notpush");
-    }else{
-        a.setIsAvatar(false);
-        b.setIsAvatar(true);
-        this.avatar=b;
+    public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push) {
+        int targetX = 0;
+        int targetY = 0;
+        switch (direction) {
+            case TOP:
+                targetY -= 1;
+                break;
+            case LEFT:
+                targetX -= 1;
+                break;
+            case BOTTOM:
+                targetY += 1;
+                break;
+            case RIGHT:
+                targetX += 1;
+                break;
+            default:
+                break;
+        }
+        Field a = this.avatar;
+        Field b = fields[a.getYPos() + targetY][a.getXPos() + targetX];
+        Field c = fields[a.getYPos() + targetY * -1][a.getXPos() + targetX * -1];
 
-        c.setIsKey(false);
-        a.setIsKey(true);
-        a.setIsBlank(true);
+        if (!push) {
+            a.setIsAvatar(false);
+            b.setIsAvatar(true);
+            this.avatar = b;
+            System.out.println("notpush");
+        } else {
+            a.setIsAvatar(false);
+            b.setIsAvatar(true);
+            this.avatar = b;
 
-
-        System.out.println("push");
-
-    }
+            c.setIsKey(false);
+            a.setIsKey(true);
+            a.setIsBlank(true);
 
 
+            System.out.println("push");
 
-    a.Render(g);
-    b.Render(g);
-    c.Render(g);
-    return true;
+        }
+
+
+        a.Render(g);
+        b.Render(g);
+        c.Render(g);
+        return true;
 
     }
 
@@ -140,9 +143,11 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
     public void movePlayer(Graphics g, Direction direction) {
         moveField(avatar, g, direction);
     }
+
     public Field[][] getFields() {
         return fields;
     }
+
     private boolean won() {
         for (Field target : targets) {
             if (!target.isKey()) return false;
@@ -151,7 +156,8 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
     }
 
     public boolean moveField(Field a, Graphics g, Direction direction) {
-        boolean push=false;
+        if(stopGame) return false;
+        boolean push = false;
         int targetX = 0;
         int targetY = 0;
         switch (direction) {
@@ -183,14 +189,14 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
                     b.setIsKey(false);
                     b.setIsAvatar(true);
                     a.setIsAvatar(false);
-                    push=true;
+                    push = true;
                 } else {
                     c.setIsKey(true);
                     b.setIsKey(false);
                     b.setIsAvatar(true);
                     a.setIsAvatar(false);
                     a.setIsBlank(b.isBlank());
-                    push=true;
+                    push = true;
                 }
             } else if (c.isBlank()) {
                 c.setIsKey(true);
@@ -198,12 +204,17 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
                 b.setIsAvatar(true);
                 a.setIsBlank(true);
                 a.setIsAvatar(false);
-                push=true;
+                push = true;
             }
             avatar = b;
             c.Render(g);
             if (won()) {
-                System.out.println("fertig?!");
+                Font font = new Font("Serif", Font.PLAIN, 36);
+                g.setFont(font);
+                g.setColor(Color.DARK_GRAY);
+                g.drawString("YOU WON", 20, 40);
+                stopGame=true;
+
             }
         } else if (a.isAvatar() && b.isTarget()) {
             b.setIsAvatar(true);
@@ -225,67 +236,76 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
 
     }
 
-    private synchronized boolean checkNeighbours(int x, int y, Field target)
-    {
-        System.out.println("x:" + x + " mapx:" + map.getXSize() + " fieldsx:" + fields[0].length);
-        System.out.println("y:" + y + " mapy:" + map.getYSize() + " fieldsy:" + fields.length);
-        if( x < 0 || x >= map.getXSize())
-            return false;
-        if(y < 0 || y >= map.getYSize())
-            return false;
+    private synchronized boolean checkNeighbours(int x, int y, Field target) {
+        if (x < 0 || x >= map.getXSize()) return false;
+        if (y < 0 || y >= map.getYSize()) return false;
 
         Field cField = fields[y][x];
 
 
-        if(cField.isVisited())return false;
+        if (cField.isVisited()) return false;
         cField.setIsVisited(true);
-        if(target == cField) {
-            System.out.print("found");
+        if (target == cField) {
             return true;
         }
 
+        if (fields[y][x - 1].isBlank()) {
+            if (checkNeighbours(x - 1, y, target)) return true;
+        }
 
-        if(checkNeighbours(x -1, y, target)) return true;
-        if(checkNeighbours(x +1, y, target)) return true;
-        if(checkNeighbours(x, y-1, target)) return true;
-        if(checkNeighbours(x, y+1, target)) return true;
+        if (fields[y][x + 1].isBlank()) {
+            if (checkNeighbours(x + 1, y, target)) return true;
+        }
+
+        if (fields[y - 1][x].isBlank()) {
+            if (checkNeighbours(x, y - 1, target)) return true;
+        }
+        if (fields[y + 1][x].isBlank()) {
+            if (checkNeighbours(x, y + 1, target)) return true;
+        }
+
 
         return false;
     }
 
-    public void findWay(int targetX, int targetY)
-    {
+    public void findWay(Graphics g, int targetX, int targetY) {
         Field fTarget = fields[targetY][targetX];
-        if(!fTarget.isBlank()) return;
-        int x = avatar.getX()/Field.ElementWidth;
-        int y = avatar.getY()/Field.ElementHeight;
-        System.out.println("x:" + x + " y:" + y);
-        if(checkNeighbours(x, y, fTarget)){
+        if (!fTarget.isBlank()) return;
+        int x = avatar.getX() / Field.ElementWidth;
+        int y = avatar.getY() / Field.ElementHeight;
+
+
+        if (checkNeighbours(x, y, fTarget)) {
             fTarget.setIsBlank(false);
             fTarget.setIsAvatar(true);
             fields[y][x].setIsAvatar(false);
             fields[y][x].setIsBlank(true);
-            avatar=fTarget;
-            //fTarget.Render(g);
-            //fields[y][x].Render(g);
+            avatar = fTarget;
+            fTarget.Render(g);
+            fields[y][x].Render(g);
+        }
+
+        for(int i=0;i<fields.length;i++){
+            for(int j=0; j<fields[i].length;j++){
+                fields[i][j].setIsVisited(false);
+            }
         }
     }
 
 
-    public void setField(Graphics g, int x, int y, boolean drawingAvatar, boolean drawingStone,boolean drawingTarget, boolean drawingBlank, boolean drawingKey){
+    public void setField(Graphics g, int x, int y, boolean drawingAvatar, boolean drawingStone, boolean drawingTarget, boolean drawingBlank, boolean drawingKey) {
         Field fieldMod = fields[y][x];
-        Field findAvatar=null;
+        Field findAvatar = null;
 
 
+        if (drawingAvatar) {
 
-        if(drawingAvatar){
-
-            for(int i=0;i<fields.length;i++){
-                for(int j=0;j<fields[i].length;j++){
-                    if (fields[i][j].isAvatar())findAvatar=fields[i][j];
+            for (int i = 0; i < fields.length; i++) {
+                for (int j = 0; j < fields[i].length; j++) {
+                    if (fields[i][j].isAvatar()) findAvatar = fields[i][j];
                 }
             }
-            if(findAvatar!=null){
+            if (findAvatar != null) {
                 findAvatar.setIsAvatar(false);
                 findAvatar.setIsBlank(true);
                 findAvatar.Render(g);
@@ -298,26 +318,26 @@ public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push){
             fieldMod.setIsStone(false);
 
 
-        } else if (drawingStone){
+        } else if (drawingStone) {
             fieldMod.setIsAvatar(false);
             fieldMod.setIsBlank(false);
             fieldMod.setIsKey(false);
             fieldMod.setIsTarget(false);
             fieldMod.setIsStone(true);
-        } else if (drawingTarget){
+        } else if (drawingTarget) {
             fieldMod.setIsAvatar(false);
             fieldMod.setIsBlank(false);
             fieldMod.setIsKey(false);
             fieldMod.setIsTarget(true);
             fieldMod.setIsStone(false);
-        }else if (drawingBlank){
+        } else if (drawingBlank) {
             fieldMod.setIsAvatar(false);
             fieldMod.setIsBlank(true);
             fieldMod.setIsKey(false);
             fieldMod.setIsTarget(false);
             fieldMod.setIsStone(false);
 
-        } else if (drawingKey){
+        } else if (drawingKey) {
             fieldMod.setIsAvatar(false);
             fieldMod.setIsBlank(false);
             fieldMod.setIsKey(true);

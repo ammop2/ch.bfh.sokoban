@@ -22,6 +22,9 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener, Act
     private boolean right;
     private boolean reverse;
     private boolean groundFieldDrawed = false;
+    private int x;
+    private int y;
+    private boolean find;
 
     private Map map;
     private FieldList fieldList;
@@ -48,6 +51,11 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener, Act
         }
         else
         {
+            if (find){
+                fieldList.findWay(g,x,y);
+                find=false;
+            }
+
             if(!up && !down && !left && !right &&!reverse)
             {
                 //abort if not a ground field.
@@ -120,11 +128,9 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener, Act
     @Override
     public void mouseClicked(MouseEvent e) {
 
-        int x = e.getX() /Field.ElementWidth;
-        int y = e.getY() /Field.ElementHeight-1;
-
-        System.out.println("x:" + x + " y:" + y);
-        fieldList.findWay(x,y);
+        this.x = e.getX() /Field.ElementWidth;
+        this.y = e.getY() /Field.ElementHeight-1;
+        find=true;
     }
 
     @Override
