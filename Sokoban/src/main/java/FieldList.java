@@ -319,12 +319,20 @@ public class FieldList {
 
 
         } else if (drawingStone) {
+            //Render the Blank, so you don't have residue colors
+            fieldMod.setIsBlank(true);
+            fieldMod.Render(g);
+
             fieldMod.setIsAvatar(false);
             fieldMod.setIsBlank(false);
             fieldMod.setIsKey(false);
             fieldMod.setIsTarget(false);
             fieldMod.setIsStone(true);
         } else if (drawingTarget) {
+            //Render the Blank, so you don't have residue colors
+            fieldMod.setIsBlank(true);
+            fieldMod.Render(g);
+
             fieldMod.setIsAvatar(false);
             fieldMod.setIsBlank(false);
             fieldMod.setIsKey(false);
@@ -338,6 +346,10 @@ public class FieldList {
             fieldMod.setIsStone(false);
 
         } else if (drawingKey) {
+            //Render the Blank, so you don't have residue colors
+            fieldMod.setIsBlank(true);
+            fieldMod.Render(g);
+
             fieldMod.setIsAvatar(false);
             fieldMod.setIsBlank(false);
             fieldMod.setIsKey(true);

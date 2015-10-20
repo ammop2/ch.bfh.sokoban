@@ -8,7 +8,7 @@ import java.awt.event.*;
 /**
  * Created by u216070 on 16.10.2015.
  */
-public class EditPanel extends JPanel implements ActionListener, MouseListener , MouseMotionListener{
+public class EditPanel extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
 
     private boolean drawingBlank = false;
     private boolean drawingAvatar = false;
@@ -63,9 +63,9 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
             drawKey = new JButton("Keys");
             drawTarget = new JButton("Targets");
             drawStone = new JButton("Stones");
-            saveMap = new JButton ("Save");
+            saveMap = new JButton("Save");
 
-            drawBlank.setPreferredSize(new Dimension (80,20));
+            drawBlank.setPreferredSize(new Dimension(80, 20));
             drawAvatar.setPreferredSize(new Dimension(80, 20));
             drawKey.setPreferredSize(new Dimension(80, 20));
             drawTarget.setPreferredSize(new Dimension(80, 20));
@@ -109,11 +109,11 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
             saveMap.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(!MapSaver.saveMap(originalMap.getName(),fieldList.getFields(),originalMap.getXSize(),originalMap.getYSize())){
-                            JOptionPane.showMessageDialog(null, "error saving");
+                    if (!MapSaver.saveMap(originalMap.getName(), fieldList.getFields(), originalMap.getXSize(), originalMap.getYSize())) {
+                        JOptionPane.showMessageDialog(null, "error saving");
                         return;
                     }
-                    if(!saved) saveMap.setBorder(BorderFactory.createLineBorder(Color.GREEN,2));
+                    if (!saved) saveMap.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
 
                 }
             });
@@ -137,182 +137,84 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
         } else if (mouseClicked) {
             fieldList.setField(g, x, y, drawingAvatar, drawingStone, drawingTarget, drawingBlank, drawingKey);
             mouseClicked = false;
-            saved=false;
+            saved = false;
         } else {
 
         }
     }
 
+    private void toggleDrawAvatar() {
+        resetButtons();
+        if (!drawingAvatar) {
+            drawingAvatar = true;
+            drawAvatar.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+        }
+    }
+
+    private void toggleDrawKey() {
+        resetButtons();
+        if (!drawingKey) {
+            drawingKey = true;
+            drawKey.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+        }
+    }
+
+
+    private void toggleDrawBlanks() {
+        resetButtons();
+        if (!drawingBlank) {
+            drawingBlank = true;
+            drawBlank.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+        }
+    }
+
+    private void toggleDrawTargets() {
+        resetButtons();
+        if (!drawingTarget) {
+            drawingTarget = true;
+            drawTarget.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+        }
+    }
+
+    private void toggleDrawStones() {
+        resetButtons();
+        if (!drawingStone) {
+            drawingStone = true;
+            drawStone.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+        }
+    }
+
+    private void resetButtons() {
+        drawingAvatar = drawingBlank = drawingKey = drawingStone = drawingTarget = false;
+        drawBlank.setBorder(null);
+        drawTarget.setBorder(null);
+        drawAvatar.setBorder(null);
+        drawKey.setBorder(null);
+        drawStone.setBorder(null);
+    }
+
+    private void mouseTrigger(int x, int y) {
+        this.x = x / Field.ElementWidth;
+        this.y = y / Field.ElementHeight - 1;
+        mouseClicked = true;
+        if (!saved) saveMap.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
     }
 
-
-    private void toggleDrawAvatar() {
-        if (drawingAvatar) {
-            drawingAvatar = false;
-            drawingBlank = false;
-            drawingKey = false;
-            drawingStone = false;
-            drawingTarget = false;
-
-            drawBlank.setBorder(null);
-            drawTarget.setBorder(null);
-            drawAvatar.setBorder(null);
-            drawKey.setBorder(null);
-            drawStone.setBorder(null);
-
-        } else {
-            drawingAvatar = true;
-            drawingBlank = false;
-            drawingStone = false;
-            drawingTarget = false;
-            drawingKey = false;
-
-            drawBlank.setBorder(null);
-            drawTarget.setBorder(null);
-            drawAvatar.setBorder(BorderFactory.createLineBorder(Color.red,3));
-            drawKey.setBorder(null);
-            drawStone.setBorder(null);
-
-        }
-    }
-
-    private void toggleDrawKey() {
-        if (drawingKey) {
-            drawingAvatar = drawingBlank = false;
-            drawingKey = false;
-            drawingStone = false;
-            drawingTarget = false;
-
-            drawBlank.setBorder(null);
-            drawTarget.setBorder(null);
-            drawAvatar.setBorder(null);
-            drawKey.setBorder(null);
-            drawStone.setBorder(null);
-
-        } else {
-            drawingKey = true;
-            drawingAvatar = false;
-            drawingBlank = false;
-            drawingStone = false;
-            drawingTarget = false;
-
-            drawBlank.setBorder(null);
-            drawTarget.setBorder(null);
-            drawAvatar.setBorder(null);
-            drawKey.setBorder(BorderFactory.createLineBorder(Color.red,3));
-            drawStone.setBorder(null);
-
-        }
-    }
-
-    private void toggleDrawBlanks() {
-        if (drawingBlank) {
-            drawingAvatar = false;
-            drawingBlank = false;
-            drawingKey = false;
-            drawingStone = false;
-            drawingTarget = false;
-
-            drawBlank.setBorder(null);
-            drawTarget.setBorder(null);
-            drawAvatar.setBorder(null);
-            drawKey.setBorder(null);
-            drawStone.setBorder(null);
-
-        } else {
-            drawingBlank = true;
-            drawingAvatar = false;
-            drawingKey = false;
-            drawingStone = false;
-            drawingTarget = false;
-
-            drawBlank.setBorder(BorderFactory.createLineBorder(Color.red,3));
-            drawTarget.setBorder(null);
-            drawAvatar.setBorder(null);
-            drawKey.setBorder(null);
-            drawStone.setBorder(null);
-        }
-    }
-
-    private void toggleDrawTargets() {
-        if (drawingTarget) {
-            drawingAvatar = false;
-            drawingBlank = false;
-            drawingKey = false;
-            drawingStone = false;
-            drawingTarget = false;
-
-            drawBlank.setBorder(null);
-            drawTarget.setBorder(null);
-            drawAvatar.setBorder(null);
-            drawKey.setBorder(null);
-            drawStone.setBorder(null);
-
-        } else {
-            drawingTarget = true;
-            drawingAvatar = false;
-            drawingBlank = false;
-            drawingKey = false;
-            drawingStone = false;
-
-            drawBlank.setBorder(null);
-            drawTarget.setBorder(BorderFactory.createLineBorder(Color.red,3));
-            drawAvatar.setBorder(null);
-            drawKey.setBorder(null);
-            drawStone.setBorder(null);
-        }
-    }
-
-    private void toggleDrawStones() {
-        if (drawingStone) {
-            drawingAvatar = false;
-            drawingBlank = false;
-            drawingKey = false;
-            drawingStone = false;
-            drawingTarget = false;
-
-            drawBlank.setBorder(null);
-            drawTarget.setBorder(null);
-            drawAvatar.setBorder(null);
-            drawKey.setBorder(null);
-            drawStone.setBorder(null);
-
-        } else {
-            drawingTarget = false;
-            drawingAvatar = false;
-            drawingBlank = false;
-            drawingKey = false;
-            drawingStone = true;
-
-            drawBlank.setBorder(null);
-            drawTarget.setBorder(null);
-            drawAvatar.setBorder(null);
-            drawKey.setBorder(null);
-            drawStone.setBorder(BorderFactory.createLineBorder(Color.red,3));
-
-        }
-    }
-
-
     @Override
     public void mouseClicked(MouseEvent e) {
-        x = e.getX() / Field.ElementWidth;
-        y = e.getY() / Field.ElementHeight - 1;
-        mouseClicked = true;
-        if(!saved)saveMap.setBorder(BorderFactory.createLineBorder(Color.red,2));
+        mouseTrigger(e.getX(), e.getY());
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        x = e.getX() / Field.ElementWidth;
-        y = e.getY() / Field.ElementHeight - 1;
-        mouseClicked = true;
-        if(!saved) saveMap.setBorder(BorderFactory.createLineBorder(Color.red,2));
+        mouseTrigger(e.getX(), e.getY());
     }
 
     @Override
@@ -332,10 +234,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener ,
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        x = e.getX() / Field.ElementWidth;
-        y = e.getY() / Field.ElementHeight - 1;
-        mouseClicked = true;
-        if(!saved) saveMap.setBorder(BorderFactory.createLineBorder(Color.red,2));
+        mouseTrigger(e.getX(), e.getY());
     }
 
     @Override
