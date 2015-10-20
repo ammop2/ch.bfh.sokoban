@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
  * Created by u216070 on 16.10.2015.
@@ -19,6 +20,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
     private int x;
     private int y;
     private boolean mouseClicked = true;
+    private boolean revertEdit=false;
     private JPanel controls;
 
     private JButton drawBlank;
@@ -26,6 +28,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
     private JButton drawKey;
     private JButton drawTarget;
     private JButton drawStone;
+    private JButton unDo;
     private JButton saveMap;
 
 
@@ -63,13 +66,16 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
             drawKey = new JButton("Keys");
             drawTarget = new JButton("Targets");
             drawStone = new JButton("Stones");
+            unDo = new JButton("Undo");
             saveMap = new JButton("Save");
+
 
             drawBlank.setPreferredSize(new Dimension(80, 20));
             drawAvatar.setPreferredSize(new Dimension(80, 20));
             drawKey.setPreferredSize(new Dimension(80, 20));
             drawTarget.setPreferredSize(new Dimension(80, 20));
             drawStone.setPreferredSize(new Dimension(80, 20));
+            unDo.setPreferredSize(new Dimension(80, 40));
             saveMap.setPreferredSize(new Dimension(80, 40));
 
             drawBlank.addActionListener(new ActionListener() {
@@ -106,6 +112,13 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
                 }
             });
 
+            unDo.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    revertEdit=true;
+                }
+            });
+
             saveMap.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -124,6 +137,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
             controls.add(drawKey);
             controls.add(drawTarget);
             controls.add(drawStone);
+            controls.add(unDo);
             controls.add(saveMap);
 
             this.add(controls);
@@ -138,8 +152,10 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
             fieldList.setField(g, x, y, drawingAvatar, drawingStone, drawingTarget, drawingBlank, drawingKey);
             mouseClicked = false;
             saved = false;
-        } else {
-
+        } else if(revertEdit) {
+            fieldList.reverseEdit(g);
+            fieldList.reverseEdit(g);
+            revertEdit=false;
         }
     }
 

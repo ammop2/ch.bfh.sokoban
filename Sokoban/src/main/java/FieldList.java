@@ -17,6 +17,7 @@ public class FieldList {
     private ArrayList<Field> targets;
     private Field avatar;
     private Map map;
+    private ArrayList<Field> changes = new ArrayList<Field>();
     private ArrayList<Direction> moves = new ArrayList<Direction>();
     private ArrayList<Boolean> pushes = new ArrayList<Boolean>();
     private boolean stopGame;
@@ -30,7 +31,6 @@ public class FieldList {
     public void reversePlay(Graphics g) {
 
         if (moves.size() > 1) {
-            System.out.println("reverse game");
             Direction dir = moves.get(moves.size() - 1);
             boolean push = pushes.get(pushes.size() - 1);
 
@@ -50,6 +50,29 @@ public class FieldList {
             pushes.remove(pushes.size() - 1);
 
         }
+    }
+
+    public void reverseEdit(Graphics g) {
+        if (changes.size() > 0) {
+            Field oldField = changes.get(changes.size() - 1);
+
+            for (int y = 0; y < fields.length; y++) {
+                for (int x = 0; x < fields[y].length; x++) {
+                    if (fields[y][x].getXPos() == oldField.getXPos() && fields[y][x].getYPos() == oldField.getYPos()) {
+                        fields[y][x].setIsStone(oldField.isStone());
+                        fields[y][x].setIsAvatar(oldField.isAvatar());
+                        fields[y][x].setIsBlank(oldField.isBlank());
+                        fields[y][x].setIsTarget(oldField.isTarget());
+                        fields[y][x].setIsKey(oldField.isKey());
+
+                    }
+                }
+            }
+            fields[oldField.getYPos()][oldField.getXPos()].Render(g);
+            changes.remove(changes.size() - 1);
+        }
+
+
     }
 
     public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push) {
@@ -79,8 +102,8 @@ public class FieldList {
             a.setIsAvatar(false);
             b.setIsAvatar(true);
             this.avatar = b;
-            System.out.println("notpush");
         } else {
+            boolean targetCorrect = (fields[avatar.getYPos() - 1][avatar.getXPos()].isTarget() && fields[avatar.getYPos() + 1][avatar.getXPos()].isTarget()) || (fields[avatar.getYPos()][avatar.getXPos() - 1].isTarget() && fields[avatar.getYPos()][avatar.getXPos() + 1].isTarget());
             a.setIsAvatar(false);
             b.setIsAvatar(true);
             this.avatar = b;
@@ -89,17 +112,16 @@ public class FieldList {
             a.setIsKey(true);
             a.setIsBlank(true);
 
-
-            System.out.println("push");
-
+            if (targetCorrect) {
+                a.setIsTarget(true);
+                a.setIsBlank(false);
+            }
         }
-
 
         a.Render(g);
         b.Render(g);
         c.Render(g);
         return true;
-
     }
 
     public void draw(Graphics g) {
@@ -156,7 +178,7 @@ public class FieldList {
     }
 
     public boolean moveField(Field a, Graphics g, Direction direction) {
-        if(stopGame) return false;
+        if (stopGame) return false;
         boolean push = false;
         int targetX = 0;
         int targetY = 0;
@@ -213,7 +235,7 @@ public class FieldList {
                 g.setFont(font);
                 g.setColor(Color.DARK_GRAY);
                 g.drawString("YOU WON", 20, 40);
-                stopGame=true;
+                stopGame = true;
 
             }
         } else if (a.isAvatar() && b.isTarget()) {
@@ -285,8 +307,8 @@ public class FieldList {
             fields[y][x].Render(g);
         }
 
-        for(int i=0;i<fields.length;i++){
-            for(int j=0; j<fields[i].length;j++){
+        for (int i = 0; i < fields.length; i++) {
+            for (int j = 0; j < fields[i].length; j++) {
                 fields[i][j].setIsVisited(false);
             }
         }
@@ -295,9 +317,18 @@ public class FieldList {
 
     public void setField(Graphics g, int x, int y, boolean drawingAvatar, boolean drawingStone, boolean drawingTarget, boolean drawingBlank, boolean drawingKey) {
         Field fieldMod = fields[y][x];
+
+        //save a copy of the field to revert it later
+        Field oldField = new Field(x, y);
+        oldField.setIsBlank(fieldMod.isBlank());
+        oldField.setIsTarget(fieldMod.isTarget());
+        oldField.setIsAvatar(fieldMod.isAvatar());
+        oldField.setIsKey(fieldMod.isKey());
+        oldField.setIsStone(fieldMod.isStone());
+        changes.add(oldField);
+
+        //check only one avatar can be in the game
         Field findAvatar = null;
-
-
         if (drawingAvatar) {
 
             for (int i = 0; i < fields.length; i++) {
