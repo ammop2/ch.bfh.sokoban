@@ -20,12 +20,10 @@ public class LaunchTest {
 
         System.out.println("Working Directory = " +
                 System.getProperty("user.dir"));
-        try {
-            Menu menu = new Menu(MapReader.load("..\\Maps\\"));
-        }
-        catch (IOException e){
-                infoBox("File not found","There is a file problem");
-            }
+
+            Menu menu = new Menu("..\\Maps\\");
+            menu.run();
+
     }
 }
 

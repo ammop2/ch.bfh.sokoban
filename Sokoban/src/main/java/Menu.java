@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Menu {
+public class Menu implements Runnable{
 
     private JFrame mainFrame;
     private JLabel headerLabel;
@@ -18,6 +18,7 @@ public class Menu {
     private JCheckBox edit = new JCheckBox();
     private JButton newMap = new JButton();
     private Map[] maps;
+    private String path;
 
     //components for new map dialog
     private JTextField mapName = new JTextField();
@@ -32,10 +33,23 @@ public class Menu {
             mapHeight
     };
 
-    public Menu(Map[] maps) {
-        this.maps = maps;
+    public Menu(String path) {
+        this.path=path;
+        try{
+            this.maps = MapReader.load(path);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         prepareGUI();
         showButtons();
+
+    }
+
+    private void setMaps(Map[] maps){
+        this.maps=maps;
+    }
+
+    private void refreshMaps(){
 
     }
 
@@ -133,5 +147,14 @@ public class Menu {
     private static void infoBox(String infoMessage, String titleBar)
     {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void run() {
+        try {
+           this.maps=MapReader.load(path);
+            refreshMaps();
+            Thread.sleep(100);
+        } catch (Exception e) {}
     }
 }

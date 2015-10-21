@@ -95,16 +95,16 @@ public class Field {
     public void Render(Graphics g) {
         if (isTarget) {
             try {
-                URL url = getClass().getClassLoader().getResource("pics\\grass.png");
+                URL url = getClass().getClassLoader().getResource("pics\\goal.png");
                 BufferedImage img = ImageIO.read(url);
-                g.drawImage(img, getX(), getY(), Field.ElementWidth, Field.ElementHeight, null);
+                Image newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
+
+                g.drawImage(newimg, getX(), getY(), Field.ElementWidth, Field.ElementHeight, null);
             } catch (IOException e) {
                 e.printStackTrace();
             }
            // g.setColor(Color.YELLOW);
             //g.fillRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
-            g.setColor(Color.RED);
-            g.drawRect(getX(), getY(), Field.ElementWidth, Field.ElementHeight);
         }
         if (isBlank) {
             //g.setColor(Color.white);
@@ -114,6 +114,7 @@ public class Field {
             try {
                 URL url = getClass().getClassLoader().getResource("pics\\grass.png");
                 BufferedImage img = ImageIO.read(url);
+                //Image newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
                 g.drawImage(img, getX(), getY(), Field.ElementWidth, Field.ElementHeight, null);
             } catch (IOException e) {
                 e.printStackTrace();

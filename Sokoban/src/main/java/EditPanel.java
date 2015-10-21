@@ -71,7 +71,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
             drawTarget = new JButton("Targets");
             drawStone = new JButton("Stones");
             unDo = new JButton("");
-            saveMap = new JButton("Save");
+            saveMap = new JButton("");
             choseField = new JLabel("Chose Field");
 
 
@@ -96,6 +96,15 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
 
 
             saveMap.setPreferredSize(new Dimension(80, 40));
+            try {
+                URL url = getClass().getClassLoader().getResource("pics\\save.png");
+                Image img = ImageIO.read(url);
+                Image newimg = img.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH);
+                Icon newIcon = new ImageIcon(newimg);
+                saveMap.setIcon(newIcon);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             drawBlank.addActionListener(new ActionListener() {
                 @Override
