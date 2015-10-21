@@ -22,7 +22,7 @@ public class LaunchTest {
                 System.getProperty("user.dir"));
 
             Menu menu = new Menu("..\\Maps\\");
-            menu.run();
+        menu.init();
 
     }
 }

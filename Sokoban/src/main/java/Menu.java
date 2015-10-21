@@ -6,19 +6,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Menu implements Runnable{
+public class Menu implements Runnable {
 
     private JFrame mainFrame;
     private JLabel headerLabel;
     private JLabel statusLabel;
     private JPanel controlPanel;
     private JCheckBox edit = new JCheckBox();
+    private JComboBox box = new JComboBox();
     private JButton newMap = new JButton();
     private Map[] maps;
     private String path;
+    Thread thread;
 
     //components for new map dialog
     private JTextField mapName = new JTextField();
@@ -34,23 +35,36 @@ public class Menu implements Runnable{
     };
 
     public Menu(String path) {
-        this.path=path;
-        try{
+        this.path = path;
+        try {
             this.maps = MapReader.load(path);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         prepareGUI();
-        showButtons();
-
+        initButtons();
     }
 
-    private void setMaps(Map[] maps){
-        this.maps=maps;
+    private String findMissingMap(String[] mapsInGUI,String[] mapsInDIR){
+        for(int i=0;i<mapsInDIR.length;i++){
+        if(!Arrays.asList(mapsInGUI).contains(mapsInDIR[i]))return mapsInDIR[i];
+        }
+        return "ERROR";
     }
+    private void refreshMaps() {
+        if(box.getItemCount()<maps.length) {
+            String[] mapsInGUI=new String[box.getItemCount()];
+            String[] mapsInDIR= new String[maps.length];
 
-    private void refreshMaps(){
-
+            for(int i=0;i<box.getItemCount();i++){
+                mapsInGUI[i]=box.getItemAt(i).toString();
+            }
+            for(int i=0;i<maps.length;i++){
+                mapsInDIR[i]=maps[i].getName();
+            }
+            box.addItem(findMissingMap(mapsInGUI,mapsInDIR));
+            box.repaint();
+}
     }
 
 
@@ -80,12 +94,11 @@ public class Menu implements Runnable{
         return "<html>" + orig.replaceAll("\n", "<br>");
     }
 
-    public void showButtons() {
+    public void initButtons() {
 
         headerLabel.setText(convertToMultiline("Please chose a game\nUse arrow key to navigate\nUse Z Key to undo your move"));
 
 
-        JComboBox box = new JComboBox();
         for (final Map map : this.maps) {
             box.addItem(map.getName());
         }
@@ -110,12 +123,12 @@ public class Menu implements Runnable{
             public void actionPerformed(ActionEvent e) {
 
                 JOptionPane.showMessageDialog(null, inputs, "Please enter data to create your map", JOptionPane.PLAIN_MESSAGE);
-                int newMapHeight=0;
-                int newMapWidth=0;
-                try{
+                int newMapHeight = 0;
+                int newMapWidth = 0;
+                try {
                     newMapHeight = Integer.parseInt(mapHeight.getText());
                     newMapWidth = Integer.parseInt(mapWidth.getText());
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     infoBox("You did not enter numbers for width or height. Try again.", "Error");
                     ex.printStackTrace();
                     return;
@@ -144,17 +157,26 @@ public class Menu implements Runnable{
         return null;
     }
 
-    private static void infoBox(String infoMessage, String titleBar)
-    {
+    private static void infoBox(String infoMessage, String titleBar) {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void run() {
-        try {
-           this.maps=MapReader.load(path);
-            refreshMaps();
-            Thread.sleep(100);
-        } catch (Exception e) {}
+        while (true) {
+            System.out.println("refreshed maps");
+            try {
+                this.maps = MapReader.load(path);
+                refreshMaps();
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void init() {
+        this.thread = new Thread(this);
+        this.thread.start();
     }
 }
