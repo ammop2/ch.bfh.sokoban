@@ -1,7 +1,5 @@
 package main.java;
 
-import com.sun.javafx.font.FontFactory;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -13,9 +11,14 @@ import java.util.ArrayList;
 public class FieldList {
 
 
-    private Field[][] fields;
+    private FieldTyp[][] fields;
+    private FieldTyp[][] originalFields;
+
     private ArrayList<Field> targets;
-    private Field avatar;
+    private Player player;
+
+
+
     private Map map;
     private ArrayList<Field> changes = new ArrayList<Field>();
     private ArrayList<Direction> moves = new ArrayList<Direction>();
@@ -26,6 +29,7 @@ public class FieldList {
     public FieldList(Map map) {
         targets = new ArrayList<Field>();
         this.map = map;
+        init();
     }
 
     public void reversePlay(Graphics g) {
@@ -54,22 +58,22 @@ public class FieldList {
 
     public void reverseEdit(Graphics g) {
         if (changes.size() > 0) {
-            Field oldField = changes.get(changes.size() - 1);
-            fields[oldField.getYPos()][oldField.getXPos()].setIsStone(oldField.isStone());
-            fields[oldField.getYPos()][oldField.getXPos()].setIsAvatar(oldField.isAvatar());
-            fields[oldField.getYPos()][oldField.getXPos()].setIsBlank(oldField.isBlank());
-            fields[oldField.getYPos()][oldField.getXPos()].setIsTarget(oldField.isTarget());
-            fields[oldField.getYPos()][oldField.getXPos()].setIsKey(oldField.isKey());
+            //    Field oldField = changes.get(changes.size() - 1);
+            //    fields[oldField.getYPos()][oldField.getXPos()].setIsStone(oldField.isStone());
+            //fields[oldField.getYPos()][oldField.getXPos()].setIsAvatar(oldField.isAvatar());
+            //     fields[oldField.getYPos()][oldField.getXPos()].setIsBlank(oldField.isBlank());
+            //    fields[oldField.getYPos()][oldField.getXPos()].setIsTarget(oldField.isTarget());
+            //    fields[oldField.getYPos()][oldField.getXPos()].setIsKey(oldField.isKey());
 
-            fields[oldField.getYPos()][oldField.getXPos()].Render(g);
-            changes.remove(changes.size() - 1);
+            //      fields[oldField.getYPos()][oldField.getXPos()].Render(g);
+            //      changes.remove(changes.size() - 1);
         }
 
 
     }
 
     public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push) {
-        int targetX = 0;
+/*        int targetX = 0;
         int targetY = 0;
         switch (direction) {
             case TOP:
@@ -88,8 +92,8 @@ public class FieldList {
                 break;
         }
         Field a = this.avatar;
-        Field b = fields[a.getYPos() + targetY][a.getXPos() + targetX];
-        Field c = fields[a.getYPos() + targetY * -1][a.getXPos() + targetX * -1];
+        //     Field b = fields[a.getYPos() + targetY][a.getXPos() + targetX];
+        //   Field c = fields[a.getYPos() + targetY * -1][a.getXPos() + targetX * -1];
 
         if (!push) {
             a.setIsAvatar(false);
@@ -113,54 +117,116 @@ public class FieldList {
 
         a.Render(g);
         b.Render(g);
-        c.Render(g);
+        c.Render(g);*/
         return true;
     }
 
-    public void draw(Graphics g) {
-        fields = new Field[map.getYSize()][map.getXSize()];
+    private void init()
+    {
+        originalFields = new FieldTyp[map.getYSize()][map.getXSize()];
         int ptr = 0;
-        for (int y = 0; y < map.getYSize(); y++) {
 
+        for (int y = 0; y < map.getYSize(); y++) {
             for (int x = 0; x < map.getXSize(); x++) {
                 switch (map.getFields()[ptr]) {
                     case 0:
-                        fields[y][x] = new Field(x, y);
-                        fields[y][x].setIsBlank(true);
+                        originalFields[y][x] = FieldTyp.BLANK;
                         break;
                     case 1:
-                        fields[y][x] = new Field(x, y);
-                        fields[y][x].setIsStone(true);
+                        originalFields[y][x] = FieldTyp.WALL;
                         break;
                     case 2:
-                        fields[y][x] = avatar = new Field(x, y);
-                        fields[y][x].setIsAvatar(true);
+                        originalFields[y][x] = FieldTyp.PLAYER;
+                        player = new Player(x , y);
                         break;
                     case 3:
-                        fields[y][x] = new Field(x, y);
-                        fields[y][x].setIsTarget(true);
-                        targets.add(fields[y][x]);
+                        originalFields[y][x] = FieldTyp.TARGET_UNLOCKED;
                         break;
                     case 4:
-                        fields[y][x] = new Field(x, y);
-                        fields[y][x].setIsKey(true);
+                        originalFields[y][x] = FieldTyp.KEY;
                         break;
                     default:
                         break;
                 }
-                if (fields[y][x] != null)
-                    fields[y][x].Render(g);
                 ptr++;
+            }
+        }
+        for (int y = 0; y < map.getYSize(); y++) {
+            for (int x = 0; x < map.getXSize(); x++) {
+                mapPlaygroundClean(y, x);
+            }
+        }
+        cloneFields();
+    }
+    private void cloneFields()
+    {
+        fields = new FieldTyp[ map.getYSize()][ map.getXSize()];
+        for (int y = 0; y < map.getYSize(); y++) {
+            for (int x = 0; x < map.getXSize(); x++) {
+                fields[y][x] = originalFields[y][x];
             }
         }
     }
 
-    public void movePlayer(Graphics g, Direction direction) {
-        moveField(avatar, g, direction);
+    private void mapPlaygroundClean(int y, int x)
+    {
+        if(!(originalFields[y][x] == FieldTyp.BLANK)) return;
+
+        if(y > 0 && x > 0 && y < map.getYSize() && x < map.getXSize())
+        {
+            //top
+            int wCount = 0;
+            for(int t = 0; t < y; t++)
+            {
+                if(originalFields[t][x] == FieldTyp.WALL)
+                {
+                    wCount++;
+                    break;
+                }
+            }
+            //bottom
+            if(wCount == 0) return;
+            for(int b = y; b < map.getYSize(); b++)
+            {
+                if(originalFields[b][x] == FieldTyp.WALL)
+                {
+                    wCount++;
+                    break;
+                }
+            }
+            if(wCount < 2) return;
+            for(int l = 0; l < x; l++)
+            {
+                if(originalFields[y][l] == FieldTyp.WALL)
+                {
+                    wCount++;
+                    break;
+                }
+            }
+            if(wCount < 3) return;
+            for(int r = x; r < map.getXSize(); r++)
+            {
+                if(originalFields[y][r] == FieldTyp.WALL)
+                {
+                    wCount++;
+                    break;
+                }
+            }
+            if(wCount < 4) return;
+            originalFields[y][x] = FieldTyp.PLAYGROUND;
+        }
     }
 
-    public Field[][] getFields() {
-        return fields;
+
+
+    public ChangeItem[] movePlayer(Direction direction) {
+        ChangeItem[] res = moveField(player.getX(), player.getY(), direction);
+        if(res != null) {
+            player.setX(getDirectionX(direction) + player.getX());
+            player.setY(getDirectionY(direction) + player.getY());
+        }
+
+        return  res;
     }
 
     private boolean won() {
@@ -170,20 +236,39 @@ public class FieldList {
         return true;
     }
 
-    public boolean moveField(Field a, Graphics g, Direction direction) {
-        if (stopGame) return false;
-        boolean push = false;
-        int targetX = 0;
+    private FieldTyp getNeighbourFieldByDirection(int x, int y, Direction direction)
+    {
+        return fields[y + getDirectionY(direction)][x + getDirectionX(direction)];
+    }
+
+    private FieldTyp getNeighbourNeighbourFieldByDirection(int x, int y, Direction direction)
+    {
+        return fields[y + getDirectionY(direction) * 2][x + getDirectionX(direction) * 2];
+    }
+
+    private int getDirectionY(Direction direction)
+    {
         int targetY = 0;
         switch (direction) {
             case TOP:
                 targetY -= 1;
                 break;
-            case LEFT:
-                targetX -= 1;
-                break;
             case BOTTOM:
                 targetY += 1;
+                break;
+            default:
+                break;
+        }
+        return targetY;
+    }
+
+    private int getDirectionX(Direction direction)
+    {
+        int targetX = 0;
+
+        switch (direction) {
+            case LEFT:
+                targetX -= 1;
                 break;
             case RIGHT:
                 targetX += 1;
@@ -191,125 +276,124 @@ public class FieldList {
             default:
                 break;
         }
-        Field b = fields[a.getYPos() + targetY][a.getXPos() + targetX];
+        return targetX;
+    }
 
-        if (b.isStone()) return false;
+    public ChangeItem[] moveField(int startX, int startY, Direction direction) {
+        ChangeItem[] result = null;
 
-        if (a.isAvatar() && b.isKey()) {
-            Field c = fields[a.getYPos() + targetY * 2][a.getXPos() + targetX * 2];
-            if (c.isStone() || c.isKey()) return false;
-            if (c.isTarget()) {
-                if (b.isTarget()) {
-                    c.setIsKey(true);
-                    b.setIsKey(false);
-                    b.setIsAvatar(true);
-                    a.setIsAvatar(false);
-                    push = true;
-                } else {
-                    c.setIsKey(true);
-                    b.setIsKey(false);
-                    b.setIsAvatar(true);
-                    a.setIsAvatar(false);
-                    a.setIsBlank(b.isBlank());
-                    push = true;
-                }
-            } else if (c.isBlank()) {
-                c.setIsKey(true);
-                b.setIsKey(false);
-                b.setIsAvatar(true);
-                a.setIsBlank(true);
-                a.setIsAvatar(false);
-                push = true;
+        FieldTyp a = fields[startY][startX];
+        FieldTyp b = getNeighbourFieldByDirection(startX, startY, direction);
+
+        if (a != FieldTyp.PLAYER || b == FieldTyp.WALL) return result;
+
+        if(b == FieldTyp.PLAYGROUND || b == FieldTyp.TARGET_UNLOCKED)
+        {
+            result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND), new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYGROUND, FieldTyp.PLAYER)};
+        }
+        else {
+            FieldTyp c = getNeighbourNeighbourFieldByDirection(startX, startY, direction);
+            if (b == FieldTyp.KEY && c == FieldTyp.TARGET_UNLOCKED) {
+                result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
+                        new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.KEY, FieldTyp.PLAYER),
+                        new ChangeItem(startX + getDirectionX(direction)*2, startY + getDirectionY(direction)*2, FieldTyp.TARGET_UNLOCKED, FieldTyp.TARGET_LOCKED)};
             }
-            avatar = b;
-            c.Render(g);
-            if (won()) {
-                Font font = new Font("Serif", Font.PLAIN, 36);
-                g.setFont(font);
-                g.setColor(Color.BLACK);
-                g.drawString("YOU WON", 20, 40);
-                stopGame = true;
+            else if (b == FieldTyp.KEY && c == FieldTyp.PLAYGROUND) {
 
+                System.out.println(originalFields[startY][startX]);
+
+                result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
+                        new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.KEY, FieldTyp.PLAYER),
+                        new ChangeItem(startX + getDirectionX(direction)*2, startY + getDirectionY(direction)*2, FieldTyp.PLAYGROUND, FieldTyp.KEY)};
             }
-        } else if (a.isAvatar() && b.isTarget()) {
-            b.setIsAvatar(true);
-            a.setIsAvatar(false);
-            avatar = b;
-        } else if (a.isAvatar() && b.isBlank()) {
-            if (!a.isTarget()) a.setIsBlank(true);
-            a.setIsAvatar(false);
-            b.setIsAvatar(true);
-            avatar = b;
+            else if (b == FieldTyp.TARGET_LOCKED && c == FieldTyp.TARGET_UNLOCKED) {
+                result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
+                        new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.TARGET_LOCKED, FieldTyp.PLAYER),
+                        new ChangeItem(startX + getDirectionX(direction)*2, startY + getDirectionY(direction)*2, FieldTyp.TARGET_UNLOCKED, FieldTyp.TARGET_LOCKED)};
+            }
         }
 
-
-        a.Render(g);
-        b.Render(g);
-        this.moves.add(direction);
-        this.pushes.add(push);
-        return true;
+        if(result != null)
+        {
+            for(ChangeItem cItem : result)
+            {
+                fields[cItem.getY()][cItem.getX()] = cItem.getTypNew();
+            }
+        }
+        return result;
 
     }
 
-    private synchronized boolean checkNeighbours(int x, int y, Field target) {
+
+
+
+    private  boolean checkNeighbours(int x, int y, int targetX, int targetY, ArrayList<FieldTyp> visitedFields) {
         if (x < 0 || x >= map.getXSize()) return false;
         if (y < 0 || y >= map.getYSize()) return false;
 
-        Field cField = fields[y][x];
-
-
-        if (cField.isVisited()) return false;
-        cField.setIsVisited(true);
-        if (target == cField) {
+        if(x == targetX && y == targetY)
+        {
             return true;
         }
 
-        if (fields[y][x - 1].isBlank()) {
-            if (checkNeighbours(x - 1, y, target)) return true;
+        FieldTyp cField = fields[y][x];
+
+        if(visitedFields.contains(cField))
+        {
+            return false;
         }
 
-        if (fields[y][x + 1].isBlank()) {
-            if (checkNeighbours(x + 1, y, target)) return true;
+        visitedFields.add(cField);
+
+        if (fields[y][x - 1] == FieldTyp.PLAYGROUND) {
+            System.out.println("bla");
+            if(checkNeighbours(x - 1, y, targetX, targetY, visitedFields))
+            {
+                return true;
+            }
+
         }
 
-        if (fields[y - 1][x].isBlank()) {
-            if (checkNeighbours(x, y - 1, target)) return true;
-        }
-        if (fields[y + 1][x].isBlank()) {
-            if (checkNeighbours(x, y + 1, target)) return true;
+        if (fields[y][x + 1] == FieldTyp.PLAYGROUND) {
+            if(checkNeighbours(x + 1, y, targetX, targetY, visitedFields))
+            {
+                return true;
+            }
         }
 
+        if (fields[y - 1][x] == FieldTyp.PLAYGROUND) {
+            if(checkNeighbours(x, y -1, targetX, targetY, visitedFields))
+            {
+                return true;
+            }
+        }
+        if (fields[y + 1][x] == FieldTyp.PLAYGROUND) {
+            if(checkNeighbours(x, y + 1, targetX, targetY, visitedFields))
+            {
+                return true;
+            }
+        }
 
         return false;
     }
 
-    public void findWay(Graphics g, int targetX, int targetY) {
-        Field fTarget = fields[targetY][targetX];
-        if (!fTarget.isBlank()) return;
-        int x = avatar.getX() / Field.ElementWidth;
-        int y = avatar.getY() / Field.ElementHeight;
+    public ChangeItem[] findWay(int targetX, int targetY) {
+       FieldTyp tTyp = fields[targetY][targetX];
+        if (tTyp != FieldTyp.PLAYGROUND) return null;
 
-
-        if (checkNeighbours(x, y, fTarget)) {
-            fTarget.setIsBlank(false);
-            fTarget.setIsAvatar(true);
-            fields[y][x].setIsAvatar(false);
-            fields[y][x].setIsBlank(true);
-            avatar = fTarget;
-            fTarget.Render(g);
-            fields[y][x].Render(g);
+        if(checkNeighbours(player.getX(), player.getY(), targetX, targetY, new ArrayList<>()))
+        {
+            ChangeItem[] res = new ChangeItem[]{new ChangeItem(player.getX(), player.getY(), FieldTyp.PLAYER, FieldTyp.PLAYGROUND), new ChangeItem(targetX, targetY, FieldTyp.PLAYGROUND, FieldTyp.PLAYER)};
+            player.setX(targetX);
+            player.setY(targetY);
+            return res;
         }
-
-        for (int i = 0; i < fields.length; i++) {
-            for (int j = 0; j < fields[i].length; j++) {
-                fields[i][j].setIsVisited(false);
-            }
-        }
+        return null;
     }
 
 
     public void setField(Graphics g, int x, int y, boolean drawingAvatar, boolean drawingStone, boolean drawingTarget, boolean drawingBlank, boolean drawingKey) {
-        Field fieldMod = fields[y][x];
+       /* Field fieldMod = fields[y][x];
 
         //save a copy of the field to revert it later
         Field oldField = new Field(x, y);
@@ -380,6 +464,10 @@ public class FieldList {
             fieldMod.setIsTarget(false);
             fieldMod.setIsStone(false);
         }
-        fieldMod.Render(g);
+        fieldMod.Render(g);*/
+    }
+    public FieldTyp getField(int x, int y)
+    {
+        return fields[y][x];
     }
 }

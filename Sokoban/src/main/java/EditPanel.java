@@ -52,7 +52,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
 
 
     private void initGroundField(Graphics g) {
-        this.fieldList.draw(g);
+       // this.fieldList.draw(g);
     }
 
     @Override
@@ -150,7 +150,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
             saveMap.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (!MapSaver.saveMap(originalMap.getName(), fieldList.getFields(), originalMap.getXSize(), originalMap.getYSize())) {
+                    if (!MapSaver.saveMap(originalMap.getName(), null, originalMap.getXSize(), originalMap.getYSize())) {
                         JOptionPane.showMessageDialog(null, "error saving");
                         return;
                     }

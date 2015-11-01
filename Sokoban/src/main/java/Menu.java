@@ -21,16 +21,16 @@ public class Menu implements Runnable {
     private String path;
     Thread thread;
 
-    //components for new map dialog
+    //components for new MyController dialog
     private JTextField mapName = new JTextField();
     private JTextField mapWidth = new JTextField();
     private JTextField mapHeight = new JTextField();
     private final JComponent[] inputs = new JComponent[]{
-            new JLabel("Chose the Name of your map"),
+            new JLabel("Chose the Name of your MyController"),
             mapName,
-            new JLabel("Chose the width of your map"),
+            new JLabel("Chose the width of your MyController"),
             mapWidth,
-            new JLabel("Chose the height of your map "),
+            new JLabel("Chose the height of your MyController "),
             mapHeight
     };
 
@@ -112,7 +112,7 @@ public class Menu implements Runnable {
         });
         controlPanel.add(box);
 //adding the edit functionality
-        edit.setText("Check to edit map");
+        edit.setText("Check to edit MyController");
         controlPanel.add(edit);
 
 //adding button for new maps
@@ -122,7 +122,7 @@ public class Menu implements Runnable {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JOptionPane.showMessageDialog(null, inputs, "Please enter data to create your map", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, inputs, "Please enter data to create your MyController", JOptionPane.PLAIN_MESSAGE);
                 int newMapHeight = 0;
                 int newMapWidth = 0;
                 try {

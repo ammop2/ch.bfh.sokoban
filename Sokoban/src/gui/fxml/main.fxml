@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.Main">
+    <center>
+        <StackPane BorderPane.alignment="CENTER">
+            <children>
+                <Button text="Select a Map" textFill="#420197" underline="true" onAction="#loadMap" />
+            </children>
+        </StackPane>
+    </center>
+   <top>
+      <FlowPane BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar fx:id="myMenuBar">
+              <menus>
+                <Menu mnemonicParsing="false" text="Map">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Select" onAction="#loadMap" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </FlowPane>
+   </top>
+</BorderPane>

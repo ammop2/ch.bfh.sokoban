@@ -1,11 +1,126 @@
 package main.java;
 
-import java.security.Timestamp;
+
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
  * Created by Pascal on 29.10.2015.
  */
+
+class SolverContainer extends JFrame implements Runnable, ActionListener {
+
+    private  Map map;
+    public SolverContainer(Map map)
+    {
+        this.map = map;
+    }
+
+    private JLabel lbl;
+
+    @Override
+    public void run() {
+        setTitle("Sokoban Game - Sokoban");
+        setSize(400, 400);
+        //GamePanelSolver panel = new GamePanelSolver(this.MyController);
+
+        lbl = new JLabel("display");
+
+        lbl.setSize(90, 25);
+        add(lbl);
+        //add(panel);
+        setVisible(true);
+        displayPath();
+    }
+    private void displayPath()
+    {
+        System.out.print("test");
+        Task task = new Task<Void>() {
+            @Override
+            public Void call() throws Exception {
+                int i = 0;
+                while (true) {
+                    final int finalI = i;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.print("test");
+                            lbl.setText("bla" + finalI);
+                        }
+                    });
+                    i++;
+                    Thread.sleep(1000);
+                }
+            }
+        };
+        Thread th = new Thread(task);
+        th.setDaemon(true);
+        th.start();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.print("hi");
+       this.removeAll();
+    }
+}
+class GamePanelSolver extends GamePanel {
+    private ArrayList<Coordinate> path;
+    public GamePanelSolver(Map map)
+    {
+        super(map);
+    }
+
+    public void setPath(ArrayList<Coordinate> path) {
+        this.path = path;
+    }
+
+    private void displayPath(Graphics g) throws InterruptedException {
+        FieldList fl = super.getFieldList();
+        for(int i = 0; i < path.size(); i++)
+        {
+            System.out.println(path.size() + "" + i + "/" + (i + 1));
+            int x = path.get(i).getX();
+            System.out.print(x);
+            int xDiff = path.get(i).getX() -path.get(i+ 1).getX();
+            int yDiff = path.get(i).getY() - path.get(i + 1).getY();
+            Direction d = Direction.TOP;
+            if(xDiff > 0) d = Direction.LEFT;
+            if(xDiff < 0) d = Direction.RIGHT;
+            if(yDiff > 0) d = Direction.BOTTOM;
+           //fl.moveField(fl.getField(path.get(i).getX(), path.get(i).getY()), g, d);
+            Thread.sleep(500);
+            System.out.println("print next step");
+        }
+    }
+    private void moveField(int xOld, int xNew, int yOld, int yNew)
+    {
+    }
+    private boolean init = false;
+    @Override
+    public void paintComponent(Graphics g) {
+        if(!init) {
+            init = true;
+            super.initGroundField(g);
+        }
+        else
+        {
+            try {
+                displayPath(g);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+}
 
 class Coordinate {
     private int x;
@@ -32,6 +147,7 @@ public class Solver {
     private ArrayList<Coordinate> targets;
     private ArrayList<Coordinate> keys;
     private ArrayList<Coordinate> history;
+    private ArrayList<Coordinate> path;
 
     private Coordinate player;
 
@@ -41,11 +157,12 @@ public class Solver {
         this.keys = new ArrayList<>();
         this.targets = new ArrayList<>();
         this.history = new ArrayList<>();
+        this.path = new ArrayList<>();
     }
 
     public void Solve(){
 
-        System.out.println("try to solve a map");
+        System.out.println("try to solve a MyController");
         System.out.println("X Size, Y Size" + map.getXSize() + "," + map.getYSize());
         findTargetsAndKeys();
 
@@ -59,10 +176,14 @@ public class Solver {
 
         System.out.println("bruteforce!");
         for(Coordinate k : keys){
-          bruteforce(k.getX(), k.getY());
+            bruteforce(k.getX(), k.getY());
         }
-
-
+        displaySolution();
+    }
+    private void displaySolution()
+    {
+        SolverContainer solverContainer = new SolverContainer(this.map);
+        solverContainer.run();
     }
 
     private boolean bruteforce(int x, int y)
@@ -82,6 +203,7 @@ public class Solver {
         if(map.getFields()[y * map.getXSize() + x] == 3)
         {
             System.out.println("juhu x:" + x + " y:" + y);
+            path.add(new Coordinate(x, y));
             return true;
         }
         this.history.add(new Coordinate(x, y));
@@ -89,23 +211,27 @@ public class Solver {
         if(bruteforce(x, y -1))
         {
             System.out.println("x:" + x + " y:" + y);
+            path.add(new Coordinate(x, y));
             return true;
         }
         // 2 Go to Bottom
         if(bruteforce(x, y +1))
         {
             System.out.println("x:" + x + " y:" + y);
+            path.add(new Coordinate(x, y));
             return true;
         }
         // 3. go Left
         if(bruteforce(x -1, y)) {
             System.out.println("x:" + x + " y:" + y);
+            path.add(new Coordinate(x, y));
             return true;
         }
 
         // 4. go Right
         if(bruteforce(x + 1, y)) {
             System.out.println("x:" + x + " y:" + y);
+            path.add(new Coordinate(x, y));
             return true;
         }
         return false;
@@ -124,6 +250,5 @@ public class Solver {
             }
         }
     }
-
 
 }

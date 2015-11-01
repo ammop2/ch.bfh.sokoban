@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * Created by Pascal on 06.10.2015.
  *
- * this class should load a map and test
+ * this class should load a MyController and test
  */
 public class MapTest {
 

@@ -29,6 +29,10 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener, Act
     private Map map;
     private FieldList fieldList;
 
+    public FieldList getFieldList() {
+        return fieldList;
+    }
+
     public GamePanel(Map map) {
         this.map=map;
         fieldList = new FieldList(map);
@@ -37,10 +41,11 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener, Act
 
     }
 
-    private void initGroundField(Graphics g)
+    public void initGroundField(Graphics g)
     {
-        this.fieldList.draw(g);
+        //this.fieldList.draw(g);
     }
+
 
     @Override
     public void paintComponent(Graphics g){
@@ -52,7 +57,7 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener, Act
         else
         {
             if (find){
-                fieldList.findWay(g,x,y);
+                //fieldList.findWay(g,x,y);
                 find=false;
             }
 
@@ -61,22 +66,7 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener, Act
                 //abort if not a ground field.
                 return;
             }
-            if(up)
-            {
-                this.fieldList.movePlayer(g, Direction.TOP);
-            }
-            if(down)
-            {
-                this.fieldList.movePlayer(g, Direction.BOTTOM);
-            }
-            if(left)
-            {
-                this.fieldList.movePlayer(g, Direction.LEFT);
-            }
-            if(right)
-            {
-                this.fieldList.movePlayer(g, Direction.RIGHT);
-            }
+
             if(reverse){
                 this.fieldList.reversePlay(g);
             }

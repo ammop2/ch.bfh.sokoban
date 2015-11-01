@@ -3,7 +3,7 @@ package main.java;
 /**
  * Created by Pascal on 07.10.2015.
  *
- * this class is a helper for loading a map
+ * this class is a helper for loading a MyController
  *
  */
 
