@@ -146,8 +146,8 @@ public class Solver {
     private Map map;
     private ArrayList<Coordinate> targets;
     private ArrayList<Coordinate> keys;
-    private ArrayList<Coordinate> history;
     private ArrayList<Coordinate> path;
+    private ArrayList<Coordinate> history;
 
     private Coordinate player;
 
@@ -160,7 +160,7 @@ public class Solver {
         this.path = new ArrayList<>();
     }
 
-    public void Solve(){
+    public ArrayList<Coordinate> Solve(){
 
         System.out.println("try to solve a MyController");
         System.out.println("X Size, Y Size" + map.getXSize() + "," + map.getYSize());
@@ -178,7 +178,8 @@ public class Solver {
         for(Coordinate k : keys){
             bruteforce(k.getX(), k.getY());
         }
-        displaySolution();
+        ChangeItem[] res = new ChangeItem[history.size()];
+        return path;
     }
     private void displaySolution()
     {

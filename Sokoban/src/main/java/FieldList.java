@@ -18,11 +18,17 @@ public class FieldList {
     private Player player;
 
 
+    private int targetCount;
+
+
+
 
     private Map map;
     private ArrayList<Field> changes = new ArrayList<Field>();
     private ArrayList<Direction> moves = new ArrayList<Direction>();
     private ArrayList<Boolean> pushes = new ArrayList<Boolean>();
+
+
     private boolean stopGame;
 
 
@@ -121,6 +127,12 @@ public class FieldList {
         return true;
     }
 
+    public void setPlayer(int x, int y)
+    {
+        player.setY(y);
+        player.setX(x);
+    }
+
     private void init()
     {
         originalFields = new FieldTyp[map.getYSize()][map.getXSize()];
@@ -141,6 +153,7 @@ public class FieldList {
                         break;
                     case 3:
                         originalFields[y][x] = FieldTyp.TARGET_UNLOCKED;
+                        targetCount++;
                         break;
                     case 4:
                         originalFields[y][x] = FieldTyp.KEY;
@@ -279,6 +292,13 @@ public class FieldList {
         return targetX;
     }
 
+
+    public boolean win()
+    {
+        return targetCount == 0;
+    }
+
+
     public ChangeItem[] moveField(int startX, int startY, Direction direction) {
         ChangeItem[] result = null;
 
@@ -287,21 +307,19 @@ public class FieldList {
 
         if (a != FieldTyp.PLAYER || b == FieldTyp.WALL) return result;
 
+        FieldTyp c = getNeighbourNeighbourFieldByDirection(startX, startY, direction);
         if(b == FieldTyp.PLAYGROUND || b == FieldTyp.TARGET_UNLOCKED)
         {
             result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND), new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYGROUND, FieldTyp.PLAYER)};
         }
         else {
-            FieldTyp c = getNeighbourNeighbourFieldByDirection(startX, startY, direction);
             if (b == FieldTyp.KEY && c == FieldTyp.TARGET_UNLOCKED) {
                 result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
                         new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.KEY, FieldTyp.PLAYER),
                         new ChangeItem(startX + getDirectionX(direction)*2, startY + getDirectionY(direction)*2, FieldTyp.TARGET_UNLOCKED, FieldTyp.TARGET_LOCKED)};
+                targetCount--;
             }
             else if (b == FieldTyp.KEY && c == FieldTyp.PLAYGROUND) {
-
-                System.out.println(originalFields[startY][startX]);
-
                 result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
                         new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.KEY, FieldTyp.PLAYER),
                         new ChangeItem(startX + getDirectionX(direction)*2, startY + getDirectionY(direction)*2, FieldTyp.PLAYGROUND, FieldTyp.KEY)};
@@ -322,6 +340,14 @@ public class FieldList {
         }
         return result;
 
+    }
+
+    public void undo(ChangeItem[] changes)
+    {
+        for(ChangeItem cItem : changes)
+        {
+            fields[cItem.getY()][cItem.getX()] = cItem.getTypOld();
+        }
     }
 
 

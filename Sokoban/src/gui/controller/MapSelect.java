@@ -31,6 +31,10 @@ public class MapSelect implements Initializable {
         {
             mapComboBox.getItems().add(map.getName());
         }
+        for(String them : Handler.getThemes())
+        {
+            themeComboBox.getItems().add(them);
+        }
     }
 
     @FXML private javafx.scene.control.Button cancelButton;
@@ -41,6 +45,10 @@ public class MapSelect implements Initializable {
 
     @FXML
     ComboBox mapComboBox;
+
+
+    @FXML
+    ComboBox themeComboBox;
 
     @FXML
     private void cancelButtonAction(){
@@ -58,10 +66,16 @@ public class MapSelect implements Initializable {
     }
 
     @FXML
+    private void themeSelectedAction() {
+        Handler.setCurrentTheme((String) themeComboBox.getSelectionModel().getSelectedItem());
+    }
+
+
+    @FXML
     private void startButtonAction() {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("../fxml/playground.fxml"));
+            Parent root = FXMLLoader.load(Handler.getMainUrl());
             Main.getbPane().setCenter(root);
             Stage stage = (Stage) cancelButton.getScene().getWindow();
             stage.close();

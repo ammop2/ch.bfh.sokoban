@@ -17,21 +17,21 @@
          <children>
             <MenuBar fx:id="myMenuBar">
               <menus>
-                <Menu mnemonicParsing="false" text="Map">
+                <Menu mnemonicParsing="false" text="Play">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Select" onAction="#loadMap" />
+                    <MenuItem mnemonicParsing="false" text="Select Map" onAction="#loadMap" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
+                <Menu mnemonicParsing="false" text="Editor">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem mnemonicParsing="false" text="New Map" onAction="#newMap"/>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
+                  <Menu mnemonicParsing="false" text="Solver">
+                      <items>
+                          <MenuItem mnemonicParsing="false" text="Select Map" onAction="#solveMap"/>
+                      </items>
+                  </Menu>
               </menus>
             </MenuBar>
          </children>

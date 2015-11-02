@@ -25,12 +25,16 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
         return pStage;
     }
 
+    private boolean controlPressed;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Handler.init();
         Sokoban.pStage = primaryStage;
 
         primaryStage.setTitle("Sokoban, Pascal Ammon, Gabriel Wyss, BFH");
+
+        Handler.setMapUrl(getClass().getResource("../fxml/map_select.fxml"));
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/main.fxml"));
         Parent root = (Parent)loader.load();
@@ -64,6 +68,15 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
             case RIGHT:
                 d = Direction.RIGHT;
                 break;
+            case CONTROL:
+                controlPressed = true;
+                break;
+            case Z:
+                Handler.getPlaygroundController().undo();
+                break;
+                default:
+                    controlPressed = false;
+                    break;
         }
         if( d!= null)
         {

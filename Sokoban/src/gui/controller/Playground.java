@@ -3,17 +3,22 @@ package gui.controller;
 import gui.element.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 import main.java.ChangeItem;
 import main.java.FieldTyp;
 import main.java.Handler;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -21,8 +26,10 @@ import java.util.ResourceBundle;
  */
 public class Playground implements Initializable {
 
+
     @FXML
     private GridPane gridPane;
+    private ArrayList<ChangeItem[]> changeHistory;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -45,6 +52,7 @@ public class Playground implements Initializable {
                 addField(c, r, Handler.getCurrentFieldList().getField(c, r));
             }
         }
+        changeHistory = new ArrayList<>();
     }
 
     private void addField(int c, int r, FieldTyp typ)
@@ -77,6 +85,7 @@ public class Playground implements Initializable {
 
     public void changeFields(ChangeItem[] changes)
     {
+
         if(changes == null) return;
         for(ChangeItem cItem : changes)
         {
@@ -90,6 +99,42 @@ public class Playground implements Initializable {
             gridPane.getChildren().remove(result);
             addField(cItem.getX(), cItem.getY(), cItem.getTypNew());
         }
+        if(Handler.getCurrentFieldList().win())
+        {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("../fxml/win.fxml"));
+                Main.getbPane().setCenter(root);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        changeHistory.add(changes);
+    }
 
+    public void undo()
+    {
+        if(changeHistory.size() > 0) {
+            ChangeItem[] changes = changeHistory.get(changeHistory.size() - 1);
+            for (ChangeItem cItem : changes) {
+                {
+                    Node result = null;
+                    for (Node node : gridPane.getChildren()) {
+                        if (gridPane.getRowIndex(node) == cItem.getY() && gridPane.getColumnIndex(node) == cItem.getX()) {
+                            result = node;
+                            break;
+                        }
+                    }
+                    gridPane.getChildren().remove(result);
+                    if(cItem.getTypOld() == FieldTyp.PLAYER)
+                    {
+                        Handler.getCurrentFieldList().setPlayer(cItem.getX(), cItem.getY());
+                    }
+                    addField(cItem.getX(), cItem.getY(), cItem.getTypOld());
+                }
+            }
+            Handler.getCurrentFieldList().undo(changes);
+            changeHistory.remove(changeHistory.size() - 1);
+        }
     }
 }

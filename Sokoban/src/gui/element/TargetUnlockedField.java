@@ -1,10 +1,12 @@
 package gui.element;
 
+import main.java.Handler;
+
 /**
  * Created by Pascal on 01.11.2015.
  */
 public class TargetUnlockedField extends BaseField {
     public TargetUnlockedField() {
-        super("gui\\images\\padlock_unlocked.png");
+        super(String.format("gui\\images\\themes\\%s\\padlock_unlocked.png", Handler.getCurrentTheme()));
     }
 }

@@ -19,7 +19,7 @@ public class BaseField extends Pane implements EventHandler<MouseEvent> {
     public BaseField(String imagePath)
     {
         setOnMouseClicked(this);
-        setImage("gui\\images\\playground.png");
+        //setImage(String.format("gui\\images\\themes\\%s\\playground.png", Handler.getCurrentTheme()));
         setImage(imagePath);
 
     }

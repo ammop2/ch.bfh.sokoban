@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import main.java.Handler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,20 +47,22 @@ public class Main implements Initializable {
     @FXML
     private void loadMap(ActionEvent event)
     {
-        try
-        {
-            stage = new Stage();
-            root = FXMLLoader.load(getClass().getResource("../fxml/map_select.fxml"));
-            stage.setScene(new Scene(root));
-            stage.setTitle("Map select...");
-            stage.initOwner(myMenuBar.getScene().getWindow());
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.showAndWait();
+        Handler.setMainUrl(getClass().getResource("../fxml/playground.fxml"));
+        Handler.loadMap(myMenuBar.getScene().getWindow());
+    }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML
+    private void solveMap(ActionEvent event)
+    {
+        Handler.setMainUrl(getClass().getResource("../fxml/solver.fxml"));
+        Handler.loadMap(myMenuBar.getScene().getWindow());
+    }
+
+    @FXML
+    private void newMap(ActionEvent event)
+    {
+        Handler.setMainUrl(getClass().getResource("../fxml/editor.fxml"));
+        Handler.loadMap(myMenuBar.getScene().getWindow());
     }
 
 }

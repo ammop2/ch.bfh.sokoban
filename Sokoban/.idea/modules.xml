@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Sokoban.iml" filepath="$PROJECT_DIR$/Sokoban.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Solver/Solver.iml" filepath="$PROJECT_DIR$/Solver/Solver.iml" />
     </modules>
   </component>
 </project>
