@@ -26,7 +26,7 @@ public class MapReader {
             }
         }
         Map[] maps = new Map[numberOfFiles];
-        //create a map for each file
+        //create a MyController for each file
         for (int i = 0; i < listOfElements.length; i++) {
             if (listOfElements[i].isFile()) {
                 maps[i] = getMap(listOfElements[i].getAbsolutePath());
@@ -36,7 +36,7 @@ public class MapReader {
         return maps;
     }
 
-    //this method converts one file to a map
+    //this method converts one file to a MyController
     public static Map getMap(String path) throws IOException {
         File file = new File(path);
         if (!file.exists()) return null;

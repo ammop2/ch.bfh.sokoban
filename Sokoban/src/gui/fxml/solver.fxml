@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox minHeight="400.0" minWidth="400.0" prefHeight="664.0" prefWidth="1003.0" style="-fx-background-color: ABC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.Solver">
+         <children>
+            <Pane fx:id="playgroundPane" maxHeight="670.0" maxWidth="1164.0" prefHeight="664.0" prefWidth="1164.0" />
+            <Pane prefHeight="100.0" prefWidth="539.0">
+               <children>
+                  <Label prefHeight="21.0" prefWidth="65.0" text="Start" />
+                  <Label layoutY="30.0" prefHeight="21.0" prefWidth="65.0" text="End" />
+                  <Label layoutY="61.0" prefHeight="21.0" prefWidth="65.0" text="Total" />
+                  <Label fx:id="startTime" layoutX="56.0" text="startTime" />
+                  <Label fx:id="endTime" layoutX="58.0" layoutY="30.0" text="endTime" />
+                  <Label fx:id="totalTime" layoutX="55.0" layoutY="61.0" text="totalTime" />
+            <Button layoutX="14.0" layoutY="110.0" mnemonicParsing="false" text="solve" onAction="#solve" />
+               </children>
+            </Pane>
+         </children>
+</HBox>

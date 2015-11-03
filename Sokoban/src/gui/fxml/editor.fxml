@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane fx:controller="gui.controller.Editor" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+       <GridPane fx:id="gridPane" style="-fx-background-color: #BBBBBB;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  />
+   </center>
+   <right>
+      <ToolBar orientation="VERTICAL" BorderPane.alignment="CENTER">
+        <items>
+          <Button mnemonicParsing="false" prefHeight="92.0" prefWidth="91.0" onAction="#avatarClicked">
+               <graphic>
+                  <ImageView fitHeight="71.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/themes/vikings/avatar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="92.0" prefWidth="91.0" onAction="#keyClicked">
+               <graphic>
+                  <ImageView fitHeight="71.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/themes/vikings/key.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="92.0" prefWidth="91.0" onAction="#lockedClicked">
+                <graphic>
+                    <ImageView fitHeight="71.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/themes/vikings/padlock_locked.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="92.0" prefWidth="91.0" onAction="#unlockedClicked">
+                <graphic>
+                    <ImageView fitHeight="71.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/themes/vikings/padlock_unlocked.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="92.0" prefWidth="91.0" onAction="#playgroundClicked">
+                <graphic>
+                    <ImageView fitHeight="71.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/themes/vikings/playground.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="92.0" prefWidth="91.0" onAction="#wallClicked">
+                <graphic>
+                    <ImageView fitHeight="71.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/themes/vikings/wall.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="92.0" prefWidth="91.0" onAction="#blankClicked" Text="Blank">
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="92.0" prefWidth="91.0" onAction="#saveClicked">
+                <graphic>
+                    <ImageView fitHeight="71.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/save.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </items>
+      </ToolBar>
+   </right>
+</BorderPane>
