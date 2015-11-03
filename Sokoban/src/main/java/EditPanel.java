@@ -182,8 +182,7 @@ public class EditPanel extends JPanel implements ActionListener, MouseListener, 
             mouseClicked = false;
             saved = false;
         } else if (revertEdit) {
-            fieldList.reverseEdit(g);
-            fieldList.reverseEdit(g);
+
             revertEdit = false;
         }
     }

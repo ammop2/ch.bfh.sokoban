@@ -49,30 +49,7 @@ public class GamePanel extends JPanel implements MouseListener, KeyListener, Act
 
     @Override
     public void paintComponent(Graphics g){
-        if(!groundFieldDrawed) {
-            super.paintComponent(g);
-            initGroundField(g);
-            groundFieldDrawed = true;
-        }
-        else
-        {
-            if (find){
-                //fieldList.findWay(g,x,y);
-                find=false;
-            }
 
-            if(!up && !down && !left && !right &&!reverse)
-            {
-                //abort if not a ground field.
-                return;
-            }
-
-            if(reverse){
-                this.fieldList.reversePlay(g);
-            }
-            reverse = up = down = left = right = false;
-
-        }
     }
 
 

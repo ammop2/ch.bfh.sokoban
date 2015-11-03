@@ -12,7 +12,7 @@ public class GameContainer extends JFrame implements Runnable {
     {
         super("Sokoban " + map.getName());
         String editor="Game ";
-        if(edit) editor="Editor ";
+        if(edit) editor="EditorHandler ";
 
 
         if(edit){

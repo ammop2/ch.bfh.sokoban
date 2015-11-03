@@ -13,22 +13,13 @@ public class FieldList {
 
     private FieldTyp[][] fields;
     private FieldTyp[][] originalFields;
-
     private ArrayList<Field> targets;
     private Player player;
-
-
     private int targetCount;
-
-
-
-
     private Map map;
     private ArrayList<Field> changes = new ArrayList<Field>();
     private ArrayList<Direction> moves = new ArrayList<Direction>();
     private ArrayList<Boolean> pushes = new ArrayList<Boolean>();
-
-
     private boolean stopGame;
 
 
@@ -38,94 +29,6 @@ public class FieldList {
         init();
     }
 
-    public void reversePlay(Graphics g) {
-
-        if (moves.size() > 1) {
-            Direction dir = moves.get(moves.size() - 1);
-            boolean push = pushes.get(pushes.size() - 1);
-
-            if (dir == Direction.TOP) {
-                reverseMovePlayer(g, Direction.BOTTOM, push);
-            }
-            if (dir == Direction.LEFT) {
-                reverseMovePlayer(g, Direction.RIGHT, push);
-            }
-            if (dir == Direction.RIGHT) {
-                reverseMovePlayer(g, Direction.LEFT, push);
-            }
-            if (dir == Direction.BOTTOM) {
-                reverseMovePlayer(g, Direction.TOP, push);
-            }
-            moves.remove(moves.size() - 1);
-            pushes.remove(pushes.size() - 1);
-
-        }
-    }
-
-    public void reverseEdit(Graphics g) {
-        if (changes.size() > 0) {
-            //    Field oldField = changes.get(changes.size() - 1);
-            //    fields[oldField.getYPos()][oldField.getXPos()].setIsStone(oldField.isStone());
-            //fields[oldField.getYPos()][oldField.getXPos()].setIsAvatar(oldField.isAvatar());
-            //     fields[oldField.getYPos()][oldField.getXPos()].setIsBlank(oldField.isBlank());
-            //    fields[oldField.getYPos()][oldField.getXPos()].setIsTarget(oldField.isTarget());
-            //    fields[oldField.getYPos()][oldField.getXPos()].setIsKey(oldField.isKey());
-
-            //      fields[oldField.getYPos()][oldField.getXPos()].Render(g);
-            //      changes.remove(changes.size() - 1);
-        }
-
-
-    }
-
-    public boolean reverseMovePlayer(Graphics g, Direction direction, boolean push) {
-/*        int targetX = 0;
-        int targetY = 0;
-        switch (direction) {
-            case TOP:
-                targetY -= 1;
-                break;
-            case LEFT:
-                targetX -= 1;
-                break;
-            case BOTTOM:
-                targetY += 1;
-                break;
-            case RIGHT:
-                targetX += 1;
-                break;
-            default:
-                break;
-        }
-        Field a = this.avatar;
-        //     Field b = fields[a.getYPos() + targetY][a.getXPos() + targetX];
-        //   Field c = fields[a.getYPos() + targetY * -1][a.getXPos() + targetX * -1];
-
-        if (!push) {
-            a.setIsAvatar(false);
-            b.setIsAvatar(true);
-            this.avatar = b;
-        } else {
-            boolean targetCorrect = (fields[avatar.getYPos() - 1][avatar.getXPos()].isTarget() && fields[avatar.getYPos() + 1][avatar.getXPos()].isTarget()) || (fields[avatar.getYPos()][avatar.getXPos() - 1].isTarget() && fields[avatar.getYPos()][avatar.getXPos() + 1].isTarget());
-            a.setIsAvatar(false);
-            b.setIsAvatar(true);
-            this.avatar = b;
-
-            c.setIsKey(false);
-            a.setIsKey(true);
-            a.setIsBlank(true);
-
-            if (targetCorrect) {
-                a.setIsTarget(true);
-                a.setIsBlank(false);
-            }
-        }
-
-        a.Render(g);
-        b.Render(g);
-        c.Render(g);*/
-        return true;
-    }
 
     public void setPlayer(int x, int y)
     {
@@ -353,7 +256,7 @@ public class FieldList {
 
 
 
-    private  boolean checkNeighbours(int x, int y, int targetX, int targetY, ArrayList<FieldTyp> visitedFields) {
+    private  boolean checkNeighbours(int x, int y, int targetX, int targetY, ArrayList<Coordinate> visitedFields) {
         if (x < 0 || x >= map.getXSize()) return false;
         if (y < 0 || y >= map.getYSize()) return false;
 
@@ -361,23 +264,20 @@ public class FieldList {
         {
             return true;
         }
-
-        FieldTyp cField = fields[y][x];
-
-        if(visitedFields.contains(cField))
+        for(Coordinate c : visitedFields)
         {
-            return false;
+            if(x == c.getX() && y == c.getY())
+                return false;
         }
 
-        visitedFields.add(cField);
+
+        visitedFields.add(new Coordinate(x, y));
 
         if (fields[y][x - 1] == FieldTyp.PLAYGROUND) {
-            System.out.println("bla");
             if(checkNeighbours(x - 1, y, targetX, targetY, visitedFields))
             {
                 return true;
             }
-
         }
 
         if (fields[y][x + 1] == FieldTyp.PLAYGROUND) {
@@ -409,9 +309,14 @@ public class FieldList {
 
         if(checkNeighbours(player.getX(), player.getY(), targetX, targetY, new ArrayList<>()))
         {
-            ChangeItem[] res = new ChangeItem[]{new ChangeItem(player.getX(), player.getY(), FieldTyp.PLAYER, FieldTyp.PLAYGROUND), new ChangeItem(targetX, targetY, FieldTyp.PLAYGROUND, FieldTyp.PLAYER)};
+            ChangeItem[] res = new ChangeItem[]{new ChangeItem(player.getX(), player.getY(), FieldTyp.PLAYER, FieldTyp.PLAYGROUND),
+                    new ChangeItem(targetX, targetY, FieldTyp.PLAYGROUND, FieldTyp.PLAYER)};
             player.setX(targetX);
             player.setY(targetY);
+            for(ChangeItem cItem : res)
+            {
+                fields[cItem.getY()][cItem.getX()] = cItem.getTypNew();
+            }
             return res;
         }
         return null;

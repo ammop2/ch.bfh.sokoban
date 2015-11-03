@@ -12,6 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import main.java.Handler;
+import main.java.Mode;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,6 +49,7 @@ public class Main implements Initializable {
     private void loadMap(ActionEvent event)
     {
         Handler.setMainUrl(getClass().getResource("../fxml/playground.fxml"));
+        Handler.setMode(Mode.PLAY);
         Handler.loadMap(myMenuBar.getScene().getWindow());
     }
 
@@ -55,6 +57,7 @@ public class Main implements Initializable {
     private void solveMap(ActionEvent event)
     {
         Handler.setMainUrl(getClass().getResource("../fxml/solver.fxml"));
+        Handler.setMode(Mode.SOLVER);
         Handler.loadMap(myMenuBar.getScene().getWindow());
     }
 
@@ -62,7 +65,8 @@ public class Main implements Initializable {
     private void newMap(ActionEvent event)
     {
         Handler.setMainUrl(getClass().getResource("../fxml/editor.fxml"));
-        Handler.loadMap(myMenuBar.getScene().getWindow());
+        Handler.setMode(Mode.EDITOR);
+        Handler.newMap(myMenuBar.getScene().getWindow());
     }
 
 }

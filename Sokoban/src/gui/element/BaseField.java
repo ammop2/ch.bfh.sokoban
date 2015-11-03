@@ -8,7 +8,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import main.java.ChangeItem;
+import main.java.EditorHandler;
 import main.java.Handler;
+import main.java.Mode;
 
 import java.util.ArrayList;
 
@@ -37,7 +39,13 @@ public class BaseField extends Pane implements EventHandler<MouseEvent> {
        GridPane gp = (GridPane)getParent();
         if(gp != null)
         {
+            if(Handler.getMode() == Mode.PLAY) {
                 Handler.getPlaygroundController().changeFields(Handler.getCurrentFieldList().findWay(gp.getColumnIndex(this), gp.getRowIndex(this)));
+            }
+            else if(Handler.getMode() == Mode.EDITOR)
+            {
+                EditorHandler.changeField(gp.getColumnIndex(this), gp.getRowIndex(this));
+            }
             }
         System.out.println("field clicked");
     }

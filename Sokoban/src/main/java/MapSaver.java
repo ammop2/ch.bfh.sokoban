@@ -12,7 +12,7 @@ public class MapSaver {
     private static String dir = "..\\Maps\\";
     private static PrintWriter writer;
 
-    public static boolean saveMap(String name, Field[][] fields, int x, int y) {
+    public static boolean saveMap(String name, FieldTyp[][] fields, int x, int y) {
 
 
         try {
@@ -25,11 +25,11 @@ public class MapSaver {
             for (int i = 0; i < fields.length; i++) {
                 line = "";
                 for (int j = 0; j < fields[i].length; j++) {
-                    if (fields[i][j].isBlank()) line = line + ' ';
-                    if (fields[i][j].isStone()) line = line + 'X';
-                    if (fields[i][j].isAvatar()) line = line + '@';
-                    if (fields[i][j].isTarget()) line = line + '.';
-                    if (fields[i][j].isKey()) line = line + '*';
+                    if (fields[i][j] == FieldTyp.BLANK || fields[i][j] == FieldTyp.PLAYGROUND) line = line + ' ';
+                    if (fields[i][j] == FieldTyp.WALL) line = line + 'X';
+                    if (fields[i][j] == FieldTyp.PLAYER) line = line + '@';
+                    if (fields[i][j] == FieldTyp.TARGET_LOCKED || fields[i][j] == FieldTyp.TARGET_UNLOCKED) line = line + '.';
+                    if (fields[i][j]  == FieldTyp.KEY) line = line + '*';
                 }
                 writer.println(line);
             }

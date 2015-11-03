@@ -7,12 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import main.java.ChangeItem;
 import main.java.Direction;
 import main.java.Handler;
-
-import java.awt.event.KeyListener;
-import java.util.EventListener;
 
 /**
  * Created by Pascal on 30.10.2015.
@@ -34,7 +30,8 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
 
         primaryStage.setTitle("Sokoban, Pascal Ammon, Gabriel Wyss, BFH");
 
-        Handler.setMapUrl(getClass().getResource("../fxml/map_select.fxml"));
+        Handler.setSelectMapUrl(getClass().getResource("../fxml/select_map.fxml"));
+        Handler.setNewMapUrl(getClass().getResource("../fxml/new_map.fxml"));
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/main.fxml"));
         Parent root = (Parent)loader.load();

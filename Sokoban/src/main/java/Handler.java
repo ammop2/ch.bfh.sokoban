@@ -24,23 +24,41 @@ public class Handler {
     private static Map currentMap;
     private static FieldList currentFieldList;
     private static gui.controller.Playground playgroundController;
-    private static java.net.URL mapUrl;
+    private static java.net.URL selectMapUrl;
+    private static java.net.URL newMapUrl;
     private static java.net.URL mainUrl;
+    private static Mode mode;
+
+    public static Mode getMode() {
+        return mode;
+    }
+
+    public static void setMode(Mode mode) {
+        Handler.mode = mode;
+    }
 
     public static void setMainUrl(URL mainUrl) {
         Handler.mainUrl = mainUrl;
+    }
+
+    public static URL getNewMapUrl() {
+        return newMapUrl;
+    }
+
+    public static void setNewMapUrl(URL newMapUrl) {
+        Handler.newMapUrl = newMapUrl;
     }
 
     public static URL getMainUrl() {
         return mainUrl;
     }
 
-    public static URL getMapUrl() {
-        return mapUrl;
+    public static URL getSelectMapUrl() {
+        return selectMapUrl;
     }
 
-    public static void setMapUrl(URL mapUrl) {
-        Handler.mapUrl = mapUrl;
+    public static void setSelectMapUrl(URL selectMapUrl) {
+        Handler.selectMapUrl = selectMapUrl;
     }
 
     public static Playground getPlaygroundController() {
@@ -55,10 +73,28 @@ public class Handler {
     public static void loadMap(Window window) {
         try
         {
+
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(mapUrl);
+            Parent root = FXMLLoader.load(selectMapUrl);
             stage.setScene(new Scene(root));
             stage.setTitle("Map select...");
+            stage.initOwner(window);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.DECORATED);
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void newMap(Window window) {
+        try
+        {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(newMapUrl);
+            stage.setScene(new Scene(root));
+            stage.setTitle("new Map");
             stage.initOwner(window);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initStyle(StageStyle.DECORATED);
@@ -112,11 +148,9 @@ public class Handler {
         try
         {
             maps = MapReader.load("..\\Maps\\");
+            currentMap = maps[0];
             themes = ThemeReader.load("src\\gui\\images\\themes");
-
-
-
-
+            currentTheme = "vikings";
         }
         catch (IOException e)
         {
@@ -127,6 +161,7 @@ public class Handler {
 
     public static double getFieldSize()
     {
+        if(mode == Mode.EDITOR) return 50;
         double columnWidth = Main.getbPane().getWidth() / Handler.getCurrentMap().getXSize();
         double rowHeight = Main.getbPane().getHeight() / Handler.getCurrentMap().getYSize();
 
