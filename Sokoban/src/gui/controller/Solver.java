@@ -44,7 +44,6 @@ public class Solver implements Initializable {
 
     @FXML
     private void solve(){
-        Handler.solveMap();
 
     }
 }

@@ -13,18 +13,15 @@ public class FieldList {
 
     private FieldTyp[][] fields;
     private FieldTyp[][] originalFields;
-    private ArrayList<Field> targets;
     private Player player;
     private int targetCount;
     private Map map;
-    private ArrayList<Field> changes = new ArrayList<Field>();
     private ArrayList<Direction> moves = new ArrayList<Direction>();
     private ArrayList<Boolean> pushes = new ArrayList<Boolean>();
     private boolean stopGame;
 
 
     public FieldList(Map map) {
-        targets = new ArrayList<Field>();
         this.map = map;
         init();
     }
@@ -145,12 +142,6 @@ public class FieldList {
         return  res;
     }
 
-    private boolean won() {
-        for (Field target : targets) {
-            if (!target.isKey()) return false;
-        }
-        return true;
-    }
 
     private FieldTyp getNeighbourFieldByDirection(int x, int y, Direction direction)
     {

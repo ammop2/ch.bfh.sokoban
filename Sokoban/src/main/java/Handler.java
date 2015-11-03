@@ -65,10 +65,6 @@ public class Handler {
         return playgroundController;
     }
 
-    public static void solveMap()
-    {
-       Solver solver = new Solver(currentMap);
-    }
 
     public static void loadMap(Window window) {
         try
@@ -161,9 +157,9 @@ public class Handler {
 
     public static double getFieldSize()
     {
-        if(mode == Mode.EDITOR) return 50;
-        double columnWidth = Main.getbPane().getWidth() / Handler.getCurrentMap().getXSize();
-        double rowHeight = Main.getbPane().getHeight() / Handler.getCurrentMap().getYSize();
+
+        double columnWidth = (mode == Mode.EDITOR) ? (Main.getbPane().getWidth() -150) / Handler.getCurrentMap().getXSize() -5: Main.getbPane().getWidth() / Handler.getCurrentMap().getXSize() -5;
+        double rowHeight = Main.getbPane().getHeight() / Handler.getCurrentMap().getYSize() -5;
 
         return columnWidth > rowHeight ? rowHeight : columnWidth;
     }
