@@ -9,7 +9,7 @@ import java.io.PrintWriter;
  * Created by u216070 on 19.10.2015.
  */
 public class MapSaver {
-    private static String dir = "..\\Maps\\";
+    private static String dir = "../Maps/";
     private static PrintWriter writer;
 
     public static boolean saveMap(String name, FieldTyp[][] fields, int x, int y) {

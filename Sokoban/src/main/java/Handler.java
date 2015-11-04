@@ -143,9 +143,9 @@ public class Handler {
     {
         try
         {
-            maps = MapReader.load("..\\Maps\\");
+            maps = MapReader.load("../Maps/");
             currentMap = maps[0];
-            themes = ThemeReader.load("src\\gui\\images\\themes");
+            themes = ThemeReader.load("src/gui/images/themes");
             currentTheme = "vikings";
         }
         catch (IOException e)
