@@ -24,6 +24,7 @@ public class Handler {
     private static Map currentMap;
     private static FieldList currentFieldList;
     private static gui.controller.Playground playgroundController;
+    private static gui.controller.Reverse reverseController;
     private static java.net.URL selectMapUrl;
     private static java.net.URL newMapUrl;
     private static java.net.URL mainUrl;
@@ -103,6 +104,14 @@ public class Handler {
 
     public static void setPlaygroundController(Playground playgroundController) {
         Handler.playgroundController = playgroundController;
+    }
+
+    public static void setReverseController(Reverse ReverseController) {
+        Handler.reverseController = ReverseController;
+    }
+
+    public static Reverse getReverseController() {
+        return reverseController;
     }
 
     public static FieldList getCurrentFieldList() {

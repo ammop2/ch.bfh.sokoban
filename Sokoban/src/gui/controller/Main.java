@@ -69,4 +69,12 @@ public class Main implements Initializable {
         Handler.newMap(myMenuBar.getScene().getWindow());
     }
 
+    @FXML
+    private void reverseMap(ActionEvent event)
+    {
+        Handler.setMainUrl(getClass().getResource("../fxml/reverse.fxml"));
+        Handler.setMode(Mode.REVERSE);
+        Handler.loadMap(myMenuBar.getScene().getWindow());
+    }
+
 }
