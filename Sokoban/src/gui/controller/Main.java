@@ -72,9 +72,9 @@ public class Main implements Initializable {
     @FXML
     private void reverseMap(ActionEvent event)
     {
-        Handler.setMainUrl(getClass().getResource("../fxml/reverse.fxml"));
+        Handler.setMainUrl(getClass().getResource("../fxml/reverse_editor.fxml"));
         Handler.setMode(Mode.REVERSE);
-        Handler.loadMap(myMenuBar.getScene().getWindow());
+        Handler.reverseMap(myMenuBar.getScene().getWindow());
     }
 
 }

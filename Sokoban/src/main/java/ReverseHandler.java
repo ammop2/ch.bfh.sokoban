@@ -1,6 +1,6 @@
 package main.java;
 
-import gui.controller.Editor;
+
 import gui.controller.ReverseEditor;
 
 /**
@@ -18,7 +18,7 @@ public class ReverseHandler {
         return reverseEditor;
     }
 
-    public static void setEditor(ReverseEditor editor) {
+    public static void setReverseEditor(ReverseEditor editor) {
         ReverseHandler.reverseEditor = editor;
     }
 
@@ -80,13 +80,15 @@ public class ReverseHandler {
     }
 
     public static void init(){
+        rowCount=Handler.getCurrentMap().getYSize();
+        columnCount=Handler.getCurrentMap().getXSize();
         fieldTyps = new FieldTyp[rowCount][columnCount];
         for(int i = 0; i < rowCount; i++)
         {
             for(int z = 0; z < columnCount; z++)
             {
-                fieldTyps[i][z] = (i == 0 || z == 0 || i == rowCount-1||z==columnCount-1)? FieldTyp.WALL:FieldTyp.PLAYGROUND;
-                reverseEditor.changeFields(new ChangeItem(z, i, fieldTyps[i][z],  fieldTyps[i][z]));
+                //fieldTyps[i][z] = (i == 0 || z == 0 || i == rowCount-1||z==columnCount-1)? FieldTyp.WALL:FieldTyp.PLAYGROUND;
+                //reverseEditor.changeFields(new ChangeItem(z, i, fieldTyps[i][z],  fieldTyps[i][z]));
             }
         }
     }

@@ -24,7 +24,7 @@ public class Handler {
     private static Map currentMap;
     private static FieldList currentFieldList;
     private static gui.controller.Playground playgroundController;
-    private static gui.controller.Reverse reverseController;
+    private static gui.controller.ReverseEditor reverseController;
     private static java.net.URL selectMapUrl;
     private static java.net.URL newMapUrl;
     private static java.net.URL mainUrl;
@@ -85,6 +85,24 @@ public class Handler {
         }
     }
 
+    public static void reverseMap(Window window) {
+        try
+        {
+
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(selectMapUrl);
+            stage.setScene(new Scene(root));
+            stage.setTitle("Map select...");
+            stage.initOwner(window);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.DECORATED);
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void newMap(Window window) {
         try
         {
@@ -106,11 +124,11 @@ public class Handler {
         Handler.playgroundController = playgroundController;
     }
 
-    public static void setReverseController(Reverse ReverseController) {
+    public static void setReverseController(ReverseEditor ReverseController) {
         Handler.reverseController = ReverseController;
     }
 
-    public static Reverse getReverseController() {
+    public static ReverseEditor getReverseController() {
         return reverseController;
     }
 
@@ -167,7 +185,7 @@ public class Handler {
     public static double getFieldSize()
     {
 
-        double columnWidth = (mode == Mode.EDITOR) ? (Main.getbPane().getWidth() -150) / Handler.getCurrentMap().getXSize() -5: Main.getbPane().getWidth() / Handler.getCurrentMap().getXSize() -5;
+        double columnWidth = (mode == Mode.EDITOR || mode == Mode.REVERSE) ? (Main.getbPane().getWidth() -150) / Handler.getCurrentMap().getXSize() -5: Main.getbPane().getWidth() / Handler.getCurrentMap().getXSize() -5;
         double rowHeight = Main.getbPane().getHeight() / Handler.getCurrentMap().getYSize() -5;
 
         return columnWidth > rowHeight ? rowHeight : columnWidth;

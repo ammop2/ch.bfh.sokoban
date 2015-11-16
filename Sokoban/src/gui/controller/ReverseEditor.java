@@ -89,7 +89,16 @@ public class ReverseEditor implements Initializable {
         {
             gridPane.getRowConstraints().add(new RowConstraints(Handler.getFieldSize()));
         }
-        ReverseHandler.setEditor(this);
+
+        for(int r = 0; r < Handler.getCurrentMap().getYSize(); r++)
+        {
+            for(int c = 0; c < Handler.getCurrentMap().getXSize(); c++)
+            {
+                addField(c, r, Handler.getCurrentFieldList().getField(c, r));
+            }
+        }
+
+        ReverseHandler.setReverseEditor(this);
         ReverseHandler.init();
 
     }
