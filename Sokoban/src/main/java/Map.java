@@ -18,12 +18,20 @@ public class Map {
     private int ySize;
     private int[] fields;
     private String name;
-    public Map(String name, int[] fields, int xSize, int ySize)
+    private String path;
+
+    public String getPath() {
+        return path;
+    }
+
+
+    public Map(String name, int[] fields, int xSize, int ySize, String path)
     {
         this.name = name;
         this.xSize = xSize;
         this.ySize = ySize;
         this.fields = fields;
+        this.path = path;
     }
 
     public  String getName() {

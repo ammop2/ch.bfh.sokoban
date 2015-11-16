@@ -7,6 +7,6 @@ import main.java.Handler;
  */
 public class KeyField extends BaseField {
     public KeyField() {
-        super(String.format("gui\\images\\themes\\%s\\key.png", Handler.getCurrentTheme()));
+        super(String.format("gui/images/themes/%s/key.png", Handler.getCurrentTheme()));
     }
 }

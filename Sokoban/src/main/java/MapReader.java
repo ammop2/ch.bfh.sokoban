@@ -77,6 +77,6 @@ public class MapReader {
             }
             line = br.readLine();
         }
-        return new Map(name, fields, xSize, ySize);
+        return new Map(name, fields, xSize, ySize, file.getAbsolutePath());
     }
 }
