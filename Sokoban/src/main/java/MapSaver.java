@@ -12,7 +12,7 @@ public class MapSaver {
     private static String dir = "../Maps/";
     private static PrintWriter writer;
 
-    public static boolean saveMap(String name, FieldTyp[][] fields, int x, int y) {
+    public static boolean saveMap(String name, FieldTyp[][] fields, int x, int y, Difficulty difficulty) {
 
 
         try {
@@ -20,7 +20,25 @@ public class MapSaver {
             File file = new File(path);
             PrintWriter writer = new PrintWriter(file);
 
+            //Write difficulty to file
+            String diff ="";
+            switch (difficulty){
+                case EASY:
+                    diff="1";
+                    break;
+                case MEDIUM:
+                    diff="2";
+                    break;
+                case HARD:
+                    diff="3";
+                    break;
+                default:
+                    diff="1";
+                    break;
+            }
+            writer.println(diff);
 
+            //Write map to file
             String line = "";
             for (int i = 0; i < fields.length; i++) {
                 line = "";
@@ -41,7 +59,7 @@ public class MapSaver {
         return true;
     }
 
-    public static boolean saveMap(String name, int[] fieldsint, int x, int y) {
+    public static boolean saveMap(String name, int[] fieldsint, int x, int y, Difficulty difficulty) {
     FieldTyp[][] fields=new FieldTyp[y][x];
 
         int ptr = 0;
@@ -71,7 +89,7 @@ public class MapSaver {
             }
         }
 
-       return saveMap(name, fields,x,y);
+       return saveMap(name, fields,x,y, difficulty);
     }
 
 }

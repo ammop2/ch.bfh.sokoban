@@ -124,6 +124,7 @@ public class ReverseEditor implements Initializable {
             }
             gridPane.getChildren().remove(result);
             addField(cItem.getX(), cItem.getY(), cItem.getTypNew());
+
         }
 
         changeHistory.add(changes);

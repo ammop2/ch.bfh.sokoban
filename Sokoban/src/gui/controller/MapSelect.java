@@ -29,7 +29,7 @@ public class MapSelect implements Initializable {
 
         for(Map map : Handler.getMaps())
         {
-            mapComboBox.getItems().add(map.getName());
+            mapComboBox.getItems().add(map.getName() + ": " + map.getDifficulty());
         }
         for(String them : Handler.getThemes())
         {
@@ -41,6 +41,7 @@ public class MapSelect implements Initializable {
     @FXML private javafx.scene.control.Button startButton;
     @FXML private javafx.scene.control.Label xSizeLabel;
     @FXML private javafx.scene.control.Label ySizeLabel;
+    @FXML private javafx.scene.control.Label difficultyLabel;
 
 
     @FXML
@@ -61,6 +62,8 @@ public class MapSelect implements Initializable {
         Map map = Handler.getMaps()[mapComboBox.getSelectionModel().getSelectedIndex()];
         xSizeLabel.setText(String.format("%s", map.getXSize()));
         ySizeLabel.setText(String.format("%s", map.getYSize()));
+        difficultyLabel.setText(String.format("%s", map.getDifficulty()));
+
 
         Handler.setCurrentMap(map);
     }

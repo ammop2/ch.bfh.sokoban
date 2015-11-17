@@ -10,6 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.java.Difficulty;
 import main.java.EditorHandler;
 import main.java.Handler;
 import main.java.Map;
@@ -40,13 +41,42 @@ public class MapNew implements Initializable {
                 lblColumn.setText(String.valueOf(newValue.intValue()));
             }
         });
+
+        sliderDifficulty.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+
+                int diff =newValue.intValue();
+                Difficulty difficulty = Difficulty.EASY;
+
+                switch(diff){
+                    case 1:
+                        difficulty=Difficulty.EASY;
+                        break;
+                    case 2:
+                        difficulty= Difficulty.MEDIUM;
+                        break;
+                    case 3:
+                        difficulty = Difficulty.HARD;
+                        break;
+                    default:
+                        break;
+
+                }
+                EditorHandler.setDifficulty(difficulty);
+                lblDifficulty.setText(String.valueOf(newValue.intValue()));
+            }
+        });
+
     }
 
     @FXML private javafx.scene.control.Slider sliderRow;
     @FXML private javafx.scene.control.Slider sliderColumn;
+    @FXML private javafx.scene.control.Slider sliderDifficulty;
     @FXML private Label lblRow;
     @FXML private Label lblColumn;
     @FXML private TextField lblName;
+    @FXML private Label lblDifficulty;
     @FXML private javafx.scene.control.Button cancelButton;
     @FXML private javafx.scene.control.Button startButton;
 

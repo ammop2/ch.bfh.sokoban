@@ -13,9 +13,11 @@
             <ComboBox fx:id="mapComboBox" layoutX="31.0" layoutY="14.0" onAction="#mapSelectedAction" prefHeight="31.0" prefWidth="593.0" promptText="Select Map" />
             <Label layoutX="31.0" layoutY="174.0" text="Anzahl Spalten:" />
             <Label layoutX="31.0" layoutY="135.0" text="Anzahl Zeilen:" />
-            <Label layoutX="161.0" layoutY="174.0" text="sp" fx:id="xSizeLabel" />
+            <Label layoutX="161.0" layoutY="174.0" text="12" fx:id="xSizeLabel" />
             <Label fx:id="ySizeLabel" layoutX="162.0" layoutY="135.0" text="12" />
             <ComboBox fx:id="themeComboBox" layoutX="31.0" layoutY="65.0" onAction="#themeSelectedAction" prefHeight="31.0" prefWidth="593.0" promptText="Select Theme" />
+            <Label layoutX="27.0" layoutY="212.0" text="Schwierigkeitsgrad:" />
+            <Label fx:id="difficultyLabel" layoutX="161.0" layoutY="212.0" text="EASY" />
          </children>
       </Pane>
    </center>

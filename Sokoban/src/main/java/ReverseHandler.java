@@ -13,6 +13,7 @@ public class ReverseHandler {
     private static ReverseEditor reverseEditor;
     private static FieldTyp[][] fieldTyps;
     private static boolean pull;
+    private static Difficulty difficulty =Difficulty.EASY;
 
     public static ReverseEditor getReverseEditor() {
         return reverseEditor;
@@ -32,6 +33,11 @@ public class ReverseHandler {
 
     public static String getMapName() {
         return mapName;
+    }
+
+    public static void changeField(int x, int y, FieldTyp type)
+    {
+        fieldTyps[y][x] = type;
     }
 
     public static void togglePull() {
@@ -61,11 +67,13 @@ public class ReverseHandler {
 
     public static void save()
     {
-        MapSaver.saveMap(mapName, fieldTyps, columnCount, rowCount);
+        MapSaver.saveMap(mapName, fieldTyps, columnCount, rowCount, difficulty);
     }
 
 
     public static void init(){
+        mapName = Handler.getCurrentMap().getName();
+        difficulty = Handler.getCurrentMap().getDifficulty();
         rowCount=Handler.getCurrentMap().getYSize();
         columnCount=Handler.getCurrentMap().getXSize();
         fieldTyps = new FieldTyp[rowCount][columnCount];
