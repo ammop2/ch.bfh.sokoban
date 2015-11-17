@@ -2,8 +2,10 @@ package gui.controller;
 
 import gui.element.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -12,7 +14,9 @@ import main.java.ReverseHandler;
 import main.java.FieldTyp;
 import main.java.Handler;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -21,6 +25,7 @@ import java.util.ResourceBundle;
 public class ReverseEditor implements Initializable {
     @FXML
     GridPane gridPane;
+    private ArrayList<ChangeItem[]> changeHistory;
 
 
     @FXML
@@ -79,6 +84,7 @@ public class ReverseEditor implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Handler.setReverseController(this);
 
         for(int i = 0; i < ReverseHandler.getColumnCount(); i++)
         {
@@ -97,9 +103,29 @@ public class ReverseEditor implements Initializable {
                 addField(c, r, Handler.getCurrentFieldList().getField(c, r));
             }
         }
-
+        changeHistory = new ArrayList<>();
         ReverseHandler.setReverseEditor(this);
         ReverseHandler.init();
 
+    }
+
+    public void changeFields(ChangeItem[] changes)
+    {
+
+        if(changes == null) return;
+        for(ChangeItem cItem : changes)
+        {
+            Node result = null;
+            for(Node node : gridPane.getChildren() ){
+                if(gridPane.getRowIndex(node) == cItem.getY() && gridPane.getColumnIndex(node) == cItem.getX()) {
+                    result = node;
+                    break;
+                }
+            }
+            gridPane.getChildren().remove(result);
+            addField(cItem.getX(), cItem.getY(), cItem.getTypNew());
+        }
+
+        changeHistory.add(changes);
     }
 }

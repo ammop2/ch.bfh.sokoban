@@ -41,4 +41,37 @@ public class MapSaver {
         return true;
     }
 
+    public static boolean saveMap(String name, int[] fieldsint, int x, int y) {
+    FieldTyp[][] fields=new FieldTyp[y][x];
+
+        int ptr = 0;
+
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
+                switch (fieldsint[ptr]) {
+                    case 0:
+                        fields[i][j] = FieldTyp.BLANK;
+                        break;
+                    case 1:
+                        fields[i][j] = FieldTyp.WALL;
+                        break;
+                    case 2:
+                        fields[i][j] = FieldTyp.PLAYER;
+                        break;
+                    case 3:
+                        fields[i][j] = FieldTyp.TARGET_UNLOCKED;
+                        break;
+                    case 4:
+                        fields[i][j] = FieldTyp.KEY;
+                        break;
+                    default:
+                        break;
+                }
+                ptr++;
+            }
+        }
+
+       return saveMap(name, fields,x,y);
+    }
+
 }

@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.Direction;
 import main.java.Handler;
+import main.java.Mode;
 
 /**
  * Created by Pascal on 30.10.2015.
@@ -77,8 +78,14 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
         }
         if( d!= null)
         {
-            System.out.println("Directon" + d);
-            Handler.getPlaygroundController().changeFields( Handler.getCurrentFieldList().movePlayer(d));
+            if(Handler.getMode()==Mode.PLAY){
+                System.out.println("Directon" + d);
+                Handler.getPlaygroundController().changeFields( Handler.getCurrentFieldList().movePlayer(d));
+            }else if(Handler.getMode()==Mode.REVERSE){
+                System.out.println("Directon" + d);
+                Handler.getReverseController().changeFields(Handler.getCurrentFieldList().movePlayer(d));
+            }
+
         }
     }
 }

@@ -22,16 +22,6 @@ public class ReverseHandler {
         ReverseHandler.reverseEditor = editor;
     }
 
-    private static FieldTyp currentTyp = FieldTyp.PLAYGROUND;
-
-    public static FieldTyp getCurrentTyp() {
-        return currentTyp;
-    }
-
-    public static void setCurrentTyp(FieldTyp currentTyp) {
-        ReverseHandler.currentTyp = currentTyp;
-    }
-
     public static int getColumnCount() {
         return columnCount;
     }
@@ -50,9 +40,10 @@ public class ReverseHandler {
         }else{
             pull=true;
         }
+        System.out.println(pull);
     }
 
-    public boolean getPull(){
+    public static boolean getPull(){
         return pull;
     }
 
@@ -73,23 +64,39 @@ public class ReverseHandler {
         MapSaver.saveMap(mapName, fieldTyps, columnCount, rowCount);
     }
 
-    public static void changeField(int x, int y)
-    {
-        fieldTyps[y][x] = currentTyp;
-        reverseEditor.changeFields(new ChangeItem(x, y, FieldTyp.PLAYGROUND, currentTyp));
-    }
 
     public static void init(){
         rowCount=Handler.getCurrentMap().getYSize();
         columnCount=Handler.getCurrentMap().getXSize();
         fieldTyps = new FieldTyp[rowCount][columnCount];
-        for(int i = 0; i < rowCount; i++)
-        {
-            for(int z = 0; z < columnCount; z++)
-            {
-                //fieldTyps[i][z] = (i == 0 || z == 0 || i == rowCount-1||z==columnCount-1)? FieldTyp.WALL:FieldTyp.PLAYGROUND;
-                //reverseEditor.changeFields(new ChangeItem(z, i, fieldTyps[i][z],  fieldTyps[i][z]));
+        int[] map = Handler.getCurrentMap().getFields();
+        int ptr = 0;
+
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = 0; j < columnCount; j++) {
+                switch (map[ptr]) {
+                    case 0:
+                        fieldTyps[i][j] = FieldTyp.BLANK;
+                        break;
+                    case 1:
+                        fieldTyps[i][j] = FieldTyp.WALL;
+                        break;
+                    case 2:
+                        fieldTyps[i][j] = FieldTyp.PLAYER;
+                        break;
+                    case 3:
+                        fieldTyps[i][j] = FieldTyp.TARGET_UNLOCKED;
+                        break;
+                    case 4:
+                        fieldTyps[i][j] = FieldTyp.KEY;
+                        break;
+                    default:
+                        break;
+                }
+                ptr++;
             }
         }
+
+
     }
 }
