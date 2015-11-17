@@ -12,7 +12,7 @@
    <right>
       <ToolBar orientation="VERTICAL" BorderPane.alignment="CENTER">
         <items>
-            <Button Text="Pull" mnemonicParsing="false" onAction="#pullClicked" prefHeight="92.0" prefWidth="91.0">
+            <Button fx:id="togglePullButton" Text="Pull OFF" mnemonicParsing="false" onAction="#pullClicked" prefHeight="92.0" prefWidth="91.0">
             </Button>
             <Button mnemonicParsing="false" onAction="#saveClicked" prefHeight="92.0" prefWidth="91.0">
                 <graphic>

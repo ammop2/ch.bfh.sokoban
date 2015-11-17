@@ -26,12 +26,17 @@ public class ReverseEditor implements Initializable {
     @FXML
     GridPane gridPane;
     private ArrayList<ChangeItem[]> changeHistory;
-
+    @FXML private javafx.scene.control.Button togglePullButton;
 
     @FXML
     private void pullClicked()
     {
         ReverseHandler.togglePull();
+        if(ReverseHandler.getPull()){
+            togglePullButton.setText("Pull ON");
+        }else{
+            togglePullButton.setText("Pull OFF");
+        }
     }
     @FXML
     private void saveClicked()
