@@ -110,7 +110,12 @@ public class ReverseEditor implements Initializable {
         }
         changeHistory = new ArrayList<>();
         ReverseHandler.setReverseEditor(this);
-        ReverseHandler.init();
+
+        if(ReverseHandler.getPull()){
+            togglePullButton.setText("Pull ON");
+        }else{
+            togglePullButton.setText("Pull OFF");
+        }
 
     }
 
@@ -133,5 +138,31 @@ public class ReverseEditor implements Initializable {
         }
 
         changeHistory.add(changes);
+    }
+
+    public void undo()
+    {
+        if(changeHistory.size() > 0) {
+            ChangeItem[] changes = changeHistory.get(changeHistory.size() - 1);
+            for (ChangeItem cItem : changes) {
+                {
+                    Node result = null;
+                    for (Node node : gridPane.getChildren()) {
+                        if (gridPane.getRowIndex(node) == cItem.getY() && gridPane.getColumnIndex(node) == cItem.getX()) {
+                            result = node;
+                            break;
+                        }
+                    }
+                    gridPane.getChildren().remove(result);
+                    if(cItem.getTypOld() == FieldTyp.PLAYER)
+                    {
+                        Handler.getCurrentFieldList().setPlayer(cItem.getX(), cItem.getY());
+                    }
+                    addField(cItem.getX(), cItem.getY(), cItem.getTypOld());
+                }
+            }
+            Handler.getCurrentFieldList().undo(changes);
+            changeHistory.remove(changeHistory.size() - 1);
+        }
     }
 }

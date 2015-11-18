@@ -26,6 +26,10 @@ public class FieldList {
         init();
     }
 
+    public FieldTyp[][] getFields(){
+        return fields;
+    }
+
 
     public void setPlayer(int x, int y)
     {
@@ -213,23 +217,12 @@ public class FieldList {
         //Handle the reverse Playing
         if (Handler.getMode()==Mode.REVERSE &&  b != FieldTyp.PLAYGROUND) return result;
         if (Handler.getMode()==Mode.REVERSE && e == FieldTyp.KEY && ReverseHandler.getPull()) {
-            System.out.println("pulling");
             result =    new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, FieldTyp.KEY),
                         new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYGROUND, FieldTyp.PLAYER),
                         new ChangeItem(startX + getDirectionX(reverseDirection), startY + getDirectionY(reverseDirection), FieldTyp.KEY, FieldTyp.PLAYGROUND)};
-
-            ReverseHandler.changeField(startX, startY, FieldTyp.KEY);
-            ReverseHandler.changeField(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYER);
-            ReverseHandler.changeField(startX + getDirectionX(reverseDirection), startY + getDirectionY(reverseDirection), FieldTyp.PLAYGROUND);
-
         }else if(Handler.getMode()==Mode.REVERSE && b == FieldTyp.PLAYGROUND){
-            System.out.println("not pulling but moving player");
             result =    new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, FieldTyp.PLAYGROUND),
                         new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYGROUND, FieldTyp.PLAYER)};
-
-            ReverseHandler.changeField(startX, startY, FieldTyp.PLAYGROUND);
-            ReverseHandler.changeField(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYER);
-
         } else {
             //Handle normal playing
 
@@ -269,6 +262,7 @@ public class FieldList {
     {
         for(ChangeItem cItem : changes)
         {
+            //System.out.println("Undo: x:" + cItem.getX() + " y:" + cItem.getY() +" old:" + cItem.getTypOld() + " new:" + cItem.getTypNew() );
             fields[cItem.getY()][cItem.getX()] = cItem.getTypOld();
         }
     }

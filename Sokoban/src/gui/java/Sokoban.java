@@ -70,7 +70,11 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
                 controlPressed = true;
                 break;
             case Z:
-                Handler.getPlaygroundController().undo();
+                if(Handler.getMode()==Mode.PLAY){
+                    Handler.getPlaygroundController().undo();
+                } else if (Handler.getMode()==Mode.REVERSE){
+                    Handler.getReverseController().undo();
+                }
                 break;
                 default:
                     controlPressed = false;
