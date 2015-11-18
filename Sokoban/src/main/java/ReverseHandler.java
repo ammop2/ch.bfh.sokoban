@@ -7,12 +7,10 @@ import gui.controller.ReverseEditor;
  * Created by Pascal on 03.11.2015.
  */
 public class ReverseHandler {
-    private static int rowCount = 12;
-    private static int columnCount = 12;
-    private static String mapName;
+    private static int columnCount =12;
+    private static int rowCount =12;
     private static ReverseEditor reverseEditor;
     private static boolean pull;
-    private static Difficulty difficulty =Difficulty.EASY;
 
     public static ReverseEditor getReverseEditor() {
         return reverseEditor;
@@ -46,7 +44,7 @@ public class ReverseHandler {
 
     public static void save()
     {
-        MapSaver.saveMap(Handler.getCurrentMap().getName(), Handler.getCurrentFieldList().getFields(), Handler.getCurrentMap().getXSize(), Handler.getCurrentMap().getYSize(), difficulty);
+        MapSaver.saveMap(Handler.getCurrentMap().getName(), Handler.getCurrentFieldList().getFields(), Handler.getCurrentMap().getXSize(), Handler.getCurrentMap().getYSize(), Handler.getCurrentMap().getDifficulty());
     }
 
 }
