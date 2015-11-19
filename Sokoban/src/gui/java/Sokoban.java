@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import main.java.Direction;
 import main.java.Handler;
 import main.java.Mode;
+import main.java.UserReader;
 
 /**
  * Created by Pascal on 30.10.2015.
@@ -43,6 +44,9 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
         primaryStage.setMaximized(true);
         primaryStage.show();
 
+
+        //test users
+        UserReader.load("../Users/");
     }
 
     public static void main(String[] args) {
