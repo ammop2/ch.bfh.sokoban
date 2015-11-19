@@ -13,6 +13,7 @@ import java.util.ArrayList;
         private static PrintWriter writer;
 
         public static boolean saveUser(User user) {
+            System.out.println(user.getName());
 
             try {
                 String path = dir + user.getName()  + ".txt";
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 
                 //Write user to file
                 String line = "";
+                writer.print(line);
                 for (Result result : results) {
                     line = "";
                     line = line + result.getMapName() + " " + result.getResult();

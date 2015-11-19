@@ -19,13 +19,14 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
 
     private static Stage pStage;
 
+
     public static Stage getpStage() {
         return pStage;
     }
 
     private boolean controlPressed;
 
-    @Override
+
     public void start(Stage primaryStage) throws Exception {
         Handler.init();
         Sokoban.pStage = primaryStage;
@@ -34,6 +35,7 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
 
         Handler.setSelectMapUrl(getClass().getResource("../fxml/select_map.fxml"));
         Handler.setNewMapUrl(getClass().getResource("../fxml/new_map.fxml"));
+        Handler.setLoginUrl(getClass().getResource("../fxml/login.fxml"));
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/main.fxml"));
         Parent root = (Parent)loader.load();
@@ -43,11 +45,12 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.show();
+        Handler.choseUser(pStage);
 
 
-        //test users
-        UserReader.load("../Users/");
+
     }
+
 
     public static void main(String[] args) {
         launch(args);

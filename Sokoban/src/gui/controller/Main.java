@@ -31,8 +31,11 @@ public class Main implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         Main.bPane = borderPane;
     }
+
+
 
 
     private Stage stage;

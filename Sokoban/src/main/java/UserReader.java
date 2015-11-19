@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 /**
@@ -12,8 +13,8 @@ import java.util.regex.Pattern;
 public class UserReader {
 
 
-    public static User[] load(String path) throws IOException {
-
+    public static ArrayList<User> load(String path) throws IOException {
+        ArrayList<User> users = new ArrayList<User>();
         File folder = new File(path);
         //check if path is a folder
         if (!folder.isDirectory()) return null;
@@ -25,11 +26,11 @@ public class UserReader {
                 numberOfFiles++;
             }
         }
-        User[] users = new User[numberOfFiles];
+
         //create a MyController for each file
         for (int i = 0; i < listOfElements.length; i++) {
             if (listOfElements[i].isFile()) {
-                users[i] = getUser(listOfElements[i].getAbsolutePath());
+                users.add(getUser(listOfElements[i].getAbsolutePath())) ;
             }
         }
 

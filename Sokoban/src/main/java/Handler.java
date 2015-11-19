@@ -2,6 +2,7 @@ package main.java;
 
 import gui.controller.*;
 import gui.controller.Playground;
+import gui.java.Sokoban;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,7 +29,32 @@ public class Handler {
     private static java.net.URL selectMapUrl;
     private static java.net.URL newMapUrl;
     private static java.net.URL mainUrl;
+    private static java.net.URL loginUrl;
     private static Mode mode;
+    private static ArrayList<User> users;
+    private static Map[] maps;
+    private static User currentUser;
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User user) {
+        Handler.currentUser = currentUser;
+    }
+
+    public static ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public static void setLoginUrl(URL loginUrl) {
+        Handler.loginUrl = loginUrl;
+
+    }
+
+    public static URL getLoginUrl() {
+        return loginUrl;
+    }
 
     public static Mode getMode() {
         return mode;
@@ -68,8 +94,7 @@ public class Handler {
 
 
     public static void loadMap(Window window) {
-        try
-        {
+        try {
 
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(selectMapUrl);
@@ -85,9 +110,23 @@ public class Handler {
         }
     }
 
+    public static void choseUser(Window window) {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(loginUrl);
+            stage.setScene(new Scene(root));
+            stage.setTitle("Please chose User");
+            stage.initOwner(window);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.DECORATED);
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void reverseMap(Window window) {
-        try
-        {
+        try {
 
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(selectMapUrl);
@@ -104,8 +143,7 @@ public class Handler {
     }
 
     public static void newMap(Window window) {
-        try
-        {
+        try {
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(newMapUrl);
             stage.setScene(new Scene(root));
@@ -145,7 +183,7 @@ public class Handler {
         Handler.currentMap = currentMap;
     }
 
-    private static Map[] maps;
+
     public static Map[] getMaps() {
         return maps;
     }
@@ -166,27 +204,24 @@ public class Handler {
         Handler.currentTheme = currentTheme;
     }
 
-    public static void init()
-    {
-        try
-        {
+    public static void init() {
+        try {
             maps = MapReader.load("../Maps/");
             currentMap = maps[0];
             themes = ThemeReader.load("src/gui/images/themes");
             currentTheme = "vikings";
-        }
-        catch (IOException e)
-        {
+            users = UserReader.load("../Users/");
+            currentUser = users.get(0);
+        } catch (IOException e) {
             System.out.println("Error during init Sokoban game. Message");
             e.printStackTrace();
         }
     }
 
-    public static double getFieldSize()
-    {
+    public static double getFieldSize() {
 
-        double columnWidth = (mode == Mode.EDITOR || mode == Mode.REVERSE) ? (Main.getbPane().getWidth() -150) / Handler.getCurrentMap().getXSize() -5: Main.getbPane().getWidth() / Handler.getCurrentMap().getXSize() -5;
-        double rowHeight = Main.getbPane().getHeight() / Handler.getCurrentMap().getYSize() -5;
+        double columnWidth = (mode == Mode.EDITOR || mode == Mode.REVERSE) ? (Main.getbPane().getWidth() - 150) / Handler.getCurrentMap().getXSize() - 5 : Main.getbPane().getWidth() / Handler.getCurrentMap().getXSize() - 5;
+        double rowHeight = Main.getbPane().getHeight() / Handler.getCurrentMap().getYSize() - 5;
 
         return columnWidth > rowHeight ? rowHeight : columnWidth;
     }
