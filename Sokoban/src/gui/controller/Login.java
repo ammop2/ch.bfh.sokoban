@@ -34,6 +34,8 @@ public class Login implements Initializable {
 
     @FXML private ComboBox comboBoxExistingPlayer;
     @FXML private TextField lblPlayerName;
+    @FXML private javafx.scene.control.Button createPlayerButton;
+    @FXML private javafx.scene.control.Button login;
 
     @FXML
     private void createPlayerAction(){
@@ -43,16 +45,20 @@ public class Login implements Initializable {
         Handler.setCurrentUser(user);
         UserSaver.saveUser(user);
 
-        Stage stage = (Stage) comboBoxExistingPlayer.getScene().getWindow();
+
+
+        Stage stage = (Stage) lblPlayerName.getScene().getWindow();
         stage.close();
+        //Main.showStats();
     }
 
     @FXML
     private void userSelectedAction() {
         User user = Handler.getUsers().get(comboBoxExistingPlayer.getSelectionModel().getSelectedIndex());
         Handler.setCurrentUser(user);
-        Stage stage = (Stage) comboBoxExistingPlayer.getScene().getWindow();
+        Stage stage = (Stage) lblPlayerName.getScene().getWindow();
         stage.close();
+        //Main.showStats();
     }
 
 }

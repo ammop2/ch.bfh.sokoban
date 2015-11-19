@@ -45,10 +45,8 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.show();
+
         Handler.choseUser(pStage);
-
-
-
     }
 
 

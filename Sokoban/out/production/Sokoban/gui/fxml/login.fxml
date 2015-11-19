@@ -14,6 +14,7 @@
                   <Insets right="30.0" />
                </FlowPane.margin>
             </Button>
+            <Button fx:id="login" mnemonicParsing="false" onAction="#userSelectedAction" text="log in"/>
          </children>
       </FlowPane>
    </bottom>
@@ -23,7 +24,7 @@
             <Label layoutX="33.0" layoutY="109.0" text="Existing Player:" />
             <Label layoutX="31.0" layoutY="61.0" prefHeight="21.0" prefWidth="82.0" text="New Player:" />
             <TextField fx:id="lblPlayerName" layoutX="140.0" layoutY="56.0" prefHeight="31.0" prefWidth="496.0" />
-            <ComboBox fx:id="comboBoxExistingPlayer" onAction="#userSelectedAction" layoutX="140.0" layoutY="105.0" prefHeight="25.0" prefWidth="495.0" />
+            <ComboBox fx:id="comboBoxExistingPlayer" layoutX="140.0" layoutY="105.0" prefHeight="25.0" prefWidth="495.0" />
             <Label layoutX="31.0" layoutY="20.0" prefHeight="21.0" prefWidth="313.0" text="Please create new player or chose an existing player" />
          </children>
       </Pane>
