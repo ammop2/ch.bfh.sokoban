@@ -49,7 +49,7 @@ public class Login implements Initializable {
 
         Stage stage = (Stage) lblPlayerName.getScene().getWindow();
         stage.close();
-        //Main.showStats();
+        Handler.getMainController().showStats();
     }
 
     @FXML
@@ -58,7 +58,7 @@ public class Login implements Initializable {
         Handler.setCurrentUser(user);
         Stage stage = (Stage) lblPlayerName.getScene().getWindow();
         stage.close();
-        //Main.showStats();
+        Handler.getMainController().showStats();
     }
 
 }

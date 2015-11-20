@@ -26,6 +26,7 @@ public class Handler {
     private static FieldList currentFieldList;
     private static gui.controller.Playground playgroundController;
     private static gui.controller.ReverseEditor reverseController;
+    private static gui.controller.Main mainController;
     private static java.net.URL selectMapUrl;
     private static java.net.URL newMapUrl;
     private static java.net.URL mainUrl;
@@ -34,6 +35,14 @@ public class Handler {
     private static ArrayList<User> users;
     private static Map[] maps;
     private static User currentUser;
+
+    public static Main getMainController() {
+        return mainController;
+    }
+
+    public static void setMainController(Main mainController) {
+        Handler.mainController = mainController;
+    }
 
     public static User getCurrentUser() {
         return currentUser;

@@ -33,6 +33,7 @@ public class Main implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         Main.bPane = borderPane;
+        Handler.setMainController(this);
     }
 
 
@@ -44,7 +45,7 @@ public class Main implements Initializable {
     private BorderPane borderPane;
 
     @FXML
-    public static javafx.scene.control.Label lblStats;
+    public javafx.scene.control.Label lblStats;
 
     @FXML
     MenuBar myMenuBar;
@@ -82,7 +83,7 @@ public class Main implements Initializable {
         Handler.choseUser(myMenuBar.getScene().getWindow());
     }
 
-    public static void showStats() {
+    public void showStats() {
         String status = "";
         status = status + "Welcome, your are logged in as " + Handler.getCurrentUser().getName();
 
