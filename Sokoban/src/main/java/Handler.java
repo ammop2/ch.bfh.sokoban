@@ -215,11 +215,11 @@ public class Handler {
 
     public static void init() {
         try {
-            maps = MapReader.load("../Maps/");
+            maps = MapReader.load("Maps/");
             currentMap = maps[0];
-            themes = ThemeReader.load("src/gui/images/themes");
+            themes = ThemeReader.load("Sokoban/src/gui/images/themes");
             currentTheme = "vikings";
-            users = UserReader.load("../Users/");
+            users = UserReader.load("Users/");
             currentUser = users.get(0);
         } catch (IOException e) {
             System.out.println("Error during init Sokoban game. Message");

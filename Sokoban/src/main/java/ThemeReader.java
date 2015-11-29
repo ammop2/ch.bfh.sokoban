@@ -17,7 +17,7 @@ public class ThemeReader {
 
         File[] listOfElements = folder.listFiles();
 
-        ArrayList<String> subFolders =  new ArrayList<>();
+        ArrayList<String> subFolders =  new ArrayList<String>();
         for(File f : listOfElements)
         {
             if(f.isDirectory()) subFolders.add(f.getName());

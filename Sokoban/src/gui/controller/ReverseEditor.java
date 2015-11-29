@@ -108,7 +108,7 @@ public class ReverseEditor implements Initializable {
                 addField(c, r, Handler.getCurrentFieldList().getField(c, r));
             }
         }
-        changeHistory = new ArrayList<>();
+        changeHistory = new ArrayList<ChangeItem[]>();
         ReverseHandler.setReverseEditor(this);
 
         if(ReverseHandler.getPull()){

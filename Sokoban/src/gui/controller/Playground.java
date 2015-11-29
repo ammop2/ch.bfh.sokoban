@@ -53,7 +53,7 @@ public class Playground implements Initializable {
                 addField(c, r, Handler.getCurrentFieldList().getField(c, r));
             }
         }
-        changeHistory = new ArrayList<>();
+        changeHistory = new ArrayList<ChangeItem[]>();
     }
 
     private void addField(int c, int r, FieldTyp typ)

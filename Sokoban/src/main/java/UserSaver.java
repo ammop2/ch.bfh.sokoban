@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 
     public class UserSaver {
-        private static String dir = "../Users/";
+        private static String dir = "Users/";
         private static PrintWriter writer;
 
         public static boolean saveUser(User user) {

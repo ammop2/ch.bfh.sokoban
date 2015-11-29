@@ -321,7 +321,7 @@ public class FieldList {
        FieldTyp tTyp = fields[targetY][targetX];
         if (tTyp != FieldTyp.PLAYGROUND) return null;
 
-        if(checkNeighbours(player.getX(), player.getY(), targetX, targetY, new ArrayList<>()))
+        if(checkNeighbours(player.getX(), player.getY(), targetX, targetY, new ArrayList<Coordinate>()))
         {
             ChangeItem[] res = new ChangeItem[]{new ChangeItem(player.getX(), player.getY(), FieldTyp.PLAYER, FieldTyp.PLAYGROUND),
                     new ChangeItem(targetX, targetY, FieldTyp.PLAYGROUND, FieldTyp.PLAYER)};
