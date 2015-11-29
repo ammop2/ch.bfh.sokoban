@@ -31,7 +31,9 @@ public class Main implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         Main.bPane = borderPane;
+        Handler.setMainController(this);
     }
 
 
@@ -43,30 +45,48 @@ public class Main implements Initializable {
     private BorderPane borderPane;
 
     @FXML
+    public javafx.scene.control.Label lblStats;
+
+    @FXML
     MenuBar myMenuBar;
 
     @FXML
-    private void loadMap(ActionEvent event)
-    {
+    private void loadMap(ActionEvent event) {
         Handler.setMainUrl(getClass().getResource("../fxml/playground.fxml"));
         Handler.setMode(Mode.PLAY);
         Handler.loadMap(myMenuBar.getScene().getWindow());
     }
 
     @FXML
-    private void solveMap(ActionEvent event)
-    {
+    private void solveMap(ActionEvent event) {
         Handler.setMainUrl(getClass().getResource("../fxml/solver.fxml"));
         Handler.setMode(Mode.SOLVER);
         Handler.loadMap(myMenuBar.getScene().getWindow());
     }
 
     @FXML
-    private void newMap(ActionEvent event)
-    {
+    private void newMap(ActionEvent event) {
         Handler.setMainUrl(getClass().getResource("../fxml/editor.fxml"));
         Handler.setMode(Mode.EDITOR);
         Handler.newMap(myMenuBar.getScene().getWindow());
     }
 
+    @FXML
+    private void reverseMap(ActionEvent event) {
+        Handler.setMainUrl(getClass().getResource("../fxml/reverse_editor.fxml"));
+        Handler.setMode(Mode.REVERSE);
+        Handler.reverseMap(myMenuBar.getScene().getWindow());
+    }
+
+    @FXML
+    private void select(ActionEvent event) {
+        Handler.choseUser(myMenuBar.getScene().getWindow());
+    }
+
+    public void showStats() {
+        String status = "";
+        status = status + "Welcome, your are logged in as " + Handler.getCurrentUser().getName();
+
+        lblStats.setText(status);
+    }
 }

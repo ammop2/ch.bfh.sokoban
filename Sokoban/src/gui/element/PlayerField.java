@@ -9,6 +9,6 @@ import main.java.Handler;
  */
 public class PlayerField extends BaseField {
     public PlayerField() {
-        super(String.format("gui\\images\\themes\\%s\\avatar.png", Handler.getCurrentTheme()));
+        super(String.format("gui/images/themes/%s/avatar.png", Handler.getCurrentTheme()));
     }
 }

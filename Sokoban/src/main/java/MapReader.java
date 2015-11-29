@@ -49,6 +49,26 @@ public class MapReader {
 
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
+
+        //Handle the difficulty stuff
+        String diff = br.readLine();
+        int diff_parsed = Integer.parseInt(diff);
+        Difficulty difficulty = Difficulty.EASY;
+
+        switch (diff_parsed){
+            case 1:
+                difficulty = Difficulty.EASY;
+                break;
+            case 2:
+                difficulty = Difficulty.MEDIUM;
+                break;
+            case 3:
+                difficulty = Difficulty.HARD;
+                break;
+            default:
+                break;
+        }
+        //Handle the rest of the Map
         String line = br.readLine();
         int ptr = 0;
         while (line != null) {
@@ -77,6 +97,6 @@ public class MapReader {
             }
             line = br.readLine();
         }
-        return new Map(name, fields, xSize, ySize, file.getAbsolutePath());
+        return new Map(name, fields, xSize, ySize, difficulty);
     }
 }

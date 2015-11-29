@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import main.java.ChangeItem;
 import main.java.FieldTyp;
 import main.java.Handler;
+import main.java.UserSaver;
 
 import java.io.IOException;
 import java.net.URL;
@@ -104,6 +105,8 @@ public class Playground implements Initializable {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("../fxml/win.fxml"));
                 Main.getbPane().setCenter(root);
+                Handler.getCurrentUser().addResult(Handler.getCurrentMap().getName(), changeHistory.size());
+                UserSaver.saveUser(Handler.getCurrentUser());
             }
             catch (IOException e) {
                 e.printStackTrace();

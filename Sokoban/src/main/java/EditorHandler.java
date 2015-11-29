@@ -6,11 +6,14 @@ import gui.controller.Editor;
  * Created by Pascal on 03.11.2015.
  */
 public class EditorHandler {
+
     private static int rowCount = 12;
     private static int columnCount = 12;
     private static String mapName;
     private static Editor editor;
     private static FieldTyp[][] fieldTyps;
+    private static Difficulty difficulty =Difficulty.EASY;
+    private static FieldTyp currentTyp = FieldTyp.PLAYGROUND;
 
     public static Editor getEditor() {
         return editor;
@@ -20,7 +23,9 @@ public class EditorHandler {
         EditorHandler.editor = editor;
     }
 
-    private static FieldTyp currentTyp = FieldTyp.PLAYGROUND;
+
+
+    public static void setDifficulty(Difficulty difficulty){EditorHandler.difficulty= difficulty;}
 
     public static FieldTyp getCurrentTyp() {
         return currentTyp;
@@ -58,7 +63,7 @@ public class EditorHandler {
 
     public static void save()
     {
-        MapSaver.saveMap(mapName, fieldTyps, columnCount, rowCount);
+        MapSaver.saveMap(mapName, fieldTyps, columnCount, rowCount, difficulty);
     }
 
     public static void changeField(int x, int y)

@@ -8,7 +8,7 @@
     <center>
         <StackPane BorderPane.alignment="CENTER">
             <children>
-                <Button text="Select a Map" textFill="#420197" underline="true" onAction="#loadMap" />
+                <Button onAction="#loadMap" text="Select a Map" textFill="#420197" underline="true" BorderPane.alignment="CENTER" />
             </children>
         </StackPane>
     </center>
@@ -19,22 +19,37 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Play">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Select Map" onAction="#loadMap" />
+                    <MenuItem mnemonicParsing="false" onAction="#loadMap" text="Select Map" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Editor">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="New Map" onAction="#newMap"/>
+                    <MenuItem mnemonicParsing="false" onAction="#newMap" text="New Map" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Solver">
                       <items>
-                          <MenuItem mnemonicParsing="false" text="Select Map" onAction="#solveMap"/>
+                          <MenuItem mnemonicParsing="false" onAction="#solveMap" text="Select Map" />
                       </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Reverse Play">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#reverseMap" text="Select Map" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="User">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#select" text="Select User" />
+                     </items>
                   </Menu>
               </menus>
             </MenuBar>
+             <Label fx:id="lblStats" text="lblStats" />
          </children>
       </FlowPane>
    </top>
+
+   <bottom>
+
+   </bottom>
 </BorderPane>

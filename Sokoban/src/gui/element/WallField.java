@@ -8,6 +8,6 @@ import main.java.Handler;
 public class WallField extends BaseField{
     public  WallField()
     {
-        super(String.format("gui\\images\\themes\\%s\\wall.png", Handler.getCurrentTheme()));
+        super(String.format("gui/images/themes/%s/wall.png", Handler.getCurrentTheme()));
     }
 }

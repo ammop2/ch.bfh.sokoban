@@ -9,6 +9,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.Direction;
 import main.java.Handler;
+import main.java.Mode;
+import main.java.UserReader;
 
 /**
  * Created by Pascal on 30.10.2015.
@@ -17,13 +19,14 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
 
     private static Stage pStage;
 
+
     public static Stage getpStage() {
         return pStage;
     }
 
     private boolean controlPressed;
 
-    @Override
+
     public void start(Stage primaryStage) throws Exception {
         Handler.init();
         Sokoban.pStage = primaryStage;
@@ -32,6 +35,7 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
 
         Handler.setSelectMapUrl(getClass().getResource("../fxml/select_map.fxml"));
         Handler.setNewMapUrl(getClass().getResource("../fxml/new_map.fxml"));
+        Handler.setLoginUrl(getClass().getResource("../fxml/login.fxml"));
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/main.fxml"));
         Parent root = (Parent)loader.load();
@@ -42,7 +46,9 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
         primaryStage.setMaximized(true);
         primaryStage.show();
 
+        Handler.choseUser(pStage);
     }
+
 
     public static void main(String[] args) {
         launch(args);
@@ -69,7 +75,11 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
                 controlPressed = true;
                 break;
             case Z:
-                Handler.getPlaygroundController().undo();
+                if(Handler.getMode()==Mode.PLAY){
+                    Handler.getPlaygroundController().undo();
+                } else if (Handler.getMode()==Mode.REVERSE){
+                    Handler.getReverseController().undo();
+                }
                 break;
                 default:
                     controlPressed = false;
@@ -77,8 +87,14 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
         }
         if( d!= null)
         {
-            System.out.println("Directon" + d);
-            Handler.getPlaygroundController().changeFields( Handler.getCurrentFieldList().movePlayer(d));
+            if(Handler.getMode()==Mode.PLAY){
+                System.out.println("Directon" + d);
+                Handler.getPlaygroundController().changeFields( Handler.getCurrentFieldList().movePlayer(d));
+            }else if(Handler.getMode()==Mode.REVERSE){
+                System.out.println("Directon" + d);
+                Handler.getReverseController().changeFields(Handler.getCurrentFieldList().movePlayer(d));
+            }
+
         }
     }
 }

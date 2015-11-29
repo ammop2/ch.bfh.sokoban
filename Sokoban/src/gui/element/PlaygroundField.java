@@ -8,6 +8,6 @@ import main.java.Handler;
 public class PlaygroundField extends BaseField {
     public PlaygroundField()
     {
-        super(String.format("gui\\images\\themes\\%s\\playground.png", Handler.getCurrentTheme()));
+        super(String.format("gui/images/themes/%s/playground.png", Handler.getCurrentTheme()));
     }
 }

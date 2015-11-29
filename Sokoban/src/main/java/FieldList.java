@@ -26,6 +26,10 @@ public class FieldList {
         init();
     }
 
+    public FieldTyp[][] getFields(){
+        return fields;
+    }
+
 
     public void setPlayer(int x, int y)
     {
@@ -133,6 +137,8 @@ public class FieldList {
 
 
     public ChangeItem[] movePlayer(Direction direction) {
+
+
         ChangeItem[] res = moveField(player.getX(), player.getY(), direction);
         if(res != null) {
             player.setX(getDirectionX(direction) + player.getX());
@@ -199,29 +205,45 @@ public class FieldList {
         FieldTyp a = fields[startY][startX];
         FieldTyp b = getNeighbourFieldByDirection(startX, startY, direction);
 
+        Direction reverseDirection;
+        if(direction==Direction.BOTTOM) {reverseDirection = Direction.TOP;}
+        else if(direction==Direction.TOP) {reverseDirection = Direction.BOTTOM;}
+        else if(direction==Direction.RIGHT) {reverseDirection = Direction.LEFT;}
+        else {reverseDirection = Direction.RIGHT;}
+        FieldTyp e = getNeighbourFieldByDirection(startX, startY, reverseDirection);
+
         if (a != FieldTyp.PLAYER || b == FieldTyp.WALL) return result;
 
-        FieldTyp c = getNeighbourNeighbourFieldByDirection(startX, startY, direction);
-        if(b == FieldTyp.PLAYGROUND || b == FieldTyp.TARGET_UNLOCKED)
-        {
-            result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND), new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYGROUND, FieldTyp.PLAYER)};
-        }
-        else {
-            if (b == FieldTyp.KEY && c == FieldTyp.TARGET_UNLOCKED) {
-                result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
-                        new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.KEY, FieldTyp.PLAYER),
-                        new ChangeItem(startX + getDirectionX(direction)*2, startY + getDirectionY(direction)*2, FieldTyp.TARGET_UNLOCKED, FieldTyp.TARGET_LOCKED)};
-                targetCount--;
-            }
-            else if (b == FieldTyp.KEY && c == FieldTyp.PLAYGROUND) {
-                result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
-                        new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.KEY, FieldTyp.PLAYER),
-                        new ChangeItem(startX + getDirectionX(direction)*2, startY + getDirectionY(direction)*2, FieldTyp.PLAYGROUND, FieldTyp.KEY)};
-            }
-            else if (b == FieldTyp.TARGET_LOCKED && c == FieldTyp.TARGET_UNLOCKED) {
-                result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
-                        new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.TARGET_LOCKED, FieldTyp.PLAYER),
-                        new ChangeItem(startX + getDirectionX(direction)*2, startY + getDirectionY(direction)*2, FieldTyp.TARGET_UNLOCKED, FieldTyp.TARGET_LOCKED)};
+        //Handle the reverse Playing
+        if (Handler.getMode()==Mode.REVERSE &&  b != FieldTyp.PLAYGROUND) return result;
+        if (Handler.getMode()==Mode.REVERSE && e == FieldTyp.KEY && ReverseHandler.getPull()) {
+            result =    new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, FieldTyp.KEY),
+                        new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYGROUND, FieldTyp.PLAYER),
+                        new ChangeItem(startX + getDirectionX(reverseDirection), startY + getDirectionY(reverseDirection), FieldTyp.KEY, FieldTyp.PLAYGROUND)};
+        }else if(Handler.getMode()==Mode.REVERSE && b == FieldTyp.PLAYGROUND){
+            result =    new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, FieldTyp.PLAYGROUND),
+                        new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYGROUND, FieldTyp.PLAYER)};
+        } else {
+            //Handle normal playing
+
+            FieldTyp c = getNeighbourNeighbourFieldByDirection(startX, startY, direction);
+            if (b == FieldTyp.PLAYGROUND || b == FieldTyp.TARGET_UNLOCKED) {
+                result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND), new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYGROUND, FieldTyp.PLAYER)};
+            } else {
+                if (b == FieldTyp.KEY && c == FieldTyp.TARGET_UNLOCKED) {
+                    result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
+                            new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.KEY, FieldTyp.PLAYER),
+                            new ChangeItem(startX + getDirectionX(direction) * 2, startY + getDirectionY(direction) * 2, FieldTyp.TARGET_UNLOCKED, FieldTyp.TARGET_LOCKED)};
+                    targetCount--;
+                } else if (b == FieldTyp.KEY && c == FieldTyp.PLAYGROUND) {
+                    result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
+                            new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.KEY, FieldTyp.PLAYER),
+                            new ChangeItem(startX + getDirectionX(direction) * 2, startY + getDirectionY(direction) * 2, FieldTyp.PLAYGROUND, FieldTyp.KEY)};
+                } else if (b == FieldTyp.TARGET_LOCKED && c == FieldTyp.TARGET_UNLOCKED) {
+                    result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
+                            new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.TARGET_LOCKED, FieldTyp.PLAYER),
+                            new ChangeItem(startX + getDirectionX(direction) * 2, startY + getDirectionY(direction) * 2, FieldTyp.TARGET_UNLOCKED, FieldTyp.TARGET_LOCKED)};
+                }
             }
         }
 
@@ -240,6 +262,7 @@ public class FieldList {
     {
         for(ChangeItem cItem : changes)
         {
+            //System.out.println("Undo: x:" + cItem.getX() + " y:" + cItem.getY() +" old:" + cItem.getTypOld() + " new:" + cItem.getTypNew() );
             fields[cItem.getY()][cItem.getX()] = cItem.getTypOld();
         }
     }

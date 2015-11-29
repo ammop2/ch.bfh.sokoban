@@ -7,6 +7,6 @@ import main.java.Handler;
  */
 public class TargetLockedField extends BaseField {
     public TargetLockedField() {
-        super(String.format("gui\\images\\themes\\%s\\padlock_locked.png", Handler.getCurrentTheme()));
+        super(String.format("gui/images/themes/%s/padlock_locked.png", Handler.getCurrentTheme()));
     }
 }
