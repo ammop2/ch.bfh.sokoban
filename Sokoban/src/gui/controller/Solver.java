@@ -4,11 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import main.java.Handler;
+import solver.java.MySolver;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,6 +43,7 @@ public class Solver implements Initializable {
 
     @FXML
     private void solve(){
-
+        my.solver.java.Solver solv = new my.solver.java.Solver(Handler.getCurrentMap());
+        solv.solve();
     }
 }
