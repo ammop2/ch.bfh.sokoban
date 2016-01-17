@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.Main">
+<BorderPane minHeight="825" maxHeight="825" minWidth="1080" maxWidth="1080" fx:id="borderPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.Main">
     <center>
         <StackPane BorderPane.alignment="CENTER">
             <children>
@@ -13,7 +13,7 @@
         </StackPane>
     </center>
    <top>
-      <FlowPane BorderPane.alignment="CENTER">
+      <FlowPane BorderPane.alignment="CENTER" minHeight="25" maxHeight="25">
          <children>
             <MenuBar fx:id="myMenuBar">
               <menus>

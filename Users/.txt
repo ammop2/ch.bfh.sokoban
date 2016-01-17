@@ -1,1 +1,8 @@
-Maze1 305
+hello 37
+hello 22
+hello 24
+hello 24
+hello 22
+hello 13
+hello 15
+test 61

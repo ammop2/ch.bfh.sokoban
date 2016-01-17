@@ -5,25 +5,26 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ReverseEditor">
-   <center>
-       <GridPane fx:id="gridPane" style="-fx-background-color: #BBBBBB;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
-   </center>
-   <right>
-      <ToolBar orientation="VERTICAL" BorderPane.alignment="CENTER">
-        <items>
-            <Button fx:id="togglePullButton" Text="Pull OFF" mnemonicParsing="false" onAction="#pullClicked" prefHeight="92.0" prefWidth="91.0">
-            </Button>
-            <Button mnemonicParsing="false" onAction="#saveClicked" prefHeight="92.0" prefWidth="91.0">
-                <graphic>
-                    <ImageView fitHeight="71.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/save.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-        </items>
-      </ToolBar>
-   </right>
+
+<BorderPane id="m-pane" style="-fx-background-color: #ABC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ReverseEditor">
+    <center>
+        <GridPane minHeight="800" maxHeight="800" minWidth="980" maxWidth="980" fx:id="gridPane" style="-fx-background-color: #BBBBBB;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+    </center>
+    <right>
+        <ToolBar orientation="VERTICAL" BorderPane.alignment="CENTER">
+            <items>
+                <Button fx:id="togglePullButton" Text="Pull On" mnemonicParsing="false" onAction="#pullClicked" prefHeight="92.0" prefWidth="91.0">
+                </Button>
+                <Button mnemonicParsing="false" onAction="#saveClicked" prefHeight="92.0" prefWidth="91.0">
+                    <graphic>
+                        <ImageView fitHeight="71.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/save.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </items>
+        </ToolBar>
+    </right>
 </BorderPane>

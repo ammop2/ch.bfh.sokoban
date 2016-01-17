@@ -112,9 +112,9 @@ public class ReverseEditor implements Initializable {
         ReverseHandler.setReverseEditor(this);
 
         if(ReverseHandler.getPull()){
-            togglePullButton.setText("Pull ON");
-        }else{
             togglePullButton.setText("Pull OFF");
+        }else{
+            togglePullButton.setText("Pull ON");
         }
 
     }

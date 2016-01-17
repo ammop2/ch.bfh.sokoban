@@ -43,7 +43,6 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
         Scene scene = new Scene(root);
         scene.setOnKeyPressed(this);
         primaryStage.setScene(scene);
-        primaryStage.setMaximized(true);
         primaryStage.show();
 
         Handler.choseUser(pStage);
@@ -56,19 +55,18 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-
         Direction d = null;
         switch( event.getCode() ) {
-            case UP:
+            case W:
                 d = Direction.TOP;
                 break;
-            case DOWN:
+            case S:
                 d = Direction.BOTTOM;
                 break;
-            case LEFT:
+            case A:
                 d = Direction.LEFT;
                 break;
-            case RIGHT:
+            case D:
                 d = Direction.RIGHT;
                 break;
             case CONTROL:

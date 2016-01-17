@@ -19,13 +19,20 @@ public class Map {
     private int[] fields;
     private String name;
     private Difficulty difficulty;
-    public Map(String name, int[] fields, int xSize, int ySize, Difficulty diff)
+    private String path;
+
+    public Map(String name, String path, int[] fields, int xSize, int ySize, Difficulty diff)
     {
         this.name = name;
         this.xSize = xSize;
         this.ySize = ySize;
         this.fields = fields;
         this.difficulty = diff;
+        this.path = path;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public  String getName() {
@@ -44,4 +51,12 @@ public class Map {
         return fields;
     }
     public Difficulty getDifficulty() {return difficulty;}
+
+    public void setxSize(int xSize) {
+        this.xSize = xSize;
+    }
+
+    public void setySize(int ySize) {
+        this.ySize = ySize;
+    }
 }

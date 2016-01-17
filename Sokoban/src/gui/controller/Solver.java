@@ -5,15 +5,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import main.java.Handler;
-import solver.bfh.Controller;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,37 +34,16 @@ public class Solver implements Initializable {
     }
 
     @FXML
-    private Label startTime;
-
-    @FXML
-    private Label endTime;
-
-    @FXML
-    private Label totalTime;
-
-    @FXML
     private Pane playgroundPane;
 
+
     @FXML
-    private ComboBox<String> searchAlgo;
+    private javafx.scene.control.TextArea txtOutput;
+
 
     @FXML
     private void solve(){
-        String algr = "";
-        switch(searchAlgo.getSelectionModel().getSelectedIndex())
-        {
-            case 0: algr = "-b"; break;
-            case 1: algr = "-d"; break;
-            case 2: algr = "-u"; break;
-            case 3: algr = "-gb"; break;
-            case 4: algr = "-gm"; break;
-            case 5: algr = "-ab"; break;
-            case 6: algr = "-am"; break;
-            default: algr = "-b"; break;
-
-        }
-
-        Controller.Solve(algr, Handler.getCurrentMap());
-
+        ssolver.java.Solver solver = new ssolver.java.Solver(Handler.getCurrentMap().getPath());
+        txtOutput.setText(solver.solve());
     }
 }

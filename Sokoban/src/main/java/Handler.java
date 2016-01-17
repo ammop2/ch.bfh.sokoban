@@ -107,6 +107,7 @@ public class Handler {
 
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(selectMapUrl);
+
             stage.setScene(new Scene(root));
             stage.setTitle("Map select...");
             stage.initOwner(window);
@@ -229,8 +230,9 @@ public class Handler {
 
     public static double getFieldSize() {
 
-        double columnWidth = (mode == Mode.EDITOR || mode == Mode.REVERSE) ? (Main.getbPane().getWidth() - 150) / Handler.getCurrentMap().getXSize() - 5 : Main.getbPane().getWidth() / Handler.getCurrentMap().getXSize() - 5;
-        double rowHeight = Main.getbPane().getHeight() / Handler.getCurrentMap().getYSize() - 5;
+        double columnWidth = Handler.getMode() == Mode.PLAY ? (1080 / Handler.getCurrentMap().getXSize())
+                : (880 / Handler.getCurrentMap().getXSize());
+        double rowHeight = 800 / Handler.getCurrentMap().getYSize();
 
         return columnWidth > rowHeight ? rowHeight : columnWidth;
     }

@@ -113,6 +113,8 @@ public class Editor  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Handler.getCurrentMap().setxSize(EditorHandler.getColumnCount());
+        Handler.getCurrentMap().setySize(EditorHandler.getRowCount());
 
         for(int i = 0; i < EditorHandler.getColumnCount(); i++)
         {

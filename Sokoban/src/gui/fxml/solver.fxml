@@ -5,35 +5,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.*?>
 
-<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.Solver">
-   <right>
-      <Pane prefHeight="100.0" prefWidth="539.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label prefHeight="21.0" prefWidth="65.0" text="Start" />
-            <Label layoutY="30.0" prefHeight="21.0" prefWidth="65.0" text="End" />
-            <Label layoutY="61.0" prefHeight="21.0" prefWidth="65.0" text="Total" />
-            <Label fx:id="startTime" layoutX="56.0" text="startTime" />
-            <Label fx:id="endTime" layoutX="58.0" layoutY="30.0" text="endTime" />
-            <Label fx:id="totalTime" layoutX="55.0" layoutY="61.0" text="totalTime" />
-            <Button layoutY="152.0" mnemonicParsing="false" onAction="#solve" text="solve" />
-            <ComboBox fx:id="searchAlgo" layoutX="6.0" layoutY="98.0" prefWidth="150.0">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Breadth-first search" />
-                     <String fx:value="Depth-first search" />
-                     <String fx:value="Uniform-cost search (move = 1, push = 2)" />
-                     <String fx:value="Greedy best-first search with number of boxes on goal heuristic" />
-                     <String fx:value="Greedy best-first search with Manhattan distances heuristic" />
-                     <String fx:value="AStar with number of boxes on goal heuristic" />
-                     <String fx:value="AStar with goals and boxes Manhattan distances heuristic" />
-                  </FXCollections>
-               </items>
-            </ComboBox>
-         </children>
-      </Pane>
-   </right>
-   <center>
-      <Pane fx:id="playgroundPane" maxHeight="670.0" maxWidth="670.0" prefHeight="664.0" prefWidth="528.0" BorderPane.alignment="CENTER" />
-   </center>
-</BorderPane>
 
+<BorderPane fx:controller="gui.controller.Solver" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <Pane fx:id="playgroundPane" style="-fx-background-color: #BBBBBB;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  />
+    </center>
+    <right>
+        <ToolBar orientation="VERTICAL" BorderPane.alignment="CENTER">
+            <items>
+                <Button layoutY="14.0" mnemonicParsing="false" onAction="#solve" prefHeight="25.0" prefWidth="200.0" text="try to solve" />
+                <TextArea fx:id="txtOutput" editable="false" layoutY="39.0" prefWidth="200.0" prefHeight="500.0" />
+            </items>
+        </ToolBar>
+    </right>
+</BorderPane>

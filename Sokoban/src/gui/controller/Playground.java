@@ -32,6 +32,7 @@ public class Playground implements Initializable {
     private GridPane gridPane;
     private ArrayList<ChangeItem[]> changeHistory;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -54,6 +55,7 @@ public class Playground implements Initializable {
             }
         }
         changeHistory = new ArrayList<ChangeItem[]>();
+
     }
 
     private void addField(int c, int r, FieldTyp typ)

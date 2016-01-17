@@ -97,6 +97,6 @@ public class MapReader {
             }
             line = br.readLine();
         }
-        return new Map(name, fields, xSize, ySize, difficulty);
+        return new Map(name, path, fields, xSize, ySize, difficulty);
     }
 }
