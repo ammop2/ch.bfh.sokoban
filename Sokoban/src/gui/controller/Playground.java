@@ -86,7 +86,7 @@ public class Playground implements Initializable {
         }
     }
 
-    public void changeFields(ChangeItem[] changes)
+    public void changeFields(ChangeItem[] changes, boolean addToHistory)
     {
 
         if(changes == null) return;
@@ -114,32 +114,38 @@ public class Playground implements Initializable {
                 e.printStackTrace();
             }
         }
-        changeHistory.add(changes);
+        if(addToHistory) {
+            changeHistory.add(changes);
+        }
     }
 
     public void undo()
     {
         if(changeHistory.size() > 0) {
+            System.out.println("test" + (changeHistory.size() - 1));
             ChangeItem[] changes = changeHistory.get(changeHistory.size() - 1);
+            ChangeItem[] back = new ChangeItem[changes.length];
+
+            int ptr = 0;
+
             for (ChangeItem cItem : changes) {
+                if(cItem.getTypOld() == FieldTyp.PLAYER)
                 {
-                    Node result = null;
-                    for (Node node : gridPane.getChildren()) {
-                        if (gridPane.getRowIndex(node) == cItem.getY() && gridPane.getColumnIndex(node) == cItem.getX()) {
-                            result = node;
-                            break;
-                        }
-                    }
-                    gridPane.getChildren().remove(result);
-                    if(cItem.getTypOld() == FieldTyp.PLAYER)
-                    {
-                        Handler.getCurrentFieldList().setPlayer(cItem.getX(), cItem.getY());
-                    }
-                    addField(cItem.getX(), cItem.getY(), cItem.getTypOld());
+                    Handler.getCurrentFieldList().setPlayer(cItem.getX(), cItem.getY());
                 }
+
+                if (cItem.getTypOld() == FieldTyp.TARGET_UNLOCKED && cItem.getTypNew() == FieldTyp.TARGET_LOCKED) {
+                    Handler.getCurrentFieldList().setTargetCount(Handler.getCurrentFieldList().getTargetCount() + 1);
+                }
+
+                back[ptr] = new ChangeItem(cItem.getX(), cItem.getY(), cItem.getTypNew(), cItem.getTypOld());
+
+                ptr++;
             }
+            this.changeFields(back, false);
             Handler.getCurrentFieldList().undo(changes);
             changeHistory.remove(changeHistory.size() - 1);
         }
     }
+
 }

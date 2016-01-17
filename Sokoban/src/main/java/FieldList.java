@@ -37,6 +37,14 @@ public class FieldList {
         player.setX(x);
     }
 
+    public int getTargetCount() {
+        return targetCount;
+    }
+
+    public void setTargetCount(int targetCount) {
+        this.targetCount = targetCount;
+    }
+
     private void init()
     {
         originalFields = new FieldTyp[map.getYSize()][map.getXSize()];
@@ -215,15 +223,17 @@ public class FieldList {
         if (a != FieldTyp.PLAYER || b == FieldTyp.WALL) return result;
 
         //Handle the reverse Playing
-        if (Handler.getMode()==Mode.REVERSE &&  b != FieldTyp.PLAYGROUND) return result;
-        if (Handler.getMode()==Mode.REVERSE && e == FieldTyp.KEY && ReverseHandler.getPull()) {
-            result =    new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, FieldTyp.KEY),
+        if (Handler.getMode()==Mode.REVERSE) {
+            if (b != FieldTyp.PLAYGROUND) return result;
+            else if (e == FieldTyp.KEY && ReverseHandler.getPull()) {
+                result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, FieldTyp.KEY),
                         new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYGROUND, FieldTyp.PLAYER),
                         new ChangeItem(startX + getDirectionX(reverseDirection), startY + getDirectionY(reverseDirection), FieldTyp.KEY, FieldTyp.PLAYGROUND)};
-        }else if(Handler.getMode()==Mode.REVERSE && b == FieldTyp.PLAYGROUND){
-            result =    new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, FieldTyp.PLAYGROUND),
+            } else if (Handler.getMode() == Mode.REVERSE && b == FieldTyp.PLAYGROUND) {
+                result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, FieldTyp.PLAYGROUND),
                         new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.PLAYGROUND, FieldTyp.PLAYER)};
-        } else {
+            }
+        }else {
             //Handle normal playing
 
             FieldTyp c = getNeighbourNeighbourFieldByDirection(startX, startY, direction);
@@ -234,7 +244,10 @@ public class FieldList {
                     result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
                             new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.KEY, FieldTyp.PLAYER),
                             new ChangeItem(startX + getDirectionX(direction) * 2, startY + getDirectionY(direction) * 2, FieldTyp.TARGET_UNLOCKED, FieldTyp.TARGET_LOCKED)};
-                    targetCount--;
+                    if(Handler.getMode()!=Mode.REVERSE)
+                    {
+                        targetCount--;
+                    }
                 } else if (b == FieldTyp.KEY && c == FieldTyp.PLAYGROUND) {
                     result = new ChangeItem[]{new ChangeItem(startX, startY, FieldTyp.PLAYER, originalFields[startY][startX] == FieldTyp.TARGET_UNLOCKED ? FieldTyp.TARGET_UNLOCKED : FieldTyp.PLAYGROUND),
                             new ChangeItem(startX + getDirectionX(direction), startY + getDirectionY(direction), FieldTyp.KEY, FieldTyp.PLAYER),
@@ -318,7 +331,7 @@ public class FieldList {
     }
 
     public ChangeItem[] findWay(int targetX, int targetY) {
-       FieldTyp tTyp = fields[targetY][targetX];
+        FieldTyp tTyp = fields[targetY][targetX];
         if (tTyp != FieldTyp.PLAYGROUND) return null;
 
         if(checkNeighbours(player.getX(), player.getY(), targetX, targetY, new ArrayList<Coordinate>()))

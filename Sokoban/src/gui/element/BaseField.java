@@ -40,7 +40,7 @@ public class BaseField extends Pane implements EventHandler<MouseEvent> {
         if(gp != null)
         {
             if(Handler.getMode() == Mode.PLAY) {
-                Handler.getPlaygroundController().changeFields(Handler.getCurrentFieldList().findWay(gp.getColumnIndex(this), gp.getRowIndex(this)));
+                Handler.getPlaygroundController().changeFields(Handler.getCurrentFieldList().findWay(gp.getColumnIndex(this), gp.getRowIndex(this)), true);
             }
             else if(Handler.getMode() == Mode.EDITOR)
             {

@@ -87,7 +87,7 @@ public class Sokoban extends Application implements EventHandler<KeyEvent> {
         {
             if(Handler.getMode()==Mode.PLAY){
                 System.out.println("Directon" + d);
-                Handler.getPlaygroundController().changeFields( Handler.getCurrentFieldList().movePlayer(d));
+                Handler.getPlaygroundController().changeFields( Handler.getCurrentFieldList().movePlayer(d), true);
             }else if(Handler.getMode()==Mode.REVERSE){
                 System.out.println("Directon" + d);
                 Handler.getReverseController().changeFields(Handler.getCurrentFieldList().movePlayer(d));

@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e91b0ca0-3214-41d3-94d8-19da8e21f249" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\bfh\Controller.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\AStarSolver.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\AbstractSolver.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\BFSSolver.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\BoardState.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\BoxGoalHeuristic.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\DFSSolver.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\Direction.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\GreedyBFSSolver.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\Heuristic.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\ManhattanHeuristic.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\NoSolutionException.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\SokobanMain.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\SokobanSolver.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\github\ch.bfh.sokoban\Sokoban\src\solver\stepzhou\UniformCostSolver.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="e91b0ca0-3214-41d3-94d8-19da8e21f249" name="Default" comment="" />
     <ignored path="Sokoban.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -68,51 +50,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="reverse_editor.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/fxml/reverse_editor.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.296296">
-              <caret line="10" column="80" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="80" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapNew.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/controller/MapNew.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="98" column="60" selection-start-line="98" selection-start-column="50" selection-end-line="98" selection-end-column="60" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapSelect.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/controller/MapSelect.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="84" column="9" selection-start-line="84" selection-start-column="9" selection-end-line="84" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReverseEditor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/controller/ReverseEditor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.076923">
-              <caret line="26" column="12" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="12" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="editor.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/fxml/editor.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder">
@@ -126,25 +63,84 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/fxml/main.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
+      <file leaf-file-name="Editor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/controller/Editor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.7777777">
-              <caret line="6" column="75" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="75" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="125" column="88" selection-start-line="125" selection-start-column="88" selection-end-line="125" selection-end-column="88" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Editor.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/controller/Editor.java">
+      <file leaf-file-name="FieldList.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Sokoban/src/main/java/FieldList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.1808989">
-              <caret line="125" column="88" selection-start-line="125" selection-start-column="88" selection-end-line="125" selection-end-column="88" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="146" column="27" selection-start-line="146" selection-start-column="27" selection-end-line="146" selection-end-column="27" />
+              <folding>
+                <element signature="e#597#598#0" expanded="true" />
+                <element signature="e#626#627#0" expanded="true" />
+                <element signature="e#763#764#0" expanded="true" />
+                <element signature="e#797#798#0" expanded="true" />
+                <element signature="e#848#849#0" expanded="true" />
+                <element signature="e#894#895#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sokoban.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/java/Sokoban.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="89" column="113" selection-start-line="89" selection-start-column="113" selection-end-line="89" selection-end-column="113" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseField.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/element/BaseField.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.80224717">
+              <caret line="42" column="153" selection-start-line="42" selection-start-column="153" selection-end-line="42" selection-end-column="153" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Playground.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/controller/Playground.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="144" column="41" selection-start-line="144" selection-start-column="41" selection-end-line="144" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChangeItem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Sokoban/src/main/java/ChangeItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Handler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Sokoban/src/main/java/Handler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="182" column="22" selection-start-line="182" selection-start-column="22" selection-end-line="182" selection-end-column="22" />
+              <folding>
+                <element signature="e#4919#4920#0" expanded="true" />
+                <element signature="e#4958#4959#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -185,7 +181,6 @@
         <option value="$PROJECT_DIR$/src/gui/controller/Main.java" />
         <option value="$PROJECT_DIR$/src/gui/controller/Login.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/main/java/ThemeReader.java" />
-        <option value="$PROJECT_DIR$/Sokoban/src/main/java/FieldList.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/main/java/UserSaver.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/main/java/MapSaver.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/solver/stepzhou/AbstractSolver.java" />
@@ -205,7 +200,6 @@
         <option value="$PROJECT_DIR$/Sokoban/src/solver/bfh/Controller.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/main/java/simpleSolver/Test.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/main/java/MapReader.java" />
-        <option value="$PROJECT_DIR$/Sokoban/src/gui/controller/Playground.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/ssolver/test/SolverTest.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/ssolver/java/Solver.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/gui/fxml/login.fxml" />
@@ -214,14 +208,16 @@
         <option value="$PROJECT_DIR$/Sokoban/src/gui/controller/Main.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/gui/fxml/main.fxml" />
         <option value="$PROJECT_DIR$/Sokoban/src/gui/fxml/solver.fxml" />
-        <option value="$PROJECT_DIR$/Sokoban/src/gui/element/BaseField.java" />
-        <option value="$PROJECT_DIR$/Sokoban/src/gui/java/Sokoban.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/gui/controller/ReverseEditor.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/gui/fxml/reverse_editor.fxml" />
         <option value="$PROJECT_DIR$/Sokoban/src/gui/fxml/editor.fxml" />
         <option value="$PROJECT_DIR$/Sokoban/src/main/java/Map.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/main/java/Handler.java" />
         <option value="$PROJECT_DIR$/Sokoban/src/gui/controller/Editor.java" />
+        <option value="$PROJECT_DIR$/Sokoban/src/main/java/FieldList.java" />
+        <option value="$PROJECT_DIR$/Sokoban/src/gui/controller/Playground.java" />
+        <option value="$PROJECT_DIR$/Sokoban/src/gui/java/Sokoban.java" />
+        <option value="$PROJECT_DIR$/Sokoban/src/gui/element/BaseField.java" />
       </list>
     </option>
   </component>
@@ -241,7 +237,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-2" />
-    <option name="width" value="1549" />
+    <option name="width" value="1742" />
     <option name="height" value="1407" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -948,7 +944,7 @@
       <workItem from="1449075379703" duration="1628000" />
       <workItem from="1449077265373" duration="887000" />
       <workItem from="1452322180179" duration="592000" />
-      <workItem from="1452948531903" duration="34420000" />
+      <workItem from="1452948531903" duration="37823000" />
     </task>
     <task id="LOCAL-00001" summary="cleanup open project new from root.">
       <created>1448803811752</created>
@@ -960,10 +956,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="300605000" />
+    <option name="totallyTimeSpent" value="304008000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="0" width="1549" height="1407" extended-state="0" />
+    <frame x="-2" y="0" width="1742" height="1407" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -973,17 +969,17 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28202766" sideWeight="0.56396586" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289977" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29429892" sideWeight="0.4360341" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29429892" sideWeight="0.4360341" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2035225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18076478" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29150727" sideWeight="0.47974414" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29121727" sideWeight="0.47974414" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34506503" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34437597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1051,7 +1047,7 @@
           <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="62" />
+      <option name="time" value="68" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1191,20 +1187,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sokoban/src/main/java/ChangeItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding>
-            <element signature="e#209#210#0" expanded="true" />
-            <element signature="e#233#234#0" expanded="true" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#282#283#0" expanded="true" />
-            <element signature="e#410#411#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Sokoban/src/main/java/Player.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1333,14 +1315,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/controller/Playground.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.153847">
-          <caret line="107" column="51" selection-start-line="107" selection-start-column="49" selection-end-line="107" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Sokoban/src/ssolver/java/Solver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1358,24 +1332,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="71" column="25" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="25" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Sokoban/src/main/java/FieldList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.8656214">
-          <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/element/BaseField.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39488322">
-          <caret line="25" column="28" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1413,14 +1369,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="77" column="23" selection-start-line="77" selection-start-column="23" selection-end-line="77" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/java/Sokoban.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="28" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -1467,28 +1415,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/fxml/editor.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.296296">
-          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/fxml/solver.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.296296">
-          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="150" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/controller/MapSelect.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1505,27 +1431,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sokoban/src/main/java/Handler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6752809">
-          <caret line="228" column="5" selection-start-line="228" selection-start-column="5" selection-end-line="228" selection-end-column="5" />
-          <folding>
-            <element signature="e#1466#1467#0" expanded="true" />
-            <element signature="e#1494#1495#0" expanded="true" />
-            <element signature="e#2380#2381#0" expanded="true" />
-            <element signature="e#2423#2424#0" expanded="true" />
-            <element signature="e#4919#4920#0" expanded="true" />
-            <element signature="e#4958#4959#0" expanded="true" />
-            <element signature="e#4999#5000#0" expanded="true" />
-            <element signature="e#5032#5033#0" expanded="true" />
-            <element signature="e#5359#5360#0" expanded="true" />
-            <element signature="e#5388#5389#0" expanded="true" />
-            <element signature="e#5573#5574#0" expanded="true" />
-            <element signature="e#5624#5625#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Sokoban/src/main/java/Map.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1538,11 +1443,93 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/fxml/solver.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.296296">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="150" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/fxml/editor.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.296296">
+          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/controller/Editor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1808989">
+        <state vertical-scroll-proportion="0.0">
           <caret line="125" column="88" selection-start-line="125" selection-start-column="88" selection-end-line="125" selection-end-column="88" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sokoban/src/main/java/Handler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="182" column="22" selection-start-line="182" selection-start-column="22" selection-end-line="182" selection-end-column="22" />
+          <folding>
+            <element signature="e#4919#4920#0" expanded="true" />
+            <element signature="e#4958#4959#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sokoban/src/main/java/FieldList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="146" column="27" selection-start-line="146" selection-start-column="27" selection-end-line="146" selection-end-column="27" />
+          <folding>
+            <element signature="e#597#598#0" expanded="true" />
+            <element signature="e#626#627#0" expanded="true" />
+            <element signature="e#763#764#0" expanded="true" />
+            <element signature="e#797#798#0" expanded="true" />
+            <element signature="e#848#849#0" expanded="true" />
+            <element signature="e#894#895#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sokoban/src/main/java/ChangeItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/controller/Playground.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="144" column="41" selection-start-line="144" selection-start-column="41" selection-end-line="144" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/java/Sokoban.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="89" column="113" selection-start-line="89" selection-start-column="113" selection-end-line="89" selection-end-column="113" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sokoban/src/gui/element/BaseField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.80224717">
+          <caret line="42" column="153" selection-start-line="42" selection-start-column="153" selection-end-line="42" selection-end-column="153" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

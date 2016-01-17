@@ -6,3 +6,9 @@ hello 22
 hello 13
 hello 15
 test 61
+Maze1 144
+Maze1 34
+ 10
+ 8
+ 6
+ 7
